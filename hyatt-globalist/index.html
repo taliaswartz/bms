@@ -13,77 +13,106 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..500&display=swap">
 <style>
+/* ============================================================
+   Palette. Light is the base; dark redefines tokens only.
+   The key card is a deliberate single-theme object — it stays
+   navy-and-brass on either ground, and owns its own tokens.
+   ============================================================ */
 :root{
-  --ground:#EDEFF3;
+  --ground:#EEF0F5;
   --surface:#FFFFFF;
-  --surface-2:#F4F6FA;
-  --ink:#141920;
-  --ink-2:#4C5764;
-  --ink-3:#7B8797;
-  --line:#DBE0E8;
-  --line-strong:#BFC8D4;
-  --brand:#1B3A6B;
-  --brand-soft:#E6EDF8;
-  --brass:#9A7930;
-  --brass-soft:#F2EBDA;
-  --go:#22684B;
-  --go-soft:#E0EFE8;
-  --warn:#8E5D0E;
+  --surface-2:#F3F5F9;
+  --surface-3:#E9ECF2;
+  --ink:#11151C;
+  --ink-2:#48525F;
+  --ink-3:#78838F;
+  --line:#DCE1E9;
+  --line-2:#C6CDD8;
+  --brand:#1B3E72;
+  --brand-ink:#1B3E72;
+  --brand-soft:#E7EDF8;
+  --brass:#8F7128;
+  --brass-soft:#F3ECDB;
+  --go:#1F6B4B;
+  --go-soft:#DFEFE7;
+  --warn:#8A5A0C;
   --warn-soft:#F8EEDA;
-  --crit:#A13126;
-  --crit-soft:#FAE6E3;
+  --crit:#9E2F24;
+  --crit-soft:#FAE5E2;
   --on-brand:#FFFFFF;
-  --shadow:0 1px 2px rgba(20,25,32,.05),0 10px 26px -16px rgba(20,25,32,.35);
+  --shadow-1:0 1px 2px rgba(17,21,28,.05);
+  --shadow-2:0 2px 4px rgba(17,21,28,.05),0 12px 28px -18px rgba(17,21,28,.4);
+  --shadow-card:0 2px 6px rgba(11,24,48,.16),0 22px 44px -24px rgba(11,24,48,.5);
+
+  /* key card — fixed across themes */
+  --kc-1:#0F2547;
+  --kc-2:#1D3F70;
+  --kc-edge:rgba(231,206,142,.34);
+  --kc-foil:#E7CE8E;
+  --kc-foil-2:#B08D3C;
+  --kc-ink:#F2F5FA;
+  --kc-mute:rgba(233,239,247,.62);
+  --kc-hair:rgba(233,239,247,.16);
+
   --disp:"Archivo","Helvetica Neue",Arial,sans-serif;
   --prose:"Newsreader",Georgia,"Times New Roman",serif;
   --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
-  --r:14px;
+  --r:16px;
+  --r-sm:11px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ground:#0D1117;
-    --surface:#161C25;
-    --surface-2:#1C232E;
-    --ink:#E8EDF4;
-    --ink-2:#A6B2C1;
-    --ink-3:#77838F;
-    --line:#27303B;
-    --line-strong:#3A4552;
-    --brand:#84ACE2;
-    --brand-soft:#182437;
-    --brass:#D6B472;
-    --brass-soft:#282215;
-    --go:#6BC79B;
-    --go-soft:#12281E;
-    --warn:#DFAB59;
+    --ground:#0B0E14;
+    --surface:#151A22;
+    --surface-2:#1B212B;
+    --surface-3:#222933;
+    --ink:#E9EDF4;
+    --ink-2:#A5B1C0;
+    --ink-3:#75818F;
+    --line:#252D38;
+    --line-2:#39434F;
+    --brand:#87AEE4;
+    --brand-ink:#87AEE4;
+    --brand-soft:#17253A;
+    --brass:#D8B876;
+    --brass-soft:#26210F;
+    --go:#63C79A;
+    --go-soft:#0F2A1F;
+    --warn:#DEAB5C;
     --warn-soft:#2A2113;
-    --crit:#E8837A;
-    --crit-soft:#2D1917;
-    --on-brand:#0D1117;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px -16px rgba(0,0,0,.8);
+    --crit:#E97F76;
+    --crit-soft:#2E1816;
+    --on-brand:#0B0E14;
+    --shadow-1:0 1px 2px rgba(0,0,0,.5);
+    --shadow-2:0 2px 4px rgba(0,0,0,.4),0 12px 28px -18px rgba(0,0,0,.9);
+    --shadow-card:0 2px 6px rgba(0,0,0,.5),0 22px 44px -24px rgba(0,0,0,.9);
   }
 }
 :root[data-theme="dark"]{
-  --ground:#0D1117;
-  --surface:#161C25;
-  --surface-2:#1C232E;
-  --ink:#E8EDF4;
-  --ink-2:#A6B2C1;
-  --ink-3:#77838F;
-  --line:#27303B;
-  --line-strong:#3A4552;
-  --brand:#84ACE2;
-  --brand-soft:#182437;
-  --brass:#D6B472;
-  --brass-soft:#282215;
-  --go:#6BC79B;
-  --go-soft:#12281E;
-  --warn:#DFAB59;
+  --ground:#0B0E14;
+  --surface:#151A22;
+  --surface-2:#1B212B;
+  --surface-3:#222933;
+  --ink:#E9EDF4;
+  --ink-2:#A5B1C0;
+  --ink-3:#75818F;
+  --line:#252D38;
+  --line-2:#39434F;
+  --brand:#87AEE4;
+  --brand-ink:#87AEE4;
+  --brand-soft:#17253A;
+  --brass:#D8B876;
+  --brass-soft:#26210F;
+  --go:#63C79A;
+  --go-soft:#0F2A1F;
+  --warn:#DEAB5C;
   --warn-soft:#2A2113;
-  --crit:#E8837A;
-  --crit-soft:#2D1917;
-  --on-brand:#0D1117;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px -16px rgba(0,0,0,.8);
+  --crit:#E97F76;
+  --crit-soft:#2E1816;
+  --on-brand:#0B0E14;
+  --shadow-1:0 1px 2px rgba(0,0,0,.5);
+  --shadow-2:0 2px 4px rgba(0,0,0,.4),0 12px 28px -18px rgba(0,0,0,.9);
+  --shadow-card:0 2px 6px rgba(0,0,0,.5),0 22px 44px -24px rgba(0,0,0,.9);
 }
 
 *{box-sizing:border-box}
@@ -93,253 +122,384 @@ body{
   font-family:var(--disp);font-size:15px;line-height:1.45;
   -webkit-font-smoothing:antialiased;
   font-variant-numeric:tabular-nums;
+  overscroll-behavior-y:none;
 }
 button,input,select,textarea{font:inherit;color:inherit}
-button{cursor:pointer}
-:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* ---------- shell ---------- */
-.shell{max-width:660px;margin:0 auto;padding:0 14px 128px}
-.appbar{
-  position:sticky;top:0;z-index:30;background:var(--ground);
-  border-bottom:1px solid var(--line);
-}
-.appbar-in{
-  max-width:660px;margin:0 auto;padding:10px 14px;
-  display:flex;align-items:center;gap:11px;
-}
+/* ============================================================
+   Chrome
+   ============================================================ */
+.shell{max-width:640px;margin:0 auto;padding:0 15px 130px}
+.appbar{position:sticky;top:0;z-index:30;background:var(--ground);border-bottom:1px solid transparent;transition:border-color .2s}
+.appbar.stuck{border-bottom-color:var(--line)}
+.appbar-in{max-width:640px;margin:0 auto;padding:11px 15px;display:flex;align-items:center;gap:11px}
 .mark{
-  width:36px;height:36px;flex:none;border-radius:9px;background:var(--brand);
-  color:var(--on-brand);display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.02em;
+  width:34px;height:34px;flex:none;border-radius:10px;
+  background:linear-gradient(150deg,var(--kc-2),var(--kc-1));
+  color:var(--kc-foil);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.02em;
+  box-shadow:var(--shadow-1);
 }
-.appbar h1{
-  margin:0;font-size:16px;font-weight:700;letter-spacing:-.01em;
-  font-variation-settings:"wdth" 112;line-height:1.15;
-}
-.appbar .sub{font-size:11.5px;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.appbar h1{margin:0;font-size:16.5px;font-weight:700;letter-spacing:-.015em;font-variation-settings:"wdth" 108;line-height:1.15}
+.appbar .sub{font-size:11px;color:var(--ink-3);letter-spacing:.07em;text-transform:uppercase;font-weight:600;margin-top:1px}
 .appbar .grow{flex:1}
-.chip-btn{
-  border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;
-  padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--ink-2);
+.icon-btn{
+  border:1px solid var(--line-2);background:var(--surface);border-radius:999px;
+  padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink-2);
+  display:flex;align-items:center;gap:6px;min-height:38px;
 }
+.icon-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn:active{background:var(--surface-2)}
 
-/* ---------- cards ---------- */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.stack{display:flex;flex-direction:column;gap:14px;padding-top:16px}
-.eyebrow{
-  font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--ink-3);margin:0 0 10px;
-}
-h2.sec{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:6px 2px 0}
+.stack{display:flex;flex-direction:column;gap:15px;padding-top:15px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:8px 3px -4px}
+.sec-h h2{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0}
+.sec-h span{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
 
-/* ---------- hero counter ---------- */
-.hero{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:18px 16px 16px;box-shadow:var(--shadow);
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:17px;box-shadow:var(--shadow-1)}
+.eyebrow{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin:0 0 11px}
+
+/* ============================================================
+   Key card — the one bold object on the page
+   ============================================================ */
+.keycard{
+  position:relative;overflow:hidden;border-radius:20px;
+  background:linear-gradient(152deg,var(--kc-2) 0%,var(--kc-1) 62%,#0A1B34 100%);
+  color:var(--kc-ink);padding:18px 18px 16px;
+  box-shadow:var(--shadow-card);
+  border:1px solid rgba(231,206,142,.16);
 }
-.hero-top{display:flex;align-items:flex-start;gap:14px;justify-content:space-between}
-.count{display:flex;align-items:baseline;gap:6px}
-.count b{
-  font-size:56px;font-weight:700;line-height:.9;letter-spacing:-.03em;
-  font-variation-settings:"wdth" 88;
+.keycard::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(120% 80% at 88% -10%,rgba(231,206,142,.16),transparent 58%),
+    linear-gradient(115deg,transparent 42%,rgba(255,255,255,.07) 50%,transparent 58%);
 }
-.count span{font-size:19px;color:var(--ink-3);font-weight:600}
-.count-label{font-size:12px;color:var(--ink-2);margin-top:8px;letter-spacing:.02em}
-.pill{
+.keycard>*{position:relative}
+.kc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+.kc-brand{
+  font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--kc-mute);display:flex;align-items:center;gap:7px;
+}
+.kc-brand i{width:16px;height:1px;background:var(--kc-edge);display:inline-block}
+.kc-pill{
   display:inline-flex;align-items:center;gap:6px;border-radius:999px;
-  padding:5px 11px;font-size:12px;font-weight:700;letter-spacing:.02em;white-space:nowrap;
+  padding:5px 11px 5px 9px;font-size:11.5px;font-weight:700;white-space:nowrap;
+  background:rgba(255,255,255,.09);border:1px solid var(--kc-hair);
 }
-.pill.go{background:var(--go-soft);color:var(--go)}
-.pill.warn{background:var(--warn-soft);color:var(--warn)}
-.pill.crit{background:var(--crit-soft);color:var(--crit)}
-.pill.neutral{background:var(--surface-2);color:var(--ink-2)}
-.pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.kc-pill .dot{width:6px;height:6px;border-radius:50%;flex:none}
+.kc-pill.go .dot{background:#68D6A4}
+.kc-pill.warn .dot{background:#F0B95F}
+.kc-pill.crit .dot{background:#F08A80}
+.kc-pill.go{color:#9FE8C5}.kc-pill.warn{color:#F5D296}.kc-pill.crit{color:#F6B4AD}
 
-/* ---------- night punch strip ---------- */
-.strip{display:grid;gap:4px;margin:16px 0 11px}
-.n{height:28px;border-radius:3px;border:1px solid var(--line-strong);background:transparent}
-.n.on{background:var(--brass);border-color:var(--brass)}
-.n.pending{background:var(--brass-soft);border-color:var(--brass)}
-.n.booked{
-  border-color:var(--brand);
-  background:repeating-linear-gradient(135deg,transparent 0 3px,var(--brand-soft) 3px 6px);
+.kc-count{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.kc-count b{
+  font-size:64px;line-height:.84;font-weight:700;letter-spacing:-.045em;
+  font-variation-settings:"wdth" 86;
+  background:linear-gradient(168deg,var(--kc-foil) 8%,#F6E7BD 42%,var(--kc-foil-2) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.strip-key{display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:var(--ink-2)}
-.strip-key i{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:-1px;border:1px solid var(--line-strong)}
-.strip-key i.on{background:var(--brass);border-color:var(--brass)}
-.strip-key i.pending{background:var(--brass-soft);border-color:var(--brass)}
-.strip-key i.booked{border-color:var(--brand);background:repeating-linear-gradient(135deg,transparent 0 2px,var(--brand-soft) 2px 4px)}
+.kc-count span{font-size:16px;font-weight:600;color:var(--kc-mute);letter-spacing:-.01em}
+.kc-sub{font-size:12.5px;color:var(--kc-mute);margin-top:9px;letter-spacing:.005em}
 
-/* ---------- metric rows ---------- */
-.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.metric{background:var(--surface);padding:13px 14px}
-.metric dt{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 5px}
-.metric dd{margin:0;font-family:var(--mono);font-size:21px;font-weight:600;letter-spacing:-.02em}
-.metric dd small{font-family:var(--disp);font-size:12px;font-weight:600;color:var(--ink-3);margin-left:4px;letter-spacing:0}
-.metric .hint{font-size:11.5px;color:var(--ink-3);font-family:var(--disp);margin-top:3px}
+/* perforated night strip along the card's lower edge */
+.kc-strip{display:grid;gap:3px;margin:16px 0 0}
+.kc-n{
+  height:26px;border-radius:3px;border:1px solid rgba(233,239,247,.2);
+  background:rgba(255,255,255,.045);
+}
+.kc-n.on{background:linear-gradient(168deg,var(--kc-foil),var(--kc-foil-2));border-color:transparent}
+.kc-n.pending{background:repeating-linear-gradient(135deg,rgba(231,206,142,.9) 0 3px,rgba(231,206,142,.22) 3px 6px);border-color:rgba(231,206,142,.8)}
+.kc-n.booked{border-color:rgba(160,196,246,.55);background:repeating-linear-gradient(135deg,transparent 0 3px,rgba(160,196,246,.22) 3px 6px)}
+.kc-n.mile{box-shadow:inset 0 -3px 0 rgba(233,239,247,.28)}
+@keyframes fillIn{from{opacity:0;transform:scaleY(.35)}to{opacity:1;transform:scaleY(1)}}
+.kc-strip.anim .kc-n{animation:fillIn .34s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i) * var(--step,20ms));transform-origin:bottom}
+
+.kc-key{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:11px;font-size:11px;color:var(--kc-mute)}
+.kc-key span{display:inline-flex;align-items:center;gap:5px}
+.kc-key i{width:9px;height:9px;border-radius:2px;border:1px solid rgba(233,239,247,.28);display:inline-block}
+.kc-key i.on{background:linear-gradient(168deg,var(--kc-foil),var(--kc-foil-2));border-color:transparent}
+.kc-key i.pending{background:repeating-linear-gradient(135deg,rgba(231,206,142,.9) 0 2px,rgba(231,206,142,.22) 2px 4px);border-color:rgba(231,206,142,.8)}
+.kc-key i.booked{border-color:rgba(160,196,246,.55);background:repeating-linear-gradient(135deg,transparent 0 2px,rgba(160,196,246,.22) 2px 4px)}
+
+.kc-foot{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  margin:16px -18px -16px;padding:13px 18px 15px;
+  background:rgba(0,0,0,.2);border-top:1px solid var(--kc-hair);
+}
+.kc-foot div{min-width:0}
+.kc-foot dt{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--kc-mute);margin:0 0 3px}
+.kc-foot dd{margin:0;font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:-.02em;color:var(--kc-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ============================================================
+   Metrics
+   ============================================================ */
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-1)}
+.metric{background:var(--surface);padding:14px 15px}
+.metric dt{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+.metric dd{margin:0;font-family:var(--mono);font-size:22px;font-weight:600;letter-spacing:-.03em;line-height:1}
+.metric dd small{font-family:var(--disp);font-size:11.5px;font-weight:600;color:var(--ink-3);margin-left:5px;letter-spacing:0}
+.metric .hint{font-size:11.5px;color:var(--ink-3);margin-top:6px;line-height:1.3}
 .metric dd.go{color:var(--go)}.metric dd.warn{color:var(--warn)}.metric dd.crit{color:var(--crit)}
 
-/* ---------- chart ---------- */
-.chart-wrap{overflow-x:auto}
-.chart-wrap svg{display:block;width:100%;height:auto;min-width:280px}
+/* ============================================================
+   Chart
+   ============================================================ */
+.chart-wrap svg{display:block;width:100%;height:auto}
 .chart-grid{stroke:var(--line);stroke-width:1}
 .chart-target{stroke:var(--brass);stroke-width:1.2;stroke-dasharray:1 3}
-.chart-pace{stroke:var(--line-strong);stroke-width:1.4;stroke-dasharray:5 4}
-.chart-proj{fill:none;stroke:var(--brand);stroke-width:1.8;stroke-dasharray:4 3;stroke-linejoin:round}
-.chart-actual{fill:none;stroke:var(--brass);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.chart-pace{stroke:var(--line-2);stroke-width:1.4;stroke-dasharray:5 4}
+.chart-proj{fill:none;stroke:var(--brand);stroke-width:2;stroke-dasharray:4 3;stroke-linejoin:round}
+.chart-actual{fill:none;stroke:var(--brass);stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+.chart-area{fill:var(--brass);opacity:.09;stroke:none}
 .chart-today{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:2 3}
-.chart-dot{fill:var(--brass);stroke:none}
+.chart-dot{fill:var(--brass);stroke:var(--surface);stroke-width:2}
 .chart-lbl{font-family:var(--mono);font-size:9px;fill:var(--ink-3)}
-.chart-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:var(--ink-2)}
-.chart-legend i{display:inline-block;width:16px;height:0;border-top-width:2px;border-top-style:solid;margin-right:6px;vertical-align:4px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:6px 15px;margin-top:12px;font-size:11.5px;color:var(--ink-2)}
+.chart-legend span{display:inline-flex;align-items:center;gap:6px}
+.chart-legend i{width:15px;height:0;border-top-width:2px;border-top-style:solid;display:inline-block}
 
-/* ---------- ledger / stays ---------- */
-.ledger{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.row{
-  background:var(--surface);display:grid;
-  grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;
-  padding:12px 14px;text-align:left;width:100%;border:0;
+/* ============================================================
+   Ledger rows
+   ============================================================ */
+.ledger{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-1)}
+.row{background:var(--surface);display:flex;align-items:stretch}
+.row:active{background:var(--surface-2)}
+.row-main{
+  flex:1;min-width:0;border:0;background:none;text-align:left;
+  display:grid;grid-template-columns:auto 1fr;gap:3px 12px;align-items:center;
+  padding:13px 6px 13px 14px;
 }
-.row:hover{background:var(--surface-2)}
-.row .when{
-  font-family:var(--mono);font-size:11.5px;color:var(--ink-3);
-  grid-column:2;grid-row:2;display:flex;gap:8px;flex-wrap:wrap;
-}
-.row .who{grid-column:2;grid-row:1;font-weight:600;font-size:14.5px;letter-spacing:-.005em}
-.row .nights{
-  grid-column:1;grid-row:1 / span 2;width:38px;height:38px;border-radius:9px;
+.badge{
+  grid-row:1 / span 2;width:40px;height:40px;border-radius:11px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:var(--surface-2);border:1px solid var(--line);
 }
-.row .nights b{font-family:var(--mono);font-size:15px;line-height:1;font-weight:600}
-.row .nights i{font-style:normal;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
-.row .nights.credited{background:var(--brass-soft);border-color:var(--brass);color:var(--brass)}
-.row .nights.credited i{color:var(--brass)}
-.row .tag{grid-column:3;grid-row:1 / span 2;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--ink-3);text-align:right}
-.row .tag.go{color:var(--go)}.row .tag.warn{color:var(--warn)}.row .tag.brand{color:var(--brand)}
-.empty{background:var(--surface);border:1px dashed var(--line-strong);border-radius:var(--r);padding:26px 18px;text-align:center;color:var(--ink-3);font-size:13.5px}
+.badge b{font-family:var(--mono);font-size:15px;line-height:1;font-weight:600}
+.badge i{font-style:normal;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+.badge.credited{background:linear-gradient(160deg,var(--brass-soft),var(--surface-2));border-color:var(--brass);color:var(--brass)}
+.badge.credited i{color:var(--brass)}
+.row-main .who{font-weight:600;font-size:14.5px;letter-spacing:-.008em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-main .when{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);display:flex;gap:9px;flex-wrap:wrap}
+.row-main .when b{color:var(--warn);font-weight:600}
+.row-right{display:flex;align-items:center;padding:0 12px 0 4px;flex:none}
+.tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-align:right;color:var(--ink-3);max-width:78px;line-height:1.25}
+.tag.go{color:var(--go)}.tag.warn{color:var(--warn)}.tag.brand{color:var(--brand-ink)}
+.tick{
+  border:1px solid var(--line-2);background:var(--surface);border-radius:999px;
+  min-height:38px;padding:0 12px;font-size:11.5px;font-weight:700;color:var(--ink-2);
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+}
+.tick svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.tick:active{background:var(--go-soft);border-color:var(--go);color:var(--go)}
 
-/* ---------- advisor ---------- */
-.advice{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.adv{background:var(--surface);padding:14px;display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start}
+.empty{
+  background:var(--surface);border:1px dashed var(--line-2);border-radius:var(--r);
+  padding:24px 20px;text-align:center;
+}
+.empty p{margin:0 0 14px;color:var(--ink-3);font-size:13.5px;line-height:1.5;max-width:38ch;margin-left:auto;margin-right:auto}
+.empty .btn{max-width:230px;margin:0 auto}
+
+/* ============================================================
+   Advisor
+   ============================================================ */
+.lead{
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--brass);
+  border-radius:var(--r);padding:17px;box-shadow:var(--shadow-2);
+}
+.lead .eyebrow{color:var(--brass)}
+.lead h3{font-family:var(--disp);margin:0 0 8px;font-size:20px;font-weight:700;letter-spacing:-.02em;text-wrap:balance;font-variation-settings:"wdth" 102}
+.lead p{margin:0;font-family:var(--prose);font-size:16px;line-height:1.55;color:var(--ink-2);max-width:60ch}
+.advice{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-1)}
+.adv{background:var(--surface);padding:15px;display:grid;grid-template-columns:28px 1fr;gap:13px;align-items:start}
 .adv .glyph{
-  width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:13px;font-weight:600;
+  width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:600;flex:none;
 }
 .adv.go .glyph{background:var(--go-soft);color:var(--go)}
 .adv.warn .glyph{background:var(--warn-soft);color:var(--warn)}
 .adv.crit .glyph{background:var(--crit-soft);color:var(--crit)}
-.adv.info .glyph{background:var(--brand-soft);color:var(--brand)}
-.adv h3{margin:0 0 3px;font-size:14.5px;font-weight:700;letter-spacing:-.005em;text-wrap:balance}
-.adv p{margin:0;font-family:var(--prose);font-size:15px;line-height:1.5;color:var(--ink-2);max-width:62ch}
-.adv p+p{margin-top:8px}
-.adv .num{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
+.adv.info .glyph{background:var(--brand-soft);color:var(--brand-ink)}
+.adv h3{margin:0 0 4px;font-size:14.5px;font-weight:700;letter-spacing:-.008em;text-wrap:balance}
+.adv p{margin:0;font-family:var(--prose);font-size:15.5px;line-height:1.52;color:var(--ink-2);max-width:60ch}
+.num{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
 
-.checks{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.check{background:var(--surface);padding:13px 14px;display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;cursor:pointer}
-.check input{appearance:none;width:20px;height:20px;margin:1px 0 0;border:1.5px solid var(--line-strong);border-radius:6px;background:var(--surface);flex:none;position:relative}
-.check input:checked{background:var(--brand);border-color:var(--brand)}
-.check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid var(--on-brand);border-width:0 2px 2px 0;transform:rotate(42deg)}
-.check .txt{font-size:14px;line-height:1.45}
-.check input:checked~.txt{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line-strong)}
-.check .txt em{font-style:normal;display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--warn);background:var(--warn-soft);border-radius:4px;padding:2px 5px;margin-left:6px;vertical-align:1px}
-
-/* ---------- account / sync ---------- */
-.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-.field label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
-.field input,.field select,.field textarea{
-  background:var(--surface-2);border:1px solid var(--line-strong);border-radius:10px;
-  padding:11px 12px;font-size:16px;font-family:var(--mono);width:100%;
+.checks{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-1)}
+.check{background:var(--surface);padding:14px;display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;cursor:pointer}
+.check:active{background:var(--surface-2)}
+.check input{
+  appearance:none;-webkit-appearance:none;width:21px;height:21px;margin:0;flex:none;
+  border:1.5px solid var(--line-2);border-radius:7px;background:var(--surface);position:relative;
 }
-.field textarea{font-family:var(--disp);font-size:15px;min-height:120px;resize:vertical;line-height:1.4}
-.field .help{font-size:12px;color:var(--ink-3);font-family:var(--disp)}
+.check input:checked{background:var(--brand);border-color:var(--brand)}
+.check input:checked::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;border:solid var(--on-brand);border-width:0 2px 2px 0;transform:rotate(42deg)}
+.check .txt{font-size:14px;line-height:1.45;color:var(--ink)}
+.checks .check input:checked~.txt{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line-2)}
+.verify{
+  display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--warn);background:var(--warn-soft);border-radius:4px;padding:2px 5px;margin-left:6px;vertical-align:1.5px;
+}
+
+/* ============================================================
+   Forms
+   ============================================================ */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+.field label{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.field input,.field select,.field textarea{
+  background:var(--surface-2);border:1px solid var(--line-2);border-radius:11px;
+  padding:12px 13px;font-size:16px;font-family:var(--mono);width:100%;
+  -webkit-appearance:none;appearance:none;
+}
+.field select{background-image:none}
+.field input[type="text"]{font-family:var(--disp)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--brand);outline-offset:1px;border-color:transparent}
+.field textarea{font-family:var(--disp);font-size:15px;min-height:110px;resize:vertical;line-height:1.45}
+.field .help{font-size:12px;color:var(--ink-3);line-height:1.4}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:-2px 0 13px}
+.chips.tight .chip{padding:7px 11px;font-size:12.5px;min-height:34px}
+.chips-lbl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 7px}
+.chip{
+  border:1px solid var(--line-2);background:var(--surface-2);border-radius:999px;
+  padding:8px 13px;font-size:13px;font-weight:600;color:var(--ink-2);min-height:38px;
+}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
 .btn{
   border:1px solid var(--brand);background:var(--brand);color:var(--on-brand);
-  border-radius:11px;padding:12px 16px;font-size:15px;font-weight:700;letter-spacing:-.005em;
-  width:100%;min-height:46px;
+  border-radius:12px;padding:13px 16px;font-size:15.5px;font-weight:700;letter-spacing:-.01em;
+  width:100%;min-height:48px;display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:var(--shadow-1);
 }
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
-.btn.danger{background:transparent;color:var(--crit);border-color:var(--crit)}
-.btn-row{display:flex;gap:10px;margin-top:4px}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line-2);box-shadow:none}
+.btn.danger{background:transparent;color:var(--crit);border-color:var(--crit);box-shadow:none}
+.btn.small{min-height:42px;font-size:14px;padding:10px 14px}
 .btn:disabled{opacity:.5}
+.btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-row{display:flex;gap:10px;margin-top:6px}
+.preview{
+  background:var(--brand-soft);border-radius:11px;padding:11px 13px;margin:0 0 14px;
+  font-size:13.5px;color:var(--ink-2);line-height:1.45;
+}
+.preview b{color:var(--ink);font-family:var(--mono);font-weight:600}
 
-.log{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.logrow{background:var(--surface);padding:12px 14px}
-.logrow .head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:4px}
-.logrow .head b{font-size:13px;font-weight:700}
-.logrow .head time{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+/* ============================================================
+   Account timeline
+   ============================================================ */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:1.5px;background:var(--line)}
+.tl-item{position:relative;padding:0 0 18px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:-23px;top:5px;width:11px;height:11px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--line-2);
+}
+.tl-item.gain::before{background:var(--brass);border-color:var(--brass)}
+.tl-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:5px}
+.tl-head b{font-size:14.5px;font-weight:700;letter-spacing:-.008em}
+.tl-head time{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);white-space:nowrap}
 .delta{display:flex;flex-wrap:wrap;gap:6px}
-.delta span{font-family:var(--mono);font-size:11.5px;font-weight:600;border-radius:5px;padding:3px 7px;background:var(--surface-2);color:var(--ink-2)}
+.delta span{font-family:var(--mono);font-size:11.5px;font-weight:600;border-radius:6px;padding:4px 8px;background:var(--surface-2);color:var(--ink-3)}
 .delta span.up{background:var(--go-soft);color:var(--go)}
-.delta span.flat{color:var(--ink-3)}
+.tl-note{font-family:var(--prose);font-size:14.5px;color:var(--ink-2);margin:6px 0 0;line-height:1.45}
 
-.note{
-  font-family:var(--prose);font-size:15px;line-height:1.55;color:var(--ink-2);
-  max-width:62ch;margin:0;
+.note{font-family:var(--prose);font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:60ch;margin:0}
+.note+.note{margin-top:11px}
+.note b{color:var(--ink)}
+ol.steps{margin:0;padding-left:19px;font-family:var(--prose);font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:60ch}
+ol.steps li{margin-bottom:8px;padding-left:3px}
+ol.steps li::marker{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+ol.steps b{color:var(--ink)}
+code{font-family:var(--mono);font-size:13px;background:var(--surface-2);border-radius:5px;padding:1px 5px;color:var(--ink)}
+
+/* ============================================================
+   Onboarding
+   ============================================================ */
+.welcome{
+  background:var(--surface);border:1px solid var(--brass);border-radius:var(--r);
+  padding:18px;box-shadow:var(--shadow-2);
 }
-.note+.note{margin-top:10px}
-.note b{color:var(--ink);font-family:var(--disp);font-size:13.5px;font-weight:700}
-ol.steps{margin:0;padding-left:20px;font-family:var(--prose);font-size:15px;line-height:1.55;color:var(--ink-2);max-width:62ch}
-ol.steps li{margin-bottom:7px}
-ol.steps code{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);border-radius:4px;padding:1px 5px;color:var(--ink)}
+.welcome .eyebrow{color:var(--brass)}
+.welcome h2{font-family:var(--disp);margin:0 0 8px;font-size:21px;font-weight:700;letter-spacing:-.025em;text-wrap:balance;font-variation-settings:"wdth" 100}
+.welcome p{margin:0 0 15px;font-family:var(--prose);font-size:15.5px;line-height:1.5;color:var(--ink-2);max-width:52ch}
+.dots{display:flex;gap:6px;margin-bottom:16px}
+.dots i{width:22px;height:3px;border-radius:2px;background:var(--line-2);display:block}
+.dots i.on{background:var(--brand)}
+.step-h{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+.step-q{margin:0 0 15px;font-size:19px;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
 
-.banner{
-  border:1px solid var(--brass);background:var(--brass-soft);color:var(--ink);
-  border-radius:var(--r);padding:12px 14px;display:flex;gap:11px;align-items:flex-start;
-}
-.banner p{margin:0;font-size:13.5px;line-height:1.45;color:var(--ink-2)}
-.banner b{color:var(--ink)}
-.banner button{background:none;border:0;padding:0;font-size:13px;font-weight:700;color:var(--brass);text-decoration:underline;text-underline-offset:2px}
-
-/* ---------- tab bar ---------- */
+/* ============================================================
+   Tab bar
+   ============================================================ */
 .tabbar{
   position:fixed;left:0;right:0;bottom:0;z-index:40;
   background:var(--surface);
-  background:color-mix(in srgb,var(--surface) 88%,transparent);
-  -webkit-backdrop-filter:saturate(180%) blur(14px);backdrop-filter:saturate(180%) blur(14px);
-  border-top:1px solid var(--line);
-  padding-bottom:env(safe-area-inset-bottom);
+  background:color-mix(in srgb,var(--surface) 90%,transparent);
+  -webkit-backdrop-filter:saturate(180%) blur(16px);backdrop-filter:saturate(180%) blur(16px);
+  border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);
 }
-.tabbar-in{max-width:660px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tabbar-in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
 .tab{
-  background:none;border:0;padding:9px 4px 10px;display:flex;flex-direction:column;
-  align-items:center;gap:3px;color:var(--ink-3);min-height:52px;
+  background:none;border:0;padding:9px 4px 9px;display:flex;flex-direction:column;
+  align-items:center;gap:4px;color:var(--ink-3);min-height:54px;position:relative;
 }
-.tab b{font-size:10.5px;font-weight:700;letter-spacing:.04em}
-.tab svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.tab[aria-selected="true"]{color:var(--brand)}
-.tab .badge{position:absolute;transform:translate(13px,-3px);width:7px;height:7px;border-radius:50%;background:var(--crit)}
+.tab b{font-size:10.5px;font-weight:700;letter-spacing:.03em}
+.tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-selected="true"]{color:var(--brand-ink)}
+.tab[aria-selected="true"]::before{
+  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:26px;height:2.5px;border-radius:0 0 3px 3px;background:var(--brand);
+}
+.dotbadge{position:absolute;top:8px;left:50%;margin-left:6px;width:7px;height:7px;border-radius:50%;background:var(--crit);border:1.5px solid var(--surface)}
 
-/* ---------- sheet ---------- */
-.backdrop{
-  position:fixed;inset:0;z-index:60;background:rgba(10,14,20,.45);
-  display:flex;align-items:flex-end;justify-content:center;
-}
+/* ============================================================
+   Sheet + toast
+   ============================================================ */
+.backdrop{position:fixed;inset:0;z-index:60;background:rgba(8,12,20,.5);display:flex;align-items:flex-end;justify-content:center}
 .backdrop[hidden]{display:none}
+@keyframes sheetUp{from{transform:translateY(22px);opacity:.6}to{transform:none;opacity:1}}
 .sheet{
-  background:var(--surface);width:100%;max-width:660px;
-  border-radius:18px 18px 0 0;border:1px solid var(--line);border-bottom:0;
-  max-height:92vh;overflow-y:auto;
-  padding:8px 16px calc(22px + env(safe-area-inset-bottom));
+  background:var(--surface);width:100%;max-width:640px;
+  border-radius:22px 22px 0 0;border:1px solid var(--line);border-bottom:0;
+  max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:8px 16px calc(24px + env(safe-area-inset-bottom));
+  animation:sheetUp .22s cubic-bezier(.2,.7,.3,1);
 }
-.sheet-grab{width:38px;height:4px;border-radius:2px;background:var(--line-strong);margin:6px auto 14px}
-.sheet h2{margin:0 0 14px;font-size:19px;font-weight:700;letter-spacing:-.015em;font-variation-settings:"wdth" 105}
+.sheet-grab{width:40px;height:4px;border-radius:2px;background:var(--line-2);margin:6px auto 15px}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 15px}
+.sheet h2{margin:0;font-size:20px;font-weight:700;letter-spacing:-.022em;font-variation-settings:"wdth" 102}
+.sheet-x{
+  border:1px solid var(--line-2);background:var(--surface-2);border-radius:999px;
+  width:36px;height:36px;flex:none;display:flex;align-items:center;justify-content:center;color:var(--ink-2);
+}
+.sheet-x svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
 @media (min-width:720px){
-  .backdrop{align-items:center}
-  .sheet{border-radius:18px;border-bottom:1px solid var(--line);max-height:86vh}
+  .backdrop{align-items:center;padding:20px}
+  .sheet{border-radius:20px;border-bottom:1px solid var(--line);max-height:86vh}
 }
-@media (min-width:900px){
-  .shell{max-width:900px}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
-  .two>*{margin:0}
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);z-index:70;
+  bottom:calc(74px + env(safe-area-inset-bottom));
+  background:var(--ink);color:var(--ground);border-radius:12px;
+  padding:11px 14px;font-size:13.5px;font-weight:600;
+  display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-2);
+  max-width:calc(100vw - 30px);
+}
+.toast[hidden]{display:none}
+.toast button{background:none;border:0;padding:0;color:var(--ground);font-weight:700;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+@media (min-width:860px){
+  .shell{max-width:860px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:15px;align-items:start}
 }
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 
-<header class="appbar">
+<header class="appbar" id="appbar">
   <div class="appbar-in">
     <div class="mark" aria-hidden="true">WOH</div>
     <div>
@@ -347,35 +507,33 @@ ol.steps code{font-family:var(--mono);font-size:12.5px;background:var(--surface-
       <div class="sub" id="barSub">Loading</div>
     </div>
     <div class="grow"></div>
-    <button class="chip-btn" id="btnSettings">Challenge</button>
+    <button class="icon-btn" id="btnSettings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 7 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H1a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 2.6 7a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H7a1.7 1.7 0 0 0 1-1.5V1a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V7a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" transform="translate(1.5 1.5) scale(0.87)"/></svg>
+      Setup
+    </button>
   </div>
 </header>
 
 <main class="shell">
   <!-- ============ PROGRESS ============ -->
   <section id="tab-progress" class="stack">
-    <div id="sampleBanner" hidden class="banner">
-      <div>
-        <p><b>This is example data</b> so you can see how the tracker works. Clear it and enter your own challenge terms whenever you're ready.</p>
-        <button id="btnClearSample">Clear example data and set up my challenge</button>
-      </div>
-    </div>
+    <div id="welcome"></div>
 
-    <div class="hero">
-      <div class="hero-top">
-        <div>
-          <div class="count"><b id="heroNights">0</b><span id="heroTarget">/ 0</span></div>
-          <div class="count-label" id="heroLabel">qualifying nights credited</div>
-        </div>
-        <span class="pill neutral" id="heroPill"><span class="dot"></span><span id="heroPillTxt">—</span></span>
+    <div class="keycard" id="keycard">
+      <div class="kc-top">
+        <span class="kc-brand"><i></i><span id="kcName">Status challenge</span></span>
+        <span class="kc-pill" id="kcPill"><span class="dot"></span><span id="kcPillTxt">—</span></span>
       </div>
-      <div class="strip" id="strip" role="img" aria-label="Night progress"></div>
-      <div class="strip-key">
+      <div class="kc-count"><b id="kcCount">0</b><span id="kcOf">of 0 nights</span></div>
+      <div class="kc-sub" id="kcSub">—</div>
+      <div class="kc-strip" id="kcStrip" role="img" aria-label="Night progress"></div>
+      <div class="kc-key">
         <span><i class="on"></i>Credited</span>
         <span><i class="pending"></i>Stayed, not posted</span>
-        <span><i class="booked"></i>Booked ahead</span>
-        <span><i></i>Still needed</span>
+        <span><i class="booked"></i>Booked</span>
+        <span><i></i>To book</span>
       </div>
+      <dl class="kc-foot" id="kcFoot"></dl>
     </div>
 
     <dl class="metrics" id="metrics"></dl>
@@ -385,7 +543,7 @@ ol.steps code{font-family:var(--mono);font-size:12.5px;background:var(--surface-
       <div class="chart-wrap" id="chart"></div>
     </div>
 
-    <div class="card" id="nextUp">
+    <div class="card">
       <p class="eyebrow">Next up</p>
       <div id="nextUpBody"></div>
     </div>
@@ -394,68 +552,82 @@ ol.steps code{font-family:var(--mono);font-size:12.5px;background:var(--surface-
   <!-- ============ STAYS ============ -->
   <section id="tab-stays" class="stack" hidden>
     <div class="btn-row">
-      <button class="btn" id="btnAddStay">Log a stay</button>
-      <button class="btn ghost" id="btnExport" style="max-width:132px">Export CSV</button>
+      <button class="btn" id="btnAddStay">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Log a stay
+      </button>
+      <button class="btn ghost small" id="btnExport" style="flex:none;width:auto">Export</button>
     </div>
-    <h2 class="sec">Upcoming &amp; in progress</h2>
+    <div class="sec-h"><h2>Upcoming</h2><span id="cntFuture"></span></div>
     <div id="staysFuture"></div>
-    <h2 class="sec">Completed</h2>
+    <div class="sec-h"><h2>Completed</h2><span id="cntPast"></span></div>
     <div id="staysPast"></div>
   </section>
 
   <!-- ============ ADVISOR ============ -->
   <section id="tab-advisor" class="stack" hidden>
+    <div id="adviceLead"></div>
     <div id="adviceList"></div>
 
     <div class="card">
       <p class="eyebrow">Tailored plan</p>
-      <p class="note" id="askIntro">Ask Claude to read your actual stay ledger, gap and deadline, and write a specific plan for closing it.</p>
-      <div id="askAnswer" style="margin:12px 0 0"></div>
-      <div class="btn-row" id="askRow"><button class="btn ghost" id="btnAsk">Ask Claude for a plan</button></div>
+      <p class="note" id="askIntro">Have Claude read your actual ledger, gap and deadline, and write a plan for closing it.</p>
+      <div id="askAnswer" style="margin-top:13px"></div>
+      <div class="btn-row" id="askRow">
+        <button class="btn ghost" id="btnAsk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 13.9 9l5.6.3-4.4 3.5 1.5 5.4L12 15.2l-4.6 3 1.5-5.4L4.5 9.3 10.1 9z"/></svg>
+          Ask Claude for a plan
+        </button>
+      </div>
     </div>
 
-    <h2 class="sec">Challenge hygiene</h2>
+    <div class="sec-h"><h2>Challenge hygiene</h2><span id="cntChecks"></span></div>
     <div class="checks" id="checks"></div>
-    <p class="note" style="padding:0 2px">Items marked <em style="font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--warn);background:var(--warn-soft);border-radius:4px;padding:2px 5px">verify</em> depend on the wording of your specific offer and on current World&nbsp;of&nbsp;Hyatt rules. Check them against your own offer terms rather than trusting this app — the math here is only as good as the terms you enter.</p>
+    <p class="note" style="padding:0 3px;font-size:14.5px">Items marked <span class="verify">verify</span> depend on the wording of your offer and on current World of Hyatt rules. Check them against your own terms — the math here is only as good as what you entered.</p>
   </section>
 
   <!-- ============ ACCOUNT ============ -->
   <section id="tab-account" class="stack" hidden>
     <div class="card">
       <p class="eyebrow">Account check</p>
-      <p class="note" id="lastChecked">No account snapshot recorded yet.</p>
-      <p class="note">Hyatt has no public API and this app never asks for your World of Hyatt password. You check the account, the app remembers what it looked like and tells you exactly what moved since last time.</p>
-      <div class="btn-row"><button class="btn" id="btnSnap">Record what my account says now</button></div>
+      <p class="note" id="lastChecked">No snapshot recorded yet.</p>
+      <div class="btn-row">
+        <button class="btn" id="btnSnap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v4h-4"/></svg>
+          Record what my account says
+        </button>
+      </div>
     </div>
+
+    <div class="sec-h"><h2>What changed</h2><span id="cntSnaps"></span></div>
+    <div id="changeLog"></div>
 
     <div class="card">
-      <p class="eyebrow">How to read your numbers</p>
+      <p class="eyebrow">Where to find the numbers</p>
       <ol class="steps">
         <li>Open the World of Hyatt app, or <code>hyatt.com</code> → <b>My Account</b>.</li>
-        <li>Go to <b>Activity</b> (or <b>My Progress</b> / milestone tracker) for your qualifying night count.</li>
-        <li>Type those numbers into the snapshot form, or paste the whole activity screen and let the app pull them out.</li>
-        <li>Do this on a set cadence — every few days is plenty. The app diffs each snapshot against the last one.</li>
+        <li>Go to <b>Activity</b>, or the <b>milestone / progress</b> tracker, for your qualifying night count.</li>
+        <li>Type the numbers in, or paste the whole screen and let the app pull them out.</li>
+        <li>Check every few days. Each snapshot is compared against the last one.</li>
       </ol>
+      <p class="note" style="margin-top:13px;font-size:14.5px">This app never asks for your Hyatt password and never signs in for you. Hyatt publishes no member API, so you do the looking and the app does the remembering.</p>
     </div>
-
-    <h2 class="sec">What changed</h2>
-    <div id="changeLog"></div>
   </section>
 </main>
 
 <nav class="tabbar">
   <div class="tabbar-in" role="tablist" aria-label="Sections">
     <button class="tab" role="tab" data-tab="progress" aria-selected="true">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m5 10V5m5 14v-7m5 7V8"/></svg><b>Progress</b>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9.5M9 19V5M14 19v-6.5M19 19V8"/></svg><b>Progress</b>
     </button>
     <button class="tab" role="tab" data-tab="stays" aria-selected="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V7m0 4h13a4 4 0 0 1 4 4v3M3 18h18M7.5 8.5h.01"/><circle cx="7.5" cy="10" r="1.6"/></svg><b>Stays</b>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V7m0 4.5h13a4 4 0 0 1 4 4V18M3 18h18"/><circle cx="7.5" cy="9.5" r="1.7"/></svg><b>Stays</b>
     </button>
     <button class="tab" role="tab" data-tab="advisor" aria-selected="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.2 9l5.8.3-4.5 3.7 1.5 5.6L12 15.5 7 18.6l1.5-5.6L4 9.3 9.8 9z"/></svg><b>Advisor</b>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 13.9 9l5.6.3-4.4 3.5 1.5 5.4L12 15.2l-4.6 3 1.5-5.4L4.5 9.3 10.1 9z"/></svg><b>Advisor</b>
     </button>
     <button class="tab" role="tab" data-tab="account" aria-selected="false">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v4h-4"/></svg><b>Account</b>
+      <span class="dotbadge" id="acctBadge" hidden></span>
     </button>
   </div>
 </nav>
@@ -463,29 +635,30 @@ ol.steps code{font-family:var(--mono);font-size:12.5px;background:var(--surface-
 <div class="backdrop" id="backdrop" hidden>
   <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
     <div class="sheet-grab"></div>
-    <h2 id="sheetTitle">—</h2>
+    <div class="sheet-head">
+      <h2 id="sheetTitle">—</h2>
+      <button class="sheet-x" id="sheetClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
     <div id="sheetBody"></div>
   </div>
 </div>
+
+<div class="toast" id="toast" hidden><span id="toastMsg"></span><button id="toastAct" hidden></button></div>
 
 <script>
 (function(){
 "use strict";
 
-/* ============================================================
-   Storage: db capability when the viewer can run it, localStorage
-   otherwise. Both are kept in sync so the page works either way.
-   ============================================================ */
 var LS = "woh-globalist-v1";
 var dbDoc = null, sampleFn = null, downloadsNs = null;
-var writeTimer = null, applyingRemote = false;
-
+var writeTimer = null, applyingRemote = false, stripAnimated = false;
 var DAY = 86400000;
 
-function todayISO(){ var d=new Date(); return iso(d); }
-function iso(d){
-  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-}
+/* ---------- dates ---------- */
+function iso(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function todayISO(){ return iso(new Date()); }
 function parseISO(s){
   if(!s) return null;
   var p = String(s).split("-");
@@ -494,11 +667,7 @@ function parseISO(s){
   return isNaN(d.getTime()) ? null : d;
 }
 function addDays(s,n){ var d=parseISO(s); if(!d) return null; d.setDate(d.getDate()+n); return iso(d); }
-function daysBetween(a,b){
-  var x=parseISO(a), y=parseISO(b);
-  if(!x||!y) return 0;
-  return Math.round((y-x)/DAY);
-}
+function daysBetween(a,b){ var x=parseISO(a), y=parseISO(b); return (x&&y) ? Math.round((y-x)/DAY) : 0; }
 var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function fmtDate(s){ var d=parseISO(s); return d ? MON[d.getMonth()]+" "+d.getDate() : "—"; }
 function fmtDateY(s){ var d=parseISO(s); return d ? MON[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear() : "—"; }
@@ -507,6 +676,7 @@ function fmtMoney(n,cur){
   var sym = {USD:"$",EUR:"€",GBP:"£",CAD:"CA$",AUD:"A$",JPY:"¥"}[cur||"USD"] || "";
   return sym + Math.round(n).toLocaleString();
 }
+function plural(n,w){ return n+" "+w+(n===1?"":"s"); }
 function esc(s){
   return String(s==null?"":s).replace(/[&<>"']/g,function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
@@ -514,160 +684,118 @@ function esc(s){
 }
 function uid(){ return Math.random().toString(36).slice(2,10); }
 
-/* ============================================================
-   State
-   ============================================================ */
+/* ---------- state ---------- */
 function blankState(){
   var start = todayISO();
   return {
-    v: 1,
-    isSample: false,
-    challenge: {
-      name: "Globalist status challenge",
-      targetNights: 20,
-      startDate: start,
-      endDate: addDays(start, 89),
-      currency: "USD",
-      typicalRate: 180,
-      awardNightsCount: false,
-      terms: ""
-    },
-    stays: [],
-    snapshots: [],
-    checks: {}
+    v:1, isSample:false, onboarded:false,
+    challenge:{ name:"Globalist status challenge", targetNights:20, startDate:start,
+                endDate:addDays(start,89), currency:"USD", typicalRate:180, terms:"" },
+    stays:[], snapshots:[], checks:{}
   };
 }
-
 function sampleState(){
-  var today = todayISO();
-  var start = addDays(today, -40);
+  var today = todayISO(), start = addDays(today,-40);
   var s = blankState();
   s.isSample = true;
   s.challenge.name = "Globalist corporate challenge";
-  s.challenge.targetNights = 20;
   s.challenge.startDate = start;
-  s.challenge.endDate = addDays(start, 89);
+  s.challenge.endDate = addDays(start,89);
   s.challenge.typicalRate = 195;
   s.stays = [
-    { id:uid(), hotel:"Hyatt Regency Chicago", city:"Chicago", checkIn:addDays(today,-37), nights:3, rate:214, counts:true, credited:true, conf:"" },
-    { id:uid(), hotel:"Hyatt Place Austin Downtown", city:"Austin", checkIn:addDays(today,-24), nights:2, rate:168, counts:true, credited:true, conf:"" },
-    { id:uid(), hotel:"Grand Hyatt Denver", city:"Denver", checkIn:addDays(today,-15), nights:4, rate:229, counts:true, credited:true, conf:"" },
-    { id:uid(), hotel:"Hyatt House Boston Seaport", city:"Boston", checkIn:addDays(today,-6), nights:2, rate:189, counts:true, credited:false, conf:"" },
-    { id:uid(), hotel:"Hyatt Centric Midtown", city:"New York", checkIn:addDays(today,9), nights:3, rate:262, counts:true, credited:false, conf:"" }
+    {id:uid(),hotel:"Hyatt Regency Chicago",city:"Chicago",checkIn:addDays(today,-37),nights:3,rate:214,counts:true,credited:true,conf:""},
+    {id:uid(),hotel:"Hyatt Place Austin Downtown",city:"Austin",checkIn:addDays(today,-24),nights:2,rate:168,counts:true,credited:true,conf:""},
+    {id:uid(),hotel:"Grand Hyatt Denver",city:"Denver",checkIn:addDays(today,-15),nights:4,rate:229,counts:true,credited:true,conf:""},
+    {id:uid(),hotel:"Hyatt House Boston Seaport",city:"Boston",checkIn:addDays(today,-6),nights:2,rate:189,counts:true,credited:false,conf:""},
+    {id:uid(),hotel:"Hyatt Centric Midtown",city:"New York",checkIn:addDays(today,9),nights:3,rate:262,counts:true,credited:false,conf:""}
   ];
   s.snapshots = [
-    { id:uid(), at:addDays(today,-19), nights:5, points:9400,  tier:"Explorist", note:"" },
-    { id:uid(), at:addDays(today,-8),  nights:9, points:17250, tier:"Explorist", note:"" }
+    {id:uid(),at:addDays(today,-19),nights:5,points:9400,tier:"Explorist",note:""},
+    {id:uid(),at:addDays(today,-8),nights:9,points:17250,tier:"Explorist",note:""}
   ];
   return s;
 }
-
 var state = null;
 
 function loadLocal(){
-  try{
-    var raw = localStorage.getItem(LS);
-    if(!raw) return null;
-    var o = JSON.parse(raw);
-    return (o && o.challenge) ? o : null;
-  }catch(e){ return null; }
+  try{ var o = JSON.parse(localStorage.getItem(LS)||"null"); return (o&&o.challenge)?o:null; }catch(e){ return null; }
 }
-function saveLocal(){
-  try{ localStorage.setItem(LS, JSON.stringify(state)); }catch(e){}
-}
+function saveLocal(){ try{ localStorage.setItem(LS, JSON.stringify(state)); }catch(e){} }
 function persist(){
   saveLocal();
   if(!dbDoc || applyingRemote) return;
   clearTimeout(writeTimer);
   writeTimer = setTimeout(function(){
-    try{
-      dbDoc.set(JSON.parse(JSON.stringify(state))).catch(function(){});
-    }catch(e){}
-  }, 400);
+    try{ dbDoc.set(JSON.parse(JSON.stringify(state))).catch(function(){}); }catch(e){}
+  },400);
 }
 function commit(){ persist(); render(); }
 
-/* ============================================================
-   Derived numbers — the whole model of the challenge
-   ============================================================ */
-function checkOut(st){ return addDays(st.checkIn, st.nights); }
-
-function inWindow(st, ch){
-  var co = checkOut(st);
-  return st.checkIn >= ch.startDate && co <= addDays(ch.endDate, 1);
+/* ---------- toast ---------- */
+var toastTimer = null, undoBuf = null;
+function toast(msg, actionLabel, action){
+  var t = document.getElementById("toast"), b = document.getElementById("toastAct");
+  document.getElementById("toastMsg").textContent = msg;
+  if(actionLabel){ b.hidden = false; b.textContent = actionLabel; b.onclick = function(){ hideToast(); action(); }; }
+  else { b.hidden = true; b.onclick = null; }
+  t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, actionLabel ? 6500 : 2600);
 }
+function hideToast(){ document.getElementById("toast").hidden = true; }
+
+/* ---------- derivation ---------- */
+function checkOut(st){ return addDays(st.checkIn, st.nights); }
+function inWindow(st, ch){ return st.checkIn >= ch.startDate && checkOut(st) <= addDays(ch.endDate,1); }
 
 function derive(){
   var ch = state.challenge, today = todayISO();
   var counting = state.stays.filter(function(s){ return s.counts !== false; });
+  var stayed=0, booked=0, creditedFlag=0, spend=0, spendNights=0, pending=[];
 
-  var stayed = 0, booked = 0, creditedFlag = 0, spend = 0, spendNights = 0;
-  var pendingStays = [];
   counting.forEach(function(s){
-    var co = checkOut(s);
-    var n = Number(s.nights) || 0;
-    if(co <= today){
-      stayed += n;
-      if(s.credited) creditedFlag += n; else pendingStays.push(s);
-    } else {
-      booked += n;
-    }
-    if(s.rate){ spend += Number(s.rate) * n; spendNights += n; }
+    var co = checkOut(s), n = Number(s.nights)||0;
+    if(co <= today){ stayed += n; if(s.credited) creditedFlag += n; else pending.push(s); }
+    else booked += n;
+    if(s.rate){ spend += Number(s.rate)*n; spendNights += n; }
   });
 
   var latest = state.snapshots.length ? state.snapshots[state.snapshots.length-1] : null;
   var accountNights = latest && latest.nights != null ? Number(latest.nights) : null;
-
   var confirmed = accountNights != null ? accountNights : creditedFlag;
-  var unposted  = Math.max(0, stayed - confirmed);
-  var target    = Number(ch.targetNights) || 0;
-  var projected = Math.min(target + booked, confirmed + unposted + booked);
-
-  var gap        = Math.max(0, target - confirmed - unposted);   // nights still to book
-  var gapAfter   = Math.max(0, target - confirmed - unposted - booked);
-  var daysLeft   = Math.max(0, daysBetween(today, ch.endDate));
-  var daysTotal  = Math.max(1, daysBetween(ch.startDate, ch.endDate));
-  var elapsed    = Math.min(daysTotal, Math.max(0, daysBetween(ch.startDate, today)));
-
+  var unposted = Math.max(0, stayed - confirmed);
+  var target = Number(ch.targetNights)||0;
+  var gapAfter = Math.max(0, target - confirmed - unposted - booked);
+  var daysLeft = Math.max(0, daysBetween(today, ch.endDate));
+  var daysTotal = Math.max(1, daysBetween(ch.startDate, ch.endDate));
   var avgRate = spendNights ? spend/spendNights : (Number(ch.typicalRate)||0);
-  var perWeek = daysLeft > 0 ? (gapAfter / (daysLeft/7)) : (gapAfter>0 ? Infinity : 0);
-
-  // Last day you can start the remaining run and still check out by the deadline
+  var perWeek = daysLeft > 0 ? (gapAfter/(daysLeft/7)) : (gapAfter>0 ? Infinity : 0);
   var bookBy = gapAfter > 0 ? addDays(ch.endDate, -gapAfter) : null;
+  var stale = pending.filter(function(s){ return daysBetween(checkOut(s), today) >= 10; });
 
-  // Stays that checked out a while ago and still have not shown up in the account
-  var stale = pendingStays.filter(function(s){ return daysBetween(checkOut(s), today) >= 10; });
+  var status, tone;
+  if(confirmed >= target){ status="Complete"; tone="go"; }
+  else if(confirmed + unposted >= target){ status="Awaiting posting"; tone="go"; }
+  else if(gapAfter <= 0){ status="Booked to the finish"; tone="go"; }
+  else if(daysLeft <= 0){ status="Window closed"; tone="crit"; }
+  else if(gapAfter > daysLeft){ status="Not reachable"; tone="crit"; }
+  else if(gapAfter/daysLeft > 0.45){ status="At risk"; tone="crit"; }
+  else if(gapAfter/daysLeft > 0.22){ status="Tight"; tone="warn"; }
+  else { status="On track"; tone="go"; }
 
-  var status, statusTone;
-  if(confirmed >= target){ status = "Challenge complete"; statusTone = "go"; }
-  else if(confirmed + unposted >= target){ status = "Nights stayed, awaiting posting"; statusTone = "go"; }
-  else if(gapAfter <= 0){ status = "Booked to the finish"; statusTone = "go"; }
-  else if(daysLeft <= 0){ status = "Window closed"; statusTone = "crit"; }
-  else if(gapAfter > daysLeft){ status = "Not reachable"; statusTone = "crit"; }
-  else if(gapAfter / daysLeft > 0.45){ status = "At risk"; statusTone = "crit"; }
-  else if(gapAfter / daysLeft > 0.22){ status = "Tight"; statusTone = "warn"; }
-  else { status = "On track"; statusTone = "go"; }
-
-  return {
-    ch:ch, today:today, target:target,
-    confirmed:confirmed, unposted:unposted, booked:booked, stayed:stayed,
-    projected:projected, gap:gap, gapAfter:gapAfter,
-    daysLeft:daysLeft, daysTotal:daysTotal, elapsed:elapsed,
-    avgRate:avgRate, perWeek:perWeek, bookBy:bookBy,
-    stale:stale, pendingStays:pendingStays,
-    accountNights:accountNights, latest:latest,
-    status:status, statusTone:statusTone,
-    counting:counting
-  };
+  return { ch:ch, today:today, target:target, confirmed:confirmed, unposted:unposted,
+           booked:booked, stayed:stayed, gapAfter:gapAfter, daysLeft:daysLeft, daysTotal:daysTotal,
+           avgRate:avgRate, perWeek:perWeek, bookBy:bookBy, stale:stale, pending:pending,
+           accountNights:accountNights, latest:latest, status:status, tone:tone, counting:counting };
 }
 
 /* ============================================================
-   Render — progress
+   Render
    ============================================================ */
 function render(){
   var d = derive();
-  renderBar(d);
-  renderHero(d);
+  renderWelcome(d);
+  renderKeycard(d);
   renderMetrics(d);
   renderChart(d);
   renderNextUp(d);
@@ -675,53 +803,83 @@ function render(){
   renderAdvice(d);
   renderChecks();
   renderAccount(d);
-  document.getElementById("sampleBanner").hidden = !state.isSample;
-}
-
-function renderBar(d){
   document.getElementById("barSub").textContent =
-    d.daysLeft > 0 ? d.daysLeft + " days left · " + fmtDate(d.ch.endDate) : "Window closed " + fmtDate(d.ch.endDate);
+    d.daysLeft > 0 ? plural(d.daysLeft,"day")+" left · ends "+fmtDate(d.ch.endDate)
+                   : "Window closed "+fmtDate(d.ch.endDate);
+  var badge = document.getElementById("acctBadge");
+  badge.hidden = !(d.stale.length || (!state.snapshots.length && !state.isSample) ||
+                   (d.latest && daysBetween(d.latest.at, d.today) >= 7));
 }
 
-function renderHero(d){
-  document.getElementById("heroNights").textContent = d.confirmed;
-  document.getElementById("heroTarget").textContent = "/ " + d.target;
-  document.getElementById("heroLabel").textContent =
-    d.accountNights != null
-      ? "qualifying nights, per your account on " + fmtDate(d.latest.at)
-      : "qualifying nights marked credited in your ledger";
-  var pill = document.getElementById("heroPill");
-  pill.className = "pill " + d.statusTone;
-  document.getElementById("heroPillTxt").textContent = d.status;
+function renderWelcome(d){
+  var el = document.getElementById("welcome");
+  if(state.onboarded && !state.isSample){ el.innerHTML = ""; return; }
+  el.innerHTML =
+    '<div class="welcome">'+
+      '<p class="eyebrow">Start here</p>'+
+      '<h2>Set up your challenge in three taps</h2>'+
+      '<p>You\'re looking at example data so you can see how it works. Tell the app your target, your deadline and where you stand, and every number below becomes yours.</p>'+
+      '<div class="btn-row"><button class="btn" id="btnWizard">Set up my challenge</button></div>'+
+      '<div class="btn-row"><button class="btn ghost small" id="btnKeepSample">Keep exploring the example</button></div>'+
+    '</div>';
+  document.getElementById("btnWizard").onclick = wizard;
+  document.getElementById("btnKeepSample").onclick = function(){
+    state.onboarded = true; commit();
+    toast("Example kept. Tap Setup any time.");
+  };
+}
 
-  var strip = document.getElementById("strip");
-  var cells = Math.min(d.target, 60);
-  var cols = cells <= 12 ? cells : [12,11,10,9,8].filter(function(c){ return cells % c === 0; })[0] || 10;
+function renderKeycard(d){
+  document.getElementById("kcName").textContent = d.ch.name || "Status challenge";
+  document.getElementById("kcCount").textContent = d.confirmed;
+  document.getElementById("kcOf").textContent = "of "+d.target+" nights";
+  document.getElementById("kcSub").textContent = d.accountNights != null
+    ? "Credited to your account · checked "+fmtDate(d.latest.at)
+    : "Marked credited in your ledger · no account check yet";
+  var pill = document.getElementById("kcPill");
+  pill.className = "kc-pill "+d.tone;
+  document.getElementById("kcPillTxt").textContent = d.status;
+
+  var strip = document.getElementById("kcStrip");
+  var cells = Math.min(d.target, 60), scale = d.target > 60 ? d.target/60 : 1;
+  var cols = cells <= 12 ? cells : ([12,11,10,9,8].filter(function(c){ return cells % c === 0; })[0] || 10);
   strip.style.gridTemplateColumns = "repeat("+cols+",1fr)";
-  var scale = d.target > 60 ? d.target/60 : 1;
+  strip.style.setProperty("--step", (Math.min(22, 440/Math.max(cells,1))).toFixed(1)+"ms");
   var on = Math.round(d.confirmed/scale), pend = Math.round(d.unposted/scale), bk = Math.round(d.booked/scale);
   var html = "";
   for(var i=0;i<cells;i++){
     var cls = i < on ? "on" : (i < on+pend ? "pending" : (i < on+pend+bk ? "booked" : ""));
-    html += '<span class="n '+cls+'"></span>';
+    if((i+1) % 5 === 0 && i+1 < cells) cls += " mile";
+    html += '<span class="kc-n '+cls+'" style="--i:'+i+'"></span>';
   }
   strip.innerHTML = html;
-  strip.setAttribute("aria-label",
-    d.confirmed+" of "+d.target+" nights credited, "+d.unposted+" stayed awaiting posting, "+d.booked+" booked ahead");
+  strip.setAttribute("aria-label", d.confirmed+" of "+d.target+" nights credited, "+
+    d.unposted+" stayed awaiting posting, "+d.booked+" booked ahead");
+  if(!stripAnimated){ strip.classList.add("anim"); stripAnimated = true; }
+
+  var foot = [
+    {dt:"Still to book", dd: d.gapAfter === 0 ? "None" : plural(d.gapAfter,"night")},
+    {dt:"Days left", dd: d.daysLeft},
+    {dt: d.gapAfter === 0 ? "Deadline" : "Book by", dd: fmtDate(d.gapAfter === 0 ? d.ch.endDate : d.bookBy)}
+  ];
+  document.getElementById("kcFoot").innerHTML = foot.map(function(f){
+    return '<div><dt>'+esc(f.dt)+'</dt><dd>'+esc(f.dd)+'</dd></div>';
+  }).join("");
 }
 
 function renderMetrics(d){
-  var gapTone = d.gapAfter === 0 ? "go" : (d.statusTone === "crit" ? "crit" : (d.statusTone==="warn"?"warn":""));
-  var paceTxt = d.perWeek === Infinity ? "—" : (Math.round(d.perWeek*10)/10);
+  var pace = d.perWeek === Infinity ? "—" : Math.round(d.perWeek*10)/10;
   var m = [
-    { dt:"Still to book", dd:d.gapAfter, unit:"nights", cls:gapTone,
-      hint: d.gapAfter===0 ? "Everything you need is on the books" : d.booked+" already booked ahead" },
-    { dt:"Days left", dd:d.daysLeft, unit:"days", cls:d.daysLeft<=14&&d.gapAfter>0?"warn":"",
-      hint:"Ends "+fmtDateY(d.ch.endDate) },
-    { dt:"Required pace", dd:paceTxt, unit:"nights / wk", cls:"",
-      hint: d.gapAfter===0 ? "No pace needed" : "To finish by the deadline" },
-    { dt:"Cost to close", dd:fmtMoney(d.gapAfter*d.avgRate, d.ch.currency), unit:"", cls:"",
-      hint: d.gapAfter===0 ? "Nothing left to buy" : "At "+fmtMoney(d.avgRate,d.ch.currency)+"/night average" }
+    { dt:"Required pace", dd:pace, unit:"nights / wk",
+      cls: d.gapAfter===0?"go":(d.tone==="crit"?"crit":(d.tone==="warn"?"warn":"")),
+      hint: d.gapAfter===0 ? "Nothing left to book" : "To finish by "+fmtDate(d.ch.endDate) },
+    { dt:"Cost to close", dd:fmtMoney(d.gapAfter*d.avgRate, d.ch.currency), unit:"",
+      cls:"", hint: d.gapAfter===0 ? "Nothing left to buy" : "At "+fmtMoney(d.avgRate,d.ch.currency)+"/night so far" },
+    { dt:"Booked ahead", dd:d.booked, unit:"nights", cls:"",
+      hint: d.booked ? "Already on the books" : "Nothing scheduled yet" },
+    { dt:"Awaiting posting", dd:d.unposted, unit:"nights",
+      cls: d.stale.length ? "warn" : "",
+      hint: d.stale.length ? plural(d.stale.length,"stay")+" overdue" : (d.unposted ? "Stayed, not yet credited" : "Account matches your ledger") }
   ];
   document.getElementById("metrics").innerHTML = m.map(function(x){
     return '<div class="metric"><dt>'+esc(x.dt)+'</dt><dd class="'+x.cls+'">'+esc(x.dd)+
@@ -729,292 +887,400 @@ function renderMetrics(d){
   }).join("");
 }
 
-/* Burn-up: required pace line vs. what you have actually banked */
 function renderChart(d){
-  var W=340, H=158, L=30, R=8, T=10, B=24;
-  var iw = W-L-R, ih = H-T-B;
+  var W=340,H=162,L=30,R=8,T=10,B=26, iw=W-L-R, ih=H-T-B;
   var yMax = Math.max(d.target, d.confirmed+d.unposted+d.booked, 1);
   var total = Math.max(1, d.daysTotal);
-
-  function X(dayIdx){ return L + (Math.min(Math.max(dayIdx,0),total)/total)*iw; }
+  function X(i){ return L + (Math.min(Math.max(i,0),total)/total)*iw; }
   function Y(n){ return T + ih - (Math.min(n,yMax)/yMax)*ih; }
 
-  // cumulative actual (credited + stayed) by checkout date, and projection with booked stays
   var evts = d.counting.map(function(s){
-    return { day: daysBetween(d.ch.startDate, checkOut(s)), n: Number(s.nights)||0, future: checkOut(s) > d.today };
+    return { day: daysBetween(d.ch.startDate, checkOut(s)), n:Number(s.nights)||0, future: checkOut(s) > d.today };
   }).sort(function(a,b){ return a.day-b.day; });
 
-  var todayIdx = daysBetween(d.ch.startDate, d.today);
+  var todayIdx = Math.min(daysBetween(d.ch.startDate, d.today), total);
   var actual = [[0,0]], cum = 0;
   evts.forEach(function(e){ if(!e.future){ cum += e.n; actual.push([e.day, cum]); } });
-  // anchor the actual line to the account number if we have one
-  if(d.accountNights != null && cum !== d.confirmed + d.unposted){
-    cum = d.confirmed + d.unposted;
-    actual.push([Math.min(todayIdx,total), cum]);
-  }
-  actual.push([Math.min(todayIdx,total), cum]);
+  if(d.accountNights != null && cum !== d.confirmed + d.unposted) cum = d.confirmed + d.unposted;
+  actual.push([todayIdx, cum]);
 
-  var proj = [[Math.min(todayIdx,total), cum]], pc = cum;
+  var proj = [[todayIdx, cum]], pc = cum;
   evts.forEach(function(e){ if(e.future){ pc += e.n; proj.push([e.day, pc]); } });
 
   function step(pts){
     if(!pts.length) return "";
-    var dstr = "M "+X(pts[0][0])+" "+Y(pts[0][1]);
-    for(var i=1;i<pts.length;i++){
-      dstr += " L "+X(pts[i][0])+" "+Y(pts[i-1][1])+" L "+X(pts[i][0])+" "+Y(pts[i][1]);
-    }
-    return dstr;
+    var s = "M "+X(pts[0][0])+" "+Y(pts[0][1]);
+    for(var i=1;i<pts.length;i++) s += " L "+X(pts[i][0])+" "+Y(pts[i-1][1])+" L "+X(pts[i][0])+" "+Y(pts[i][1]);
+    return s;
   }
 
-  var svg = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Cumulative qualifying nights against the pace needed to reach '+d.target+' nights">';
-  [0, 0.5, 1].forEach(function(f){
+  var svg = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Cumulative qualifying nights against the pace needed to reach '+d.target+' nights by '+fmtDateY(d.ch.endDate)+'">';
+  [0,0.5,1].forEach(function(f){
     var v = Math.round(yMax*f), y = Y(v);
     svg += '<line class="chart-grid" x1="'+L+'" y1="'+y+'" x2="'+(W-R)+'" y2="'+y+'"/>';
     svg += '<text class="chart-lbl" x="'+(L-6)+'" y="'+(y+3.5)+'" text-anchor="end">'+v+'</text>';
   });
   svg += '<line class="chart-target" x1="'+L+'" y1="'+Y(d.target)+'" x2="'+(W-R)+'" y2="'+Y(d.target)+'"/>';
   svg += '<line class="chart-pace" x1="'+X(0)+'" y1="'+Y(0)+'" x2="'+X(total)+'" y2="'+Y(d.target)+'"/>';
+  svg += '<path class="chart-area" d="'+step(actual)+' L '+X(todayIdx)+' '+Y(0)+' L '+X(0)+' '+Y(0)+' Z"/>';
   if(proj.length>1) svg += '<path class="chart-proj" d="'+step(proj)+'"/>';
   svg += '<path class="chart-actual" d="'+step(actual)+'"/>';
   if(todayIdx>=0 && todayIdx<=total){
     svg += '<line class="chart-today" x1="'+X(todayIdx)+'" y1="'+T+'" x2="'+X(todayIdx)+'" y2="'+(T+ih)+'"/>';
-    svg += '<circle class="chart-dot" cx="'+X(todayIdx)+'" cy="'+Y(cum)+'" r="3.4"/>';
+    svg += '<circle class="chart-dot" cx="'+X(todayIdx)+'" cy="'+Y(cum)+'" r="4"/>';
   }
-  svg += '<text class="chart-lbl" x="'+L+'" y="'+(H-7)+'">'+fmtDate(d.ch.startDate)+'</text>';
-  svg += '<text class="chart-lbl" x="'+(W-R)+'" y="'+(H-7)+'" text-anchor="end">'+fmtDate(d.ch.endDate)+'</text>';
-  if(todayIdx > total*0.18 && todayIdx < total*0.82){
-    svg += '<text class="chart-lbl" x="'+X(todayIdx)+'" y="'+(H-7)+'" text-anchor="middle">today</text>';
-  }
+  svg += '<text class="chart-lbl" x="'+L+'" y="'+(H-8)+'">'+fmtDate(d.ch.startDate)+'</text>';
+  svg += '<text class="chart-lbl" x="'+(W-R)+'" y="'+(H-8)+'" text-anchor="end">'+fmtDate(d.ch.endDate)+'</text>';
+  if(todayIdx > total*0.2 && todayIdx < total*0.8)
+    svg += '<text class="chart-lbl" x="'+X(todayIdx)+'" y="'+(H-8)+'" text-anchor="middle">today</text>';
   svg += '</svg>';
   svg += '<div class="chart-legend">'+
     '<span><i style="border-top-color:var(--brass)"></i>Nights banked</span>'+
     '<span><i style="border-top-color:var(--brand);border-top-style:dashed"></i>With stays booked</span>'+
-    '<span><i style="border-top-color:var(--line-strong);border-top-style:dashed"></i>Pace needed</span>'+
-  '</div>';
+    '<span><i style="border-top-color:var(--line-2);border-top-style:dashed"></i>Pace needed</span></div>';
   document.getElementById("chart").innerHTML = svg;
 }
 
 function renderNextUp(d){
-  var today = d.today;
-  var upcoming = d.counting.filter(function(s){ return checkOut(s) > today; })
-    .sort(function(a,b){ return a.checkIn < b.checkIn ? -1 : 1; });
+  var up = d.counting.filter(function(s){ return checkOut(s) > d.today; })
+            .sort(function(a,b){ return a.checkIn < b.checkIn ? -1 : 1; });
   var el = document.getElementById("nextUpBody");
-  if(!upcoming.length){
+  if(!up.length){
     el.innerHTML = '<p class="note">Nothing on the books. '+
-      (d.gapAfter>0 ? 'You need <b>'+d.gapAfter+' more night'+(d.gapAfter===1?'':'s')+'</b>'+
-        (d.bookBy ? ' and the last possible check-in is <b>'+fmtDateY(d.bookBy)+'</b>.' : '.')
-        : 'You have already reached the target.')+'</p>';
+      (d.gapAfter>0
+        ? 'You need <b>'+plural(d.gapAfter,"more night")+'</b>'+(d.bookBy?', and the last check-in that still finishes in time is <b>'+fmtDateY(d.bookBy)+'</b>.':'.')
+        : 'You have already reached the target.')+'</p>'+
+      (d.gapAfter>0 ? '<div class="btn-row"><button class="btn ghost small" id="nuAdd">Log a booking</button></div>' : '');
+    var b = document.getElementById("nuAdd");
+    if(b) b.onclick = function(){ showTab("stays"); staySheet(null); };
     return;
   }
-  var s = upcoming[0];
-  var inDays = daysBetween(today, s.checkIn);
-  el.innerHTML = '<p class="note"><b>'+esc(s.hotel)+'</b> — '+esc(s.nights)+' night'+(s.nights==1?'':'s')+
-    ' from '+fmtDateY(s.checkIn)+
-    (inDays>0 ? ', in '+inDays+' day'+(inDays===1?'':'s') : ', in progress')+'. '+
-    'That takes you to <b>'+(d.confirmed+d.unposted+(Number(s.nights)||0))+' of '+d.target+'</b> nights.</p>'+
-    (upcoming.length>1 ? '<p class="note">'+(upcoming.length-1)+' more stay'+(upcoming.length-1===1?'':'s')+' booked after that.</p>' : '');
+  var s = up[0], inDays = daysBetween(d.today, s.checkIn);
+  el.innerHTML = '<p class="note"><b>'+esc(s.hotel)+'</b> — '+plural(s.nights,"night")+' from '+fmtDateY(s.checkIn)+
+    (inDays>0 ? ', in '+plural(inDays,"day") : ', in progress right now')+'. That takes you to <b>'+
+    (d.confirmed+d.unposted+(Number(s.nights)||0))+' of '+d.target+'</b> nights.</p>'+
+    (up.length>1 ? '<p class="note">'+plural(up.length-1,"more stay")+' booked after that.</p>' : '');
 }
 
-/* ============================================================
-   Render — stays
-   ============================================================ */
+/* ---------- stays ---------- */
 function stayRow(s, d){
-  var co = checkOut(s), tone, label;
+  var co = checkOut(s), tone, label, showTick = false;
   if(s.counts === false){ tone=""; label="Not counted"; }
   else if(s.credited){ tone="go"; label="Credited"; }
   else if(co <= d.today){
     var age = daysBetween(co, d.today);
-    tone = age>=10 ? "warn" : "";
-    label = age>=10 ? "Not posted · "+age+"d" : "Awaiting posting";
+    tone = age>=10 ? "warn" : ""; label = age>=10 ? "Overdue "+age+"d" : "Awaiting";
+    showTick = true;
   }
   else if(s.checkIn <= d.today){ tone="brand"; label="In progress"; }
   else { tone="brand"; label="Booked"; }
-  var out = !inWindow(s, d.ch);
-  return '<button class="row" data-stay="'+esc(s.id)+'">'+
-    '<span class="nights'+(s.credited?' credited':'')+'"><b>'+esc(s.nights)+'</b><i>nt</i></span>'+
-    '<span class="who">'+esc(s.hotel||"Untitled stay")+'</span>'+
-    '<span class="when"><span>'+fmtDate(s.checkIn)+' → '+fmtDate(co)+'</span>'+
-      (s.city?'<span>'+esc(s.city)+'</span>':'')+
-      (s.rate?'<span>'+fmtMoney(s.rate, d.ch.currency)+'/nt</span>':'')+
-      (out?'<span style="color:var(--warn)">outside window</span>':'')+
+
+  return '<div class="row">'+
+    '<button class="row-main" data-stay="'+esc(s.id)+'" aria-label="Edit '+esc(s.hotel)+'">'+
+      '<span class="badge'+(s.credited?' credited':'')+'"><b>'+esc(s.nights)+'</b><i>nt</i></span>'+
+      '<span class="who">'+esc(s.hotel||"Untitled stay")+'</span>'+
+      '<span class="when"><span>'+fmtDate(s.checkIn)+' → '+fmtDate(co)+'</span>'+
+        (s.city?'<span>'+esc(s.city)+'</span>':'')+
+        (s.rate?'<span>'+fmtMoney(s.rate,d.ch.currency)+'/nt</span>':'')+
+        (!inWindow(s,d.ch)?'<b>outside window</b>':'')+
+      '</span>'+
+    '</button>'+
+    '<span class="row-right">'+
+      (showTick
+        ? '<button class="tick" data-credit="'+esc(s.id)+'" aria-label="Mark '+esc(s.hotel)+' as credited"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Posted</button>'
+        : '<span class="tag '+tone+'">'+esc(label)+'</span>')+
     '</span>'+
-    '<span class="tag '+tone+'">'+esc(label)+'</span>'+
-  '</button>';
+  '</div>';
 }
 
 function renderStays(d){
-  var today = d.today;
-  var fut = state.stays.filter(function(s){ return checkOut(s) > today; })
+  var fut = state.stays.filter(function(s){ return checkOut(s) > d.today; })
               .sort(function(a,b){ return a.checkIn < b.checkIn ? -1 : 1; });
-  var past = state.stays.filter(function(s){ return checkOut(s) <= today; })
+  var past = state.stays.filter(function(s){ return checkOut(s) <= d.today; })
               .sort(function(a,b){ return a.checkIn > b.checkIn ? -1 : 1; });
+  var nf = fut.reduce(function(a,s){ return a + (s.counts!==false?Number(s.nights)||0:0); },0);
+  var np = past.reduce(function(a,s){ return a + (s.counts!==false?Number(s.nights)||0:0); },0);
+  document.getElementById("cntFuture").textContent = fut.length ? plural(nf,"night") : "";
+  document.getElementById("cntPast").textContent = past.length ? plural(np,"night") : "";
+
   document.getElementById("staysFuture").innerHTML = fut.length
     ? '<div class="ledger">'+fut.map(function(s){ return stayRow(s,d); }).join("")+'</div>'
-    : '<div class="empty">No stays booked ahead.'+(d.gapAfter>0?' You still need '+d.gapAfter+' night'+(d.gapAfter===1?'':'s')+'.':'')+'</div>';
+    : '<div class="empty"><p>'+(d.gapAfter>0
+        ? 'Nothing booked ahead. You still need '+plural(d.gapAfter,"night")+
+          (d.bookBy?', and the last check-in that finishes in time is '+fmtDateY(d.bookBy)+'.':'.')
+        : 'Nothing booked ahead — and nothing more needed.')+
+      '</p><button class="btn small" data-add="1">Log a booking</button></div>';
+
   document.getElementById("staysPast").innerHTML = past.length
     ? '<div class="ledger">'+past.map(function(s){ return stayRow(s,d); }).join("")+'</div>'
-    : '<div class="empty">No completed stays logged yet.</div>';
+    : '<div class="empty"><p>No completed stays yet. Log the ones you have already taken so the tracker knows where you stand.</p>'+
+      '<button class="btn small" data-add="1">Log a past stay</button></div>';
 }
 
-/* ============================================================
-   Render — advisor
-   ============================================================ */
+/* ---------- advisor ---------- */
+function leadAdvice(d){
+  if(d.confirmed >= d.target)
+    return { h:"You've hit the target", p:"Your account shows "+d.confirmed+" of "+d.target+" qualifying nights. Screenshot the account page today — it is the only evidence you'll have if the status award needs chasing later." };
+  if(d.gapAfter <= 0)
+    return { h:"Every night you need is booked", p:"Between "+d.confirmed+" credited, "+d.unposted+" stayed but unposted and "+d.booked+" booked ahead, you reach "+d.target+". Don't cancel or shorten anything without redoing this math." };
+  if(d.daysLeft <= 0)
+    return { h:"The window has closed", p:"You finished at "+(d.confirmed+d.unposted)+" of "+d.target+". If any stay inside the window still hasn't posted, file the missing stay claim now — that is the only path left." };
+  var pace = d.perWeek === Infinity ? "more than the calendar allows" : (Math.round(d.perWeek*10)/10)+" nights a week";
+  return {
+    h: "Book "+plural(d.gapAfter,"more night")+(d.bookBy ? " by "+fmtDate(d.bookBy) : ""),
+    p: "You're at "+(d.confirmed+d.unposted)+" of "+d.target+" with "+d.booked+" booked ahead and "+plural(d.daysLeft,"day")+
+       " left — that's "+pace+" from here"+
+       (d.bookBy ? ", and "+fmtDateY(d.bookBy)+" is the last date you can check in and still finish "+plural(d.gapAfter,"night")+" before the deadline." : ".")
+  };
+}
+
 function advice(d){
   var out = [];
-
-  if(d.confirmed >= d.target){
-    out.push({tone:"go", g:"✓", h:"You've hit the target",
-      p:"Your account shows <span class='num'>"+d.confirmed+"</span> of "+d.target+" qualifying nights. Take a screenshot of the account page today — it is the only evidence you'll have if the status award needs chasing later."});
-  } else if(d.gapAfter <= 0){
-    out.push({tone:"go", g:"✓", h:"Every night you need is booked",
-      p:"Between "+d.confirmed+" credited, "+d.unposted+" stayed but unposted and "+d.booked+" booked ahead, you reach "+d.target+". Don't cancel anything — and don't shorten a reservation without redoing this math."});
-  } else {
-    var pace = d.perWeek===Infinity ? "more than the calendar allows" : "<span class='num'>"+(Math.round(d.perWeek*10)/10)+"</span> nights a week";
-    out.push({tone: d.statusTone, g:String(d.gapAfter), h:d.gapAfter+" more night"+(d.gapAfter===1?"":"s")+" to book",
-      p:"You are at <span class='num'>"+(d.confirmed+d.unposted)+"</span> of "+d.target+" with <span class='num'>"+d.booked+"</span> booked ahead and <span class='num'>"+d.daysLeft+"</span> days left. That's "+pace+" from here."+
-        (d.bookBy ? " The last date you can check in and still finish "+d.gapAfter+" night"+(d.gapAfter===1?"":"s")+" before the deadline is <span class='num'>"+fmtDateY(d.bookBy)+"</span>." : "")});
-    out.push({tone:"info", g:"$", h:"Roughly "+fmtMoney(d.gapAfter*d.avgRate, d.ch.currency)+" to finish",
-      p:"At your running average of "+fmtMoney(d.avgRate,d.ch.currency)+" a night. Cheaper Hyatt brands — Hyatt Place, Hyatt House, Hyatt Studios — earn a qualifying night the same as a Park Hyatt does, so the cheapest bookable night is usually the right one when you're buying nights to close a gap."});
+  if(d.gapAfter > 0 && d.daysLeft > 0){
+    out.push({tone:"info", g:"$", h:"About "+fmtMoney(d.gapAfter*d.avgRate,d.ch.currency)+" to finish",
+      p:"At your running average of "+fmtMoney(d.avgRate,d.ch.currency)+" a night. A qualifying night at Hyatt Place or Hyatt House counts exactly as much as one at a Park Hyatt, so when you're buying nights to close a gap the cheapest bookable night is usually the right one."});
   }
-
   if(d.unposted > 0){
-    var oldest = d.stale.length ? d.stale.sort(function(a,b){ return checkOut(a) < checkOut(b) ? -1 : 1; })[0] : null;
-    out.push({tone: d.stale.length ? "warn" : "info", g:"!", h:d.unposted+" night"+(d.unposted===1?"":"s")+" stayed but not showing in your account",
-      p: d.stale.length
-        ? "<b>"+esc(oldest.hotel)+"</b> checked out "+daysBetween(checkOut(oldest), d.today)+" days ago and still hasn't posted. Nights normally appear within a few days of checkout, so this one is worth chasing — file a missing stay claim with the folio and confirmation number before the challenge window closes, not after."
-        : "That's normal for a recent checkout — posting usually lags a few days. The app will flag it if any stay goes past ten days without appearing."});
+    var oldest = d.stale.slice().sort(function(a,b){ return checkOut(a) < checkOut(b) ? -1 : 1; })[0];
+    out.push({tone: d.stale.length ? "warn" : "info", g:"!", h:plural(d.unposted,"night")+" stayed but not in your account",
+      p: oldest
+        ? "<b>"+esc(oldest.hotel)+"</b> checked out "+plural(daysBetween(checkOut(oldest),d.today),"day")+" ago and still hasn't posted. Nights normally appear within a few days, so chase this one — file a missing stay claim with the folio and confirmation number while the window is still open."
+        : "Normal for a recent checkout; posting usually lags a few days. The app flags any stay that goes ten days without appearing."});
   }
-
   if(d.daysLeft > 0 && d.daysLeft <= 21 && d.gapAfter > 0){
-    out.push({tone:"crit", g:"⏱", h:"Under three weeks left with nights outstanding",
-      p:"Book the remaining "+d.gapAfter+" night"+(d.gapAfter===1?"":"s")+" now rather than waiting for a better rate. A night you didn't take is worth less than the rate you saved on it, and posting delays eat the end of the window."});
+    out.push({tone:"crit", g:"⏱", h:"Under three weeks with nights outstanding",
+      p:"Book the remaining "+plural(d.gapAfter,"night")+" now rather than waiting for a better rate. A night you didn't take is worth less than the rate you saved on it, and posting delays eat the end of the window."});
   }
-
   if(!state.snapshots.length){
     out.push({tone:"warn", g:"?", h:"No account snapshot yet",
-      p:"Everything above is computed from your stay ledger alone. Record what World of Hyatt actually shows on the Account tab — then this app can tell you when Hyatt's count and yours disagree, which is the failure mode that actually costs people the status."});
+      p:"Everything here is computed from your ledger alone. Record what World of Hyatt actually shows on the Account tab, and the app can start telling you when Hyatt's count and yours disagree — the failure mode that actually costs people the status."});
   } else {
     var age = daysBetween(d.latest.at, d.today);
-    if(age >= 7){
-      out.push({tone:"warn", g:"↻", h:"Account last checked "+age+" days ago",
-        p:"Check it again and record a snapshot. Every few days is enough to catch a missing stay while the folio is still easy to get."});
-    }
+    if(age >= 7) out.push({tone:"warn", g:"↻", h:"Account last checked "+plural(age,"day")+" ago",
+      p:"Check again and record a snapshot. Every few days is enough to catch a missing stay while the folio is still easy to get."});
   }
-
-  var outside = state.stays.filter(function(s){ return s.counts !== false && !inWindow(s, d.ch); });
+  var outside = state.stays.filter(function(s){ return s.counts !== false && !inWindow(s,d.ch); });
   if(outside.length){
-    out.push({tone:"warn", g:"⚠", h:outside.length+" stay"+(outside.length===1?"":"s")+" fall outside the challenge window",
-      p:"They're in your ledger but check in before "+fmtDateY(d.ch.startDate)+" or check out after "+fmtDateY(d.ch.endDate)+". Most offers only count nights completed inside the window — confirm against your terms, and untick <b>Counts toward challenge</b> on any that don't."});
+    out.push({tone:"warn", g:"⚠", h:plural(outside.length,"stay")+" outside the challenge window",
+      p:"They check in before "+fmtDateY(d.ch.startDate)+" or check out after "+fmtDateY(d.ch.endDate)+". Most offers only count nights completed inside the window — confirm against your terms, and untick <b>Counts toward the challenge</b> on any that don't."});
   }
-
   return out;
 }
 
 function renderAdvice(d){
-  document.getElementById("adviceList").innerHTML =
-    '<div class="advice">'+advice(d).map(function(a){
-      return '<div class="adv '+a.tone+'"><span class="glyph">'+a.g+'</span><div><h3>'+a.h+'</h3><p>'+a.p+'</p></div></div>';
-    }).join("")+'</div>';
+  var lead = leadAdvice(d);
+  document.getElementById("adviceLead").innerHTML =
+    '<div class="lead"><p class="eyebrow">Do this next</p><h3>'+esc(lead.h)+'</h3><p>'+esc(lead.p)+'</p></div>';
+  var items = advice(d);
+  document.getElementById("adviceList").innerHTML = items.length
+    ? '<div class="advice">'+items.map(function(a){
+        return '<div class="adv '+a.tone+'"><span class="glyph">'+a.g+'</span><div><h3>'+a.h+'</h3><p>'+a.p+'</p></div></div>';
+      }).join("")+'</div>'
+    : "";
 }
 
 var CHECKLIST = [
-  {id:"terms",  t:"Read your offer's exact terms and enter them above — target nights, window dates, and which rates count.", verify:false},
-  {id:"enrol",  t:"Confirm you are actually registered for the challenge and that the confirmation email matches the dates you entered.", verify:false},
-  {id:"corp",   t:"Check that your corporate / negotiated rate code is eligible under the offer. Some challenges exclude certain discounted and third-party rates.", verify:true},
-  {id:"award",  t:"Check whether award nights count for your offer before you plan around them — challenge terms and standard World of Hyatt qualifying rules are not always the same thing.", verify:true},
-  {id:"ota",    t:"Book direct with Hyatt. Nights booked through online travel agencies generally don't earn qualifying nights.", verify:true},
-  {id:"split",  t:"Don't split one trip into several reservations to inflate the count — consecutive nights at one hotel each count as a night already.", verify:true},
-  {id:"log",    t:"Log every booked night in this app, so the projection reflects what you've actually committed to.", verify:false},
-  {id:"folio",  t:"Keep every folio and confirmation number until the status posts. They're what a missing stay claim needs.", verify:false},
-  {id:"claim",  t:"File missing stay claims well before the challenge deadline, not after it.", verify:false},
-  {id:"buffer", t:"Plan to finish a week early. Posting delays at the end of the window are the most common way a challenge is lost.", verify:false}
+  {id:"terms",  t:"Read your offer's exact terms and enter them in Setup — target nights, window dates, which rates count."},
+  {id:"enrol",  t:"Confirm you're actually registered for the challenge and the confirmation matches the dates you entered."},
+  {id:"corp",   t:"Check that your corporate or negotiated rate code is eligible. Some challenges exclude discounted and third-party rates.", v:true},
+  {id:"award",  t:"Check whether award nights count for your offer before planning around them — challenge terms and standard qualifying rules aren't always the same.", v:true},
+  {id:"ota",    t:"Book direct with Hyatt. Nights booked through online travel agencies generally don't earn qualifying nights.", v:true},
+  {id:"split",  t:"Don't split one trip across reservations to inflate the count — consecutive nights at one hotel each count already.", v:true},
+  {id:"log",    t:"Log every booked night here, so the projection reflects what you've actually committed to."},
+  {id:"folio",  t:"Keep every folio and confirmation number until the status posts. That's what a missing stay claim needs."},
+  {id:"claim",  t:"File missing stay claims well before the deadline, not after it."},
+  {id:"buffer", t:"Plan to finish a week early. Posting delays at the end of the window are the most common way a challenge is lost."}
 ];
-
 function renderChecks(){
+  var done = CHECKLIST.filter(function(c){ return state.checks[c.id]; }).length;
+  document.getElementById("cntChecks").textContent = done+" of "+CHECKLIST.length;
   document.getElementById("checks").innerHTML = CHECKLIST.map(function(c){
     return '<label class="check"><input type="checkbox" data-check="'+c.id+'"'+(state.checks[c.id]?" checked":"")+
-      '><span class="txt">'+esc(c.t)+(c.verify?'<em>verify</em>':'')+'</span></label>';
+      '><span class="txt">'+esc(c.t)+(c.v?'<span class="verify">verify</span>':'')+'</span></label>';
   }).join("");
 }
 
-/* ============================================================
-   Render — account snapshots and diffs
-   ============================================================ */
+/* ---------- account ---------- */
 function renderAccount(d){
   var lc = document.getElementById("lastChecked");
   if(d.latest){
     var age = daysBetween(d.latest.at, d.today);
     lc.innerHTML = "Last checked <b>"+fmtDateY(d.latest.at)+"</b>"+
-      (age===0?" (today)":age===1?" (yesterday)":" ("+age+" days ago)")+
+      (age===0?" (today)":age===1?" (yesterday)":" ("+plural(age,"day")+" ago)")+
       " — <b>"+d.latest.nights+"</b> qualifying nights"+
       (d.latest.points!=null?", <b>"+Number(d.latest.points).toLocaleString()+"</b> base points":"")+
       (d.latest.tier?", tier <b>"+esc(d.latest.tier)+"</b>":"")+".";
   } else {
-    lc.textContent = "No account snapshot recorded yet.";
+    lc.textContent = "No snapshot recorded yet. Record one and the app starts reporting what moves between checks.";
   }
 
+  document.getElementById("cntSnaps").textContent =
+    state.snapshots.length ? plural(state.snapshots.length,"check") : "";
+
   var el = document.getElementById("changeLog");
-  if(state.snapshots.length < 1){
-    el.innerHTML = '<div class="empty">Record a snapshot and the app starts reporting what moved between checks.</div>';
+  if(!state.snapshots.length){
+    el.innerHTML = '<div class="empty"><p>Nothing to compare yet. Your first snapshot becomes the baseline; every one after it shows what posted since.</p>'+
+      '<button class="btn small" data-snap="1">Record the first one</button></div>';
     return;
   }
-  var rows = [];
-  for(var i=state.snapshots.length-1; i>=0; i--){
-    var cur = state.snapshots[i], prev = state.snapshots[i-1];
-    var deltas = [];
+  var items = [];
+  for(var i=state.snapshots.length-1;i>=0;i--){
+    var cur = state.snapshots[i], prev = state.snapshots[i-1], deltas = [], gain = false;
     if(!prev){
-      deltas.push('<span>first snapshot</span>');
-      deltas.push('<span>'+cur.nights+' nights</span>');
+      deltas.push('<span>baseline</span>','<span>'+cur.nights+' nights</span>');
       if(cur.points!=null) deltas.push('<span>'+Number(cur.points).toLocaleString()+' pts</span>');
     } else {
       var dn = Number(cur.nights) - Number(prev.nights);
-      deltas.push('<span class="'+(dn>0?"up":"flat")+'">'+(dn>0?"+":"")+dn+' nights</span>');
+      gain = dn > 0;
+      deltas.push('<span class="'+(dn>0?"up":"")+'">'+(dn>0?"+":"")+dn+' nights</span>');
       if(cur.points!=null && prev.points!=null){
         var dp = Number(cur.points) - Number(prev.points);
-        deltas.push('<span class="'+(dp>0?"up":"flat")+'">'+(dp>0?"+":"")+dp.toLocaleString()+' pts</span>');
+        deltas.push('<span class="'+(dp>0?"up":"")+'">'+(dp>0?"+":"")+dp.toLocaleString()+' pts</span>');
       }
-      if(cur.tier && prev.tier && cur.tier !== prev.tier){
-        deltas.push('<span class="up">'+esc(prev.tier)+' → '+esc(cur.tier)+'</span>');
-      }
-      if(dn === 0) deltas.push('<span class="flat">nothing posted</span>');
+      if(cur.tier && prev.tier && cur.tier !== prev.tier) deltas.push('<span class="up">'+esc(prev.tier)+' → '+esc(cur.tier)+'</span>');
+      if(dn === 0) deltas.push('<span>nothing posted</span>');
     }
-    rows.push('<div class="logrow"><div class="head"><b>'+cur.nights+' of '+d.target+' nights</b>'+
-      '<time>'+fmtDateY(cur.at)+'</time></div><div class="delta">'+deltas.join("")+'</div>'+
-      (cur.note?'<p class="note" style="font-size:13.5px;margin-top:6px">'+esc(cur.note)+'</p>':'')+'</div>');
+    items.push('<div class="tl-item'+(gain?" gain":"")+'">'+
+      '<div class="tl-head"><b>'+cur.nights+' of '+d.target+' nights</b><time>'+fmtDateY(cur.at)+'</time></div>'+
+      '<div class="delta">'+deltas.join("")+'</div>'+
+      (cur.note?'<p class="tl-note">'+esc(cur.note)+'</p>':'')+'</div>');
   }
-  el.innerHTML = '<div class="log">'+rows.join("")+'</div>';
+  el.innerHTML = '<div class="card"><div class="tl">'+items.join("")+'</div></div>';
 }
 
 /* ============================================================
-   Sheets: challenge settings, stay editor, snapshot
+   Sheets
    ============================================================ */
-var backdrop = document.getElementById("backdrop");
-var sheetTitle = document.getElementById("sheetTitle");
-var sheetBody = document.getElementById("sheetBody");
+var backdrop = document.getElementById("backdrop"),
+    sheetTitle = document.getElementById("sheetTitle"),
+    sheetBody = document.getElementById("sheetBody");
 
 function openSheet(title, html, wire){
   sheetTitle.textContent = title;
   sheetBody.innerHTML = html;
   backdrop.hidden = false;
   document.body.style.overflow = "hidden";
+  document.getElementById("sheet").scrollTop = 0;
   if(wire) wire();
-  var first = sheetBody.querySelector("input,select,textarea");
-  if(first && window.matchMedia("(min-width:720px)").matches) first.focus();
 }
 function closeSheet(){
-  backdrop.hidden = true;
-  sheetBody.innerHTML = "";
-  document.body.style.overflow = "";
+  backdrop.hidden = true; sheetBody.innerHTML = ""; document.body.style.overflow = "";
 }
 backdrop.addEventListener("click", function(e){ if(e.target === backdrop) closeSheet(); });
+document.getElementById("sheetClose").addEventListener("click", closeSheet);
 document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !backdrop.hidden) closeSheet(); });
 
-function field(label, id, type, value, extra, help){
+function field(label,id,type,value,extra,help){
   return '<div class="field"><label for="'+id+'">'+esc(label)+'</label>'+
     '<input id="'+id+'" type="'+type+'" value="'+esc(value==null?"":value)+'" '+(extra||"")+'>'+
     (help?'<span class="help">'+help+'</span>':'')+'</div>';
 }
+function chipRow(vals, target, suffix){
+  return '<div class="chips">'+vals.map(function(v){
+    return '<button type="button" class="chip" data-fill="'+target+'" data-val="'+v+'">'+v+(suffix||"")+'</button>';
+  }).join("")+'</div>';
+}
+function wireChips(){
+  Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-fill]"), function(b){
+    b.onclick = function(){
+      var input = document.getElementById(b.dataset.fill);
+      input.value = b.dataset.val;
+      input.dispatchEvent(new Event("input", {bubbles:true}));
+      Array.prototype.forEach.call(sheetBody.querySelectorAll('[data-fill="'+b.dataset.fill+'"]'), function(o){
+        o.setAttribute("aria-pressed", o === b ? "true" : "false");
+      });
+    };
+  });
+}
 
+/* ---- three-step onboarding ---- */
+function wizard(){
+  var draft = { target:20, days:90, nights:0, points:"" };
+  function dots(n){ return '<div class="dots">'+[0,1,2].map(function(i){ return '<i class="'+(i<=n?"on":"")+'"></i>'; }).join("")+'</div>'; }
+
+  function step1(){
+    openSheet("Set up your challenge",
+      dots(0)+
+      '<p class="step-h">Step 1 of 3</p>'+
+      '<h3 class="step-q">How many qualifying nights does your offer need?</h3>'+
+      field("Qualifying nights","w_t","number",draft.target,'min="1" step="1" inputmode="numeric"')+
+      chipRow([10,20,30,60],"w_t")+
+      '<p class="help" style="margin:-4px 0 16px;color:var(--ink-3);font-size:13px">Whatever your offer letter says. You can change it later.</p>'+
+      '<div class="btn-row"><button class="btn" id="w_next">Continue</button></div>',
+      function(){
+        wireChips();
+        document.getElementById("w_next").onclick = function(){
+          var v = parseInt(document.getElementById("w_t").value,10);
+          if(!(v>0)){ alert("Enter how many qualifying nights the challenge needs."); return; }
+          draft.target = v; step2();
+        };
+      });
+  }
+  function step2(){
+    openSheet("Set up your challenge",
+      dots(1)+
+      '<p class="step-h">Step 2 of 3</p>'+
+      '<h3 class="step-q">When does the window close?</h3>'+
+      field("Last day that counts","w_e","date",addDays(todayISO(),draft.days))+
+      '<div class="chips">'+[60,90,120,180].map(function(n){
+        return '<button type="button" class="chip" data-days="'+n+'">'+n+' days</button>'; }).join("")+'</div>'+
+      field("Window opened on","w_s","date",todayISO(),"","Set this to the day your challenge started, if it was before today.")+
+      '<div class="btn-row"><button class="btn ghost small" id="w_back">Back</button><button class="btn" id="w_next">Continue</button></div>',
+      function(){
+        Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-days]"), function(b){
+          b.onclick = function(){
+            document.getElementById("w_e").value = addDays(todayISO(), +b.dataset.days);
+            Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-days]"), function(o){
+              o.setAttribute("aria-pressed", o===b ? "true":"false"); });
+          };
+        });
+        document.getElementById("w_back").onclick = step1;
+        document.getElementById("w_next").onclick = function(){
+          var s = document.getElementById("w_s").value, e = document.getElementById("w_e").value;
+          if(!s || !e || e <= s){ alert("The window has to close after it opens. Check the two dates."); return; }
+          draft.startDate = s; draft.endDate = e; step3();
+        };
+      });
+  }
+  function step3(){
+    openSheet("Set up your challenge",
+      dots(2)+
+      '<p class="step-h">Step 3 of 3</p>'+
+      '<h3 class="step-q">Where do you stand right now?</h3>'+
+      '<p class="help" style="margin:-8px 0 14px;color:var(--ink-3);font-size:13.5px">Open World of Hyatt and read off your qualifying night count. If you haven\'t started, leave it at zero.</p>'+
+      field("Qualifying nights so far","w_n","number",draft.nights,'min="0" step="1" inputmode="numeric"')+
+      field("Base points (optional)","w_p","number","",'min="0" step="1" inputmode="numeric" placeholder="optional"')+
+      field("Typical nightly rate","w_r","number",180,'min="0" step="1" inputmode="decimal"',"Used to estimate what closing the gap will cost.")+
+      '<div class="btn-row"><button class="btn ghost small" id="w_back">Back</button><button class="btn" id="w_done">Start tracking</button></div>',
+      function(){
+        document.getElementById("w_back").onclick = step2;
+        document.getElementById("w_done").onclick = function(){
+          var n = parseInt(document.getElementById("w_n").value,10);
+          if(isNaN(n) || n < 0) n = 0;
+          var pts = parseInt(document.getElementById("w_p").value,10);
+          var fresh = blankState();
+          fresh.onboarded = true;
+          fresh.challenge.name = "Globalist status challenge";
+          fresh.challenge.targetNights = draft.target;
+          fresh.challenge.startDate = draft.startDate;
+          fresh.challenge.endDate = draft.endDate;
+          fresh.challenge.typicalRate = parseFloat(document.getElementById("w_r").value) || 180;
+          fresh.challenge.currency = state.challenge.currency || "USD";
+          if(n > 0 || !isNaN(pts)){
+            fresh.snapshots.push({ id:uid(), at:todayISO(), nights:n,
+              points: isNaN(pts)?null:pts, tier:"", note:"Starting point" });
+          }
+          state = fresh;
+          stripAnimated = false;
+          closeSheet(); commit(); showTab("progress");
+          toast(n>0 ? "You're set up — "+n+" of "+draft.target+" nights" : "You're set up. Log your first stay next.");
+        };
+      });
+  }
+  step1();
+}
+
+/* ---- full settings ---- */
 function settingsSheet(){
   var c = state.challenge;
   openSheet("Challenge terms",
@@ -1029,238 +1295,291 @@ function settingsSheet(){
     '</div>'+
     '<div class="field"><label for="f_cur">Currency</label><select id="f_cur">'+
       ["USD","EUR","GBP","CAD","AUD","JPY"].map(function(x){
-        return '<option value="'+x+'"'+(c.currency===x?" selected":"")+'>'+x+'</option>';}).join("")+
+        return '<option value="'+x+'"'+(c.currency===x?" selected":"")+'>'+x+'</option>'; }).join("")+
     '</select></div>'+
-    '<div class="field"><label for="f_terms">Offer terms, pasted</label>'+
+    '<div class="field"><label for="f_terms">Your offer terms, pasted</label>'+
       '<textarea id="f_terms" placeholder="Paste the wording of your offer here so you can check it against the app\'s math later.">'+esc(c.terms||"")+'</textarea>'+
-      '<span class="help">Kept only in your own copy of this app.</span></div>'+
+      '<span class="help">Stays in your own copy of this app.</span></div>'+
     '<div class="btn-row"><button class="btn" id="f_save">Save</button></div>'+
-    '<div class="btn-row"><button class="btn danger" id="f_reset">Erase all my data</button></div>',
+    '<div class="btn-row"><button class="btn ghost small" id="f_wiz">Run setup again</button>'+
+      '<button class="btn danger small" id="f_reset">Erase everything</button></div>',
     function(){
       document.getElementById("f_save").onclick = function(){
         var start = document.getElementById("f_start").value || c.startDate;
-        var end   = document.getElementById("f_end").value || c.endDate;
+        var end = document.getElementById("f_end").value || c.endDate;
         if(end <= start){ alert("The window has to close after it opens. Check the two dates."); return; }
         var t = parseInt(document.getElementById("f_target").value,10);
         if(!(t>0)){ alert("Enter how many qualifying nights the challenge needs."); return; }
         state.challenge = {
           name: document.getElementById("f_name").value.trim() || "Status challenge",
-          targetNights: t,
-          startDate: start, endDate: end,
+          targetNights:t, startDate:start, endDate:end,
           currency: document.getElementById("f_cur").value,
           typicalRate: parseFloat(document.getElementById("f_rate").value) || 0,
-          awardNightsCount: c.awardNightsCount,
           terms: document.getElementById("f_terms").value
         };
-        state.isSample = false;
-        closeSheet(); commit();
+        state.isSample = false; state.onboarded = true; stripAnimated = false;
+        closeSheet(); commit(); toast("Challenge saved");
       };
+      document.getElementById("f_wiz").onclick = wizard;
       document.getElementById("f_reset").onclick = function(){
-        if(!confirm("Erase every stay, snapshot and setting in this tracker? This cannot be undone.")) return;
-        state = blankState(); closeSheet(); commit(); settingsSheet();
+        if(!confirm("Erase every stay, snapshot and setting? This cannot be undone.")) return;
+        state = blankState(); stripAnimated = false; closeSheet(); commit(); wizard();
       };
     });
 }
 
+/* ---- stay editor ---- */
+var BRANDS = ["Hyatt Place","Hyatt House","Hyatt Regency","Grand Hyatt","Andaz"];
+
 function staySheet(id){
+  var d = derive();
   var s = id ? state.stays.filter(function(x){ return x.id===id; })[0] : null;
   var isNew = !s;
   s = s || { id:uid(), hotel:"", city:"", checkIn:todayISO(), nights:1, rate:"", counts:true, credited:false, conf:"" };
+
   openSheet(isNew ? "Log a stay" : "Edit stay",
-    field("Hotel","s_hotel","text",s.hotel,'placeholder="Hyatt Place Austin Downtown"')+
+    '<div class="field"><label for="s_hotel">Hotel</label>'+
+      '<input id="s_hotel" type="text" value="'+esc(s.hotel)+'" placeholder="Hyatt Place Austin Downtown"></div>'+
+    (isNew ? '<p class="chips-lbl">Quick fill</p><div class="chips tight">'+BRANDS.map(function(b){
+        return '<button type="button" class="chip" data-brand="'+esc(b)+'">'+esc(b)+'</button>'; }).join("")+'</div>' : '')+
     field("City","s_city","text",s.city,'placeholder="Austin"')+
     '<div class="grid2">'+
       field("Check-in","s_in","date",s.checkIn)+
       field("Nights","s_n","number",s.nights,'min="1" step="1" inputmode="numeric"')+
     '</div>'+
+    '<div class="preview" id="s_prev">—</div>'+
     '<div class="grid2">'+
-      field("Rate per night","s_rate","number",s.rate,'min="0" step="1" inputmode="decimal"')+
-      field("Confirmation #","s_conf","text",s.conf)+
+      field("Rate per night","s_rate","number",s.rate,'min="0" step="1" inputmode="decimal" placeholder="optional"')+
+      field("Confirmation #","s_conf","text",s.conf,'placeholder="optional"')+
     '</div>'+
-    '<label class="check" style="border:1px solid var(--line);border-radius:10px;margin-bottom:10px">'+
-      '<input type="checkbox" id="s_counts"'+(s.counts!==false?" checked":"")+'><span class="txt">Counts toward the challenge</span></label>'+
-    '<label class="check" style="border:1px solid var(--line);border-radius:10px;margin-bottom:14px">'+
-      '<input type="checkbox" id="s_cred"'+(s.credited?" checked":"")+'><span class="txt">Already credited in my World of Hyatt account</span></label>'+
-    '<div class="btn-row"><button class="btn" id="s_save">'+(isNew?"Add stay":"Save")+'</button></div>'+
-    (isNew?"":'<div class="btn-row"><button class="btn danger" id="s_del">Delete this stay</button></div>'),
+    '<label class="check" style="border:1px solid var(--line);border-radius:11px;margin-bottom:9px">'+
+      '<input type="checkbox" id="s_counts"'+(s.counts!==false?" checked":"")+
+      '><span class="txt">Counts toward the challenge</span></label>'+
+    '<label class="check" style="border:1px solid var(--line);border-radius:11px;margin-bottom:15px">'+
+      '<input type="checkbox" id="s_cred"'+(s.credited?" checked":"")+
+      '><span class="txt">Hyatt has already credited these nights</span></label>'+
+    '<div class="btn-row"><button class="btn" id="s_save">'+(isNew?"Add stay":"Save changes")+'</button></div>'+
+    (isNew?"":'<div class="btn-row"><button class="btn ghost small" id="s_dup">Duplicate</button>'+
+      '<button class="btn danger small" id="s_del">Delete</button></div>'),
     function(){
+      Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-brand]"), function(b){
+        b.onclick = function(){
+          var i = document.getElementById("s_hotel");
+          i.value = b.dataset.brand + " ";
+          i.focus();
+        };
+      });
+
+      function updatePreview(){
+        var n = parseInt(document.getElementById("s_n").value,10) || 0;
+        var ci = document.getElementById("s_in").value;
+        var el = document.getElementById("s_prev");
+        if(!ci || !n){ el.textContent = "Pick a check-in date and a night count."; return; }
+        var co = addDays(ci, n);
+        var counts = document.getElementById("s_counts").checked;
+        var base = d.confirmed + d.unposted + d.booked - (isNew || s.counts===false ? 0 : (Number(s.nights)||0));
+        var after = base + (counts ? n : 0);
+        var outside = ci < d.ch.startDate || co > addDays(d.ch.endDate,1);
+        el.innerHTML = "Checks out <b>"+fmtDateY(co)+"</b>. "+
+          (counts ? "Takes your projected total to <b>"+Math.min(after, 999)+" of "+d.target+"</b> nights."
+                  : "Not counted toward the challenge.")+
+          (outside ? " <b style='color:var(--warn)'>Falls outside your challenge window.</b>" : "");
+      }
+      ["s_n","s_in","s_counts"].forEach(function(idd){
+        var el = document.getElementById(idd);
+        el.addEventListener("input", updatePreview);
+        el.addEventListener("change", updatePreview);
+      });
+      updatePreview();
+
       document.getElementById("s_save").onclick = function(){
         var n = parseInt(document.getElementById("s_n").value,10);
         if(!(n>0)){ alert("A stay needs at least one night."); return; }
         var ci = document.getElementById("s_in").value;
         if(!ci){ alert("Pick a check-in date."); return; }
-        var rec = {
-          id: s.id,
+        var rec = { id:s.id,
           hotel: document.getElementById("s_hotel").value.trim() || "Untitled stay",
           city: document.getElementById("s_city").value.trim(),
-          checkIn: ci, nights: n,
+          checkIn:ci, nights:n,
           rate: parseFloat(document.getElementById("s_rate").value) || 0,
           conf: document.getElementById("s_conf").value.trim(),
           counts: document.getElementById("s_counts").checked,
-          credited: document.getElementById("s_cred").checked
-        };
-        if(state.isSample){ state.stays = []; state.snapshots = []; state.isSample = false; }
+          credited: document.getElementById("s_cred").checked };
+        clearSampleIfNeeded();
         var i = state.stays.findIndex(function(x){ return x.id===rec.id; });
         if(i>=0) state.stays[i] = rec; else state.stays.push(rec);
         closeSheet(); commit();
+        toast(isNew ? plural(n,"night")+" added" : "Stay updated");
+      };
+      var dup = document.getElementById("s_dup");
+      if(dup) dup.onclick = function(){
+        var copy = JSON.parse(JSON.stringify(s));
+        copy.id = uid(); copy.credited = false;
+        copy.checkIn = addDays(checkOut(s), 0);
+        state.stays.push(copy); closeSheet(); commit();
+        toast("Copied — edit the dates"); staySheet(copy.id);
       };
       var del = document.getElementById("s_del");
       if(del) del.onclick = function(){
-        if(!confirm("Delete this stay from your ledger?")) return;
+        undoBuf = JSON.parse(JSON.stringify(s));
         state.stays = state.stays.filter(function(x){ return x.id!==s.id; });
         closeSheet(); commit();
+        toast("Stay deleted", "Undo", function(){
+          state.stays.push(undoBuf); commit(); toast("Restored");
+        });
       };
     });
 }
 
-/* Best-effort parse of a pasted World of Hyatt activity screen. Never
-   silently trusted — it only pre-fills the form for you to confirm. */
+function clearSampleIfNeeded(){
+  if(state.isSample){ state.stays = []; state.snapshots = []; state.isSample = false; state.onboarded = true; stripAnimated = false; }
+}
+
+/* ---- snapshot ---- */
 function parseActivity(text){
-  var out = {};
-  var t = text.replace(/ /g," ");
-  var m = t.match(/([\d]{1,3})\s*(?:\/\s*\d+\s*)?(?:qualifying\s+)?nights?\b/i);
+  var out = {}, t = String(text).replace(/ /g," ");
+  var m = t.match(/\b(?:qualifying\s+nights?|nights?\s+earned|night\s+credits?)\D{0,14}(\d{1,3})\b/i);
+  if(!m) m = t.match(/\b(\d{1,3})\s*(?:\/\s*\d+\s*)?(?:qualifying\s+)?nights?\b/i);
   if(m) out.nights = parseInt(m[1],10);
-  var m2 = t.match(/\b(?:qualifying\s+nights?|nights?\s+earned|night\s+credit)\D{0,12}([\d]{1,3})\b/i);
-  if(m2) out.nights = parseInt(m2[1],10);
-  var p = t.match(/([\d][\d,]{2,})\s*(?:base\s*)?points?\b/i);
+  var p = t.match(/\bbase\s+points?\D{0,14}([\d][\d,]{2,})\b/i);
+  if(!p) p = t.match(/([\d][\d,]{2,})\s*(?:base\s*)?points?\b/i);
   if(p) out.points = parseInt(p[1].replace(/,/g,""),10);
-  var p2 = t.match(/\bbase\s+points?\D{0,12}([\d][\d,]{2,})\b/i);
-  if(p2) out.points = parseInt(p2[1].replace(/,/g,""),10);
   var tier = t.match(/\b(Globalist|Explorist|Discoverist|Member)\b/i);
   if(tier) out.tier = tier[1].charAt(0).toUpperCase()+tier[1].slice(1).toLowerCase();
   return out;
 }
 
 function snapshotSheet(){
-  var last = state.snapshots.length ? state.snapshots[state.snapshots.length-1] : null;
+  var d = derive(), last = d.latest;
   openSheet("What does your account say?",
-    '<p class="note" style="margin-bottom:14px">Open World of Hyatt, read the numbers, and put them here. Or paste the whole activity screen below and let the app pull them out.</p>'+
+    '<p class="note" style="margin-bottom:15px;font-size:15px">Open World of Hyatt, read the numbers, put them here. Or paste the whole activity screen and the app will pull them out.</p>'+
     '<div class="grid2">'+
       field("Qualifying nights","k_n","number", last?last.nights:"", 'min="0" step="1" inputmode="numeric" placeholder="0"')+
-      field("Base points","k_p","number", last?last.points:"", 'min="0" step="1" inputmode="numeric" placeholder="optional"')+
+      field("Base points","k_p","number", last&&last.points!=null?last.points:"", 'min="0" step="1" inputmode="numeric" placeholder="optional"')+
     '</div>'+
+    '<div class="preview" id="k_prev" hidden></div>'+
     '<div class="grid2">'+
       '<div class="field"><label for="k_t">Current tier</label><select id="k_t">'+
         ["","Member","Discoverist","Explorist","Globalist"].map(function(x){
-          return '<option value="'+x+'"'+(last&&last.tier===x?" selected":"")+'>'+(x||"—")+'</option>';}).join("")+
+          return '<option value="'+x+'"'+(last&&last.tier===x?" selected":"")+'>'+(x||"—")+'</option>'; }).join("")+
       '</select></div>'+
       field("Checked on","k_d","date",todayISO())+
     '</div>'+
     '<div class="field"><label for="k_paste">Or paste your activity screen</label>'+
       '<textarea id="k_paste" placeholder="Select all on the World of Hyatt activity page, copy, paste here."></textarea>'+
       '<span class="help">Nothing leaves your device — the app reads the text and fills the fields above.</span></div>'+
-    '<div class="btn-row"><button class="btn ghost" id="k_parse">Read the pasted text</button></div>'+
-    '<div class="field" style="margin-top:12px"><label for="k_note">Note</label>'+
-      '<input id="k_note" type="text" placeholder="e.g. Boston stay still missing"></div>'+
+    '<div class="btn-row"><button class="btn ghost small" id="k_parse">Read the pasted text</button></div>'+
+    field("Note","k_note","text","",'placeholder="e.g. Boston stay still missing"')+
     '<div class="btn-row"><button class="btn" id="k_save">Save snapshot</button></div>',
     function(){
+      function updatePrev(){
+        var n = parseInt(document.getElementById("k_n").value,10);
+        var el = document.getElementById("k_prev");
+        if(isNaN(n)){ el.hidden = true; return; }
+        el.hidden = false;
+        var msg = "";
+        if(last){
+          var dn = n - Number(last.nights);
+          msg = dn > 0 ? "<b>+"+dn+"</b> nights since "+fmtDate(last.at)+". "
+              : dn === 0 ? "No change since "+fmtDate(last.at)+". "
+              : "<b>"+dn+"</b> nights versus "+fmtDate(last.at)+" — worth a second look. ";
+        }
+        var gap = Math.max(0, d.target - n);
+        msg += gap > 0 ? plural(gap,"night")+" from the target." : "That's the target reached.";
+        var ledgerGap = d.stayed - n;
+        if(ledgerGap > 0) msg += " Your ledger has "+plural(ledgerGap,"night")+" Hyatt hasn't credited.";
+        el.innerHTML = msg;
+      }
+      document.getElementById("k_n").addEventListener("input", updatePrev);
+      updatePrev();
+
       document.getElementById("k_parse").onclick = function(){
         var got = parseActivity(document.getElementById("k_paste").value);
         if(got.nights==null && got.points==null && !got.tier){
-          alert("Couldn't find nights or points in that text. Type the numbers in above instead.");
-          return;
+          toast("Couldn't find nights or points in that text"); return;
         }
         if(got.nights!=null) document.getElementById("k_n").value = got.nights;
         if(got.points!=null) document.getElementById("k_p").value = got.points;
         if(got.tier) document.getElementById("k_t").value = got.tier;
-        alert("Found: "+
-          (got.nights!=null?got.nights+" nights. ":"")+
-          (got.points!=null?got.points.toLocaleString()+" points. ":"")+
-          (got.tier?got.tier+". ":"")+
-          "Check the fields before saving — this is a best guess at Hyatt's layout.");
+        updatePrev();
+        toast("Found "+[got.nights!=null?got.nights+" nights":null,
+                        got.points!=null?got.points.toLocaleString()+" pts":null,
+                        got.tier].filter(Boolean).join(", ")+" — check before saving");
       };
       document.getElementById("k_save").onclick = function(){
         var n = parseInt(document.getElementById("k_n").value,10);
         if(isNaN(n) || n<0){ alert("Enter the qualifying night count your account shows."); return; }
         var pts = parseInt(document.getElementById("k_p").value,10);
-        if(state.isSample){ state.stays = []; state.snapshots = []; state.isSample = false; }
-        state.snapshots.push({
-          id: uid(),
-          at: document.getElementById("k_d").value || todayISO(),
-          nights: n,
-          points: isNaN(pts) ? null : pts,
+        clearSampleIfNeeded();
+        state.snapshots.push({ id:uid(), at: document.getElementById("k_d").value || todayISO(),
+          nights:n, points: isNaN(pts)?null:pts,
           tier: document.getElementById("k_t").value,
-          note: document.getElementById("k_note").value.trim()
-        });
+          note: document.getElementById("k_note").value.trim() });
         state.snapshots.sort(function(a,b){ return a.at < b.at ? -1 : 1; });
+        stripAnimated = false;
         closeSheet(); commit(); showTab("account");
+        var prev = state.snapshots.length>1 ? state.snapshots[state.snapshots.length-2] : null;
+        toast(prev ? ((n-prev.nights)>0 ? "+"+(n-prev.nights)+" nights since last check" : "No change since last check")
+                   : "Baseline recorded");
       };
     });
 }
 
-/* ============================================================
-   Ask Claude for a tailored plan
-   ============================================================ */
+/* ---- ask claude ---- */
 function buildAskPrompt(){
   var d = derive();
   var lines = d.counting.map(function(s){
-    return "- "+s.hotel+(s.city?" ("+s.city+")":"")+": "+s.nights+" nights from "+s.checkIn+
-      ", "+(checkOut(s)<=d.today ? (s.credited?"credited":"stayed, not yet posted") : "booked ahead")+
+    return "- "+s.hotel+(s.city?" ("+s.city+")":"")+": "+s.nights+" nights from "+s.checkIn+", "+
+      (checkOut(s)<=d.today ? (s.credited?"credited":"stayed, not yet posted") : "booked ahead")+
       (s.rate?", "+fmtMoney(s.rate,d.ch.currency)+"/night":"");
   }).join("\n") || "- none logged";
   return "You are advising a traveler on a World of Hyatt status challenge. Be concrete and brief.\n\n"+
-    "CHALLENGE: "+d.ch.name+"\n"+
-    "Target: "+d.target+" qualifying nights between "+d.ch.startDate+" and "+d.ch.endDate+"\n"+
-    "Today: "+d.today+" ("+d.daysLeft+" days left)\n"+
-    "Credited per their account: "+d.confirmed+"\n"+
-    "Stayed but not yet posted: "+d.unposted+"\n"+
-    "Booked ahead: "+d.booked+"\n"+
-    "Still to book: "+d.gapAfter+"\n"+
+    "CHALLENGE: "+d.ch.name+"\nTarget: "+d.target+" qualifying nights between "+d.ch.startDate+" and "+d.ch.endDate+"\n"+
+    "Today: "+d.today+" ("+d.daysLeft+" days left)\nCredited per their account: "+d.confirmed+"\n"+
+    "Stayed but not yet posted: "+d.unposted+"\nBooked ahead: "+d.booked+"\nStill to book: "+d.gapAfter+"\n"+
     "Average nightly rate so far: "+fmtMoney(d.avgRate,d.ch.currency)+"\n"+
     (d.ch.terms ? "\nOFFER TERMS THEY PASTED:\n"+d.ch.terms.slice(0,1500)+"\n" : "")+
     "\nSTAY LEDGER:\n"+lines+"\n\n"+
     "Write 3 to 5 short paragraphs of plain prose (no headings, no bullet lists, no markdown) telling them exactly what to do next: "+
-    "how to close the gap, when to book by, what to watch for in posting, and the single biggest risk to this challenge given these specific numbers. "+
+    "how to close the gap, when to book by, what to watch for in posting, and the single biggest risk given these specific numbers. "+
     "Where a claim depends on the offer's fine print or on current Hyatt rules, say so plainly instead of asserting it. "+
     "Do not invent promotions, rates, or hotel names.";
 }
-
 function renderAnswer(text){
-  var el = document.getElementById("askAnswer");
-  var paras = String(text).split(/\n{2,}/).filter(function(p){ return p.trim(); });
-  el.innerHTML = paras.map(function(p){
-    return '<p class="note">'+esc(p.trim())+'</p>';
-  }).join("");
+  document.getElementById("askAnswer").innerHTML =
+    String(text).split(/\n{2,}/).filter(function(p){ return p.trim(); })
+      .map(function(p){ return '<p class="note">'+esc(p.trim())+'</p>'; }).join("");
 }
-
 function wireAsk(){
   var btn = document.getElementById("btnAsk");
   btn.onclick = function(){
     if(!sampleFn) return;
-    btn.disabled = true;
-    btn.textContent = "Thinking…";
-    document.getElementById("askAnswer").innerHTML = '<p class="note" style="color:var(--ink-3)">Reading your ledger…</p>';
-    sampleFn(buildAskPrompt(), {
-      modelTier: "complex",
-      onText: function(e){ renderAnswer(e.text); }
-    }).then(function(r){
-      renderAnswer(r.text);
-      btn.disabled = false; btn.textContent = "Ask again";
-    }).catch(function(err){
-      var msg = (err && err.code === "rate_limited")
-        ? "Too many requests just now — try again in a minute."
-        : "Couldn't reach Claude just now. The advice above is computed locally and still holds.";
-      document.getElementById("askAnswer").innerHTML = '<p class="note" style="color:var(--crit)">'+esc(msg)+'</p>';
-      btn.disabled = false; btn.textContent = "Try again";
-    });
+    btn.disabled = true; btn.textContent = "Reading your ledger…";
+    document.getElementById("askAnswer").innerHTML = '<p class="note" style="color:var(--ink-3)">Thinking…</p>';
+    sampleFn(buildAskPrompt(), { modelTier:"complex", onText:function(e){ renderAnswer(e.text); } })
+      .then(function(r){ renderAnswer(r.text); btn.disabled=false; btn.textContent="Ask again"; })
+      .catch(function(err){
+        document.getElementById("askAnswer").innerHTML = '<p class="note" style="color:var(--crit)">'+
+          esc(err && err.code === "rate_limited"
+            ? "Too many requests just now — try again in a minute."
+            : "Couldn't reach Claude just now. The advice above is computed from your own numbers and still holds.")+'</p>';
+        btn.disabled=false; btn.textContent="Try again";
+      });
   };
 }
 
-/* ============================================================
-   Export
-   ============================================================ */
+/* ---- export ---- */
 function csv(){
-  var d = derive();
-  var head = "hotel,city,check_in,check_out,nights,rate,currency,counts,credited,confirmation\n";
-  return head + state.stays.map(function(s){
-    return [s.hotel,s.city,s.checkIn,checkOut(s),s.nights,s.rate,d.ch.currency,
-            s.counts!==false,!!s.credited,s.conf]
-      .map(function(v){ return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'; }).join(",");
-  }).join("\n");
+  var cur = state.challenge.currency;
+  return "hotel,city,check_in,check_out,nights,rate,currency,counts,credited,confirmation\n" +
+    state.stays.map(function(s){
+      return [s.hotel,s.city,s.checkIn,checkOut(s),s.nights,s.rate,cur,s.counts!==false,!!s.credited,s.conf]
+        .map(function(v){ return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'; }).join(",");
+    }).join("\n");
 }
 
 /* ============================================================
-   Tabs + events
+   Events
    ============================================================ */
 function showTab(name){
   ["progress","stays","advisor","account"].forEach(function(t){
@@ -1274,37 +1593,53 @@ function showTab(name){
 Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(b){
   b.addEventListener("click", function(){ showTab(b.dataset.tab); });
 });
-
 document.getElementById("btnSettings").addEventListener("click", settingsSheet);
 document.getElementById("btnAddStay").addEventListener("click", function(){ staySheet(null); });
 document.getElementById("btnSnap").addEventListener("click", snapshotSheet);
-document.getElementById("btnClearSample").addEventListener("click", function(){
-  state = blankState(); commit(); settingsSheet();
-});
+
 document.addEventListener("click", function(e){
-  var row = e.target.closest ? e.target.closest("[data-stay]") : null;
-  if(row) staySheet(row.dataset.stay);
+  var t = e.target.closest ? e.target : null;
+  if(!t) return;
+  var edit = t.closest("[data-stay]");
+  if(edit){ staySheet(edit.dataset.stay); return; }
+  var cred = t.closest("[data-credit]");
+  if(cred){
+    var s = state.stays.filter(function(x){ return x.id === cred.dataset.credit; })[0];
+    if(s){
+      s.credited = true; commit();
+      toast(plural(s.nights,"night")+" marked credited", "Undo", function(){
+        s.credited = false; commit();
+      });
+    }
+    return;
+  }
+  if(t.closest("[data-add]")){ staySheet(null); return; }
+  if(t.closest("[data-snap]")){ snapshotSheet(); return; }
 });
 document.addEventListener("change", function(e){
   var c = e.target.dataset ? e.target.dataset.check : null;
-  if(c){ state.checks[c] = e.target.checked; persist(); }
+  if(c){ state.checks[c] = e.target.checked; persist(); renderChecks(); }
 });
 document.getElementById("btnExport").addEventListener("click", function(){
-  var name = "hyatt-challenge-stays.csv";
+  if(!state.stays.length){ toast("No stays to export yet"); return; }
   if(downloadsNs){
-    downloadsNs.save({ filename:name, data: csv() }).catch(function(){});
+    downloadsNs.save({ filename:"hyatt-challenge-stays.csv", data:csv() })
+      .then(function(){ toast("Saved"); }).catch(function(){});
   } else {
-    // Fall back to showing the rows so they can be copied by hand.
     openSheet("Your stays as CSV",
-      '<p class="note" style="margin-bottom:12px">Saving files isn\'t available in this view. Copy the rows below.</p>'+
+      '<p class="note" style="margin-bottom:13px">Saving files isn\'t available in this view. Copy the rows below.</p>'+
       '<div class="field"><textarea readonly style="min-height:220px;font-family:var(--mono);font-size:12px">'+esc(csv())+'</textarea></div>');
   }
 });
+window.addEventListener("scroll", function(){
+  document.getElementById("appbar").classList.toggle("stuck", window.scrollY > 4);
+}, {passive:true});
 
 /* ============================================================
    Boot
    ============================================================ */
 state = loadLocal() || sampleState();
+if(state.onboarded === undefined) state.onboarded = !state.isSample;
 render();
 
 if(window.claude && typeof window.claude.use === "function"){
@@ -1313,7 +1648,6 @@ if(window.claude && typeof window.claude.use === "function"){
     dbDoc = ns.doc("tracker/state");
     dbDoc.onSnapshot(function(snap){
       if(!snap.exists){
-        // Nothing stored yet: push what we have unless it is only the sample.
         if(!state.isSample) dbDoc.set(JSON.parse(JSON.stringify(state))).catch(function(){});
         return;
       }
@@ -1325,28 +1659,19 @@ if(window.claude && typeof window.claude.use === "function"){
       state.checks = state.checks || {};
       state.stays = state.stays || [];
       state.snapshots = state.snapshots || [];
-      saveLocal();
-      render();
+      saveLocal(); render();
       applyingRemote = false;
-    }, function(){ /* keep running on localStorage */ });
+    }, function(){});
   }).catch(function(){});
 
-  window.claude.use("sample").then(function(ns){
-    if(!ns) return;
-    sampleFn = ns;
-    wireAsk();
-  }).catch(function(){});
-
-  window.claude.use("downloads").then(function(ns){
-    if(ns) downloadsNs = ns;
-  }).catch(function(){});
+  window.claude.use("sample").then(function(ns){ if(ns){ sampleFn = ns; wireAsk(); } }).catch(function(){});
+  window.claude.use("downloads").then(function(ns){ if(ns) downloadsNs = ns; }).catch(function(){});
 }
 
-// If sampling never becomes available, say so rather than leaving a dead button.
 setTimeout(function(){
   if(!sampleFn){
     var row = document.getElementById("askRow");
-    if(row) row.innerHTML = '<p class="note" style="color:var(--ink-3)">Asking Claude isn\'t available in this view — the advice above is computed from your own numbers and needs nothing external.</p>';
+    if(row) row.innerHTML = '<p class="note" style="color:var(--ink-3);font-size:14.5px">Asking Claude isn\'t available in this view — the advice above is computed from your own numbers and needs nothing external.</p>';
   }
 }, 11000);
 
