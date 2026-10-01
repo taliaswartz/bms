@@ -195,6 +195,15 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 }
 .kc-count span{font-size:16px;font-weight:600;color:var(--kc-mute);letter-spacing:-.01em}
 .kc-sub{font-size:12.5px;color:var(--kc-mute);margin-top:9px;letter-spacing:.005em}
+.kc-miles{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.kc-miles span{
+  display:inline-flex;align-items:center;gap:6px;border-radius:999px;
+  padding:5px 11px;font-size:11.5px;font-weight:600;
+  background:rgba(255,255,255,.07);border:1px solid var(--kc-hair);color:var(--kc-mute);
+}
+.kc-miles span.done{background:rgba(231,206,142,.14);border-color:rgba(231,206,142,.45);color:var(--kc-foil)}
+.kc-miles span.done b{color:var(--kc-foil)}
+.kc-miles b{font-weight:700;color:var(--kc-ink)}
 
 /* perforated night strip along the card's lower edge */
 .kc-strip{display:grid;gap:3px;margin:16px 0 0}
@@ -421,6 +430,13 @@ code{font-family:var(--mono);font-size:13px;background:var(--surface-2);border-r
 .dots i.on{background:var(--brand)}
 .step-h{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
 .step-q{margin:0 0 15px;font-size:19px;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+.opt{
+  display:block;width:100%;text-align:left;background:var(--surface-2);
+  border:1.5px solid var(--line-2);border-radius:13px;padding:14px;margin-bottom:10px;
+}
+.opt[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft)}
+.opt b{display:block;font-size:15.5px;font-weight:700;margin-bottom:3px;letter-spacing:-.01em}
+.opt span{display:block;font-size:13px;color:var(--ink-2);line-height:1.4}
 
 /* ============================================================
    Tab bar
@@ -516,6 +532,7 @@ code{font-family:var(--mono);font-size:13px;background:var(--surface-2);border-r
       </div>
       <div class="kc-count"><b id="kcCount">0</b><span id="kcOf">of 0 nights</span></div>
       <div class="kc-sub" id="kcSub">—</div>
+      <div class="kc-miles" id="kcMiles"></div>
       <div class="kc-strip" id="kcStrip" role="img" aria-label="Night progress"></div>
       <div class="kc-key">
         <span><i class="on"></i>Credited</span>
@@ -531,6 +548,11 @@ code{font-family:var(--mono);font-size:13px;background:var(--surface-2);border-r
     <div class="card">
       <p class="eyebrow">Pace against the deadline</p>
       <div class="chart-wrap" id="chart"></div>
+    </div>
+
+    <div class="card" id="ytdCard" hidden>
+      <p class="eyebrow">Calendar year, the standard route</p>
+      <div id="ytdBody"></div>
     </div>
 
     <div class="card">
@@ -680,7 +702,8 @@ function blankState(){
   return {
     v:1, isSample:false, onboarded:false,
     challenge:{ name:"Globalist status challenge", targetNights:20, startDate:start,
-                endDate:addDays(start,89), currency:"USD", typicalRate:180, terms:"" },
+                endDate:addDays(start,89), currency:"USD", typicalRate:180, terms:"",
+                preset:"", midNights:0, midLabel:"", ytdTarget:60 },
     stays:[], snapshots:[], checks:{}
   };
 }
@@ -705,6 +728,20 @@ function sampleState(){
   ];
   return s;
 }
+/* Known World of Hyatt offers, so setup doesn't mean retyping the fine print.
+   `days` is counted from the registration date, inclusive of the window the
+   offer states. */
+var PRESETS = {
+  "elite-trial": {
+    label: "Elite Trial Tier offer",
+    blurb: "20 nights in 90 days from registration → Globalist. 10 keeps Explorist.",
+    name: "Globalist quick-qualify",
+    target: 20, days: 90, midNights: 10, midLabel: "Explorist",
+    dateLabel: "Registered on",
+    terms: "World of Hyatt Elite Trial Tier offer. Qualification Period starts on the registration date and runs 90 days; stays must CHECK OUT within it. At least 10 Tier-Qualifying Nights maintains Explorist through Feb 29, 2028; at least 20 Tier-Qualifying Nights earns Globalist through Feb 29, 2028. Tier-Qualifying Night credits obtained by any means other than a hotel stay (credit card night credits, promotional night credits) do not count. Any participating Hyatt hotel or resort worldwide."
+  }
+};
+
 var state = null;
 
 function loadLocal(){
@@ -773,7 +810,14 @@ function derive(){
   else if(gapAfter/daysLeft > 0.22){ status="Tight"; tone="warn"; }
   else { status="On track"; tone="go"; }
 
-  return { ch:ch, today:today, target:target, confirmed:confirmed, unposted:unposted,
+  var mid = Number(ch.midNights)||0;
+  var latestYtd = null;
+  for(var i=state.snapshots.length-1;i>=0;i--){
+    if(state.snapshots[i].ytdNights != null){ latestYtd = state.snapshots[i]; break; }
+  }
+
+  return { mid:mid, midDone: mid>0 && confirmed >= mid, ytd:latestYtd,
+           ch:ch, today:today, target:target, confirmed:confirmed, unposted:unposted,
            booked:booked, stayed:stayed, gapAfter:gapAfter, daysLeft:daysLeft, daysTotal:daysTotal,
            avgRate:avgRate, perWeek:perWeek, bookBy:bookBy, stale:stale, pending:pending,
            accountNights:accountNights, latest:latest, status:status, tone:tone, counting:counting };
@@ -788,6 +832,7 @@ function render(){
   renderKeycard(d);
   renderMetrics(d);
   renderChart(d);
+  renderYtd(d);
   renderNextUp(d);
   renderStays(d);
   renderAdvice(d);
@@ -846,6 +891,16 @@ function renderKeycard(d){
   strip.setAttribute("aria-label", d.confirmed+" of "+d.target+" nights credited, "+
     d.unposted+" stayed awaiting posting, "+d.booked+" booked ahead");
   if(!stripAnimated){ strip.classList.add("anim"); stripAnimated = true; }
+
+  var miles = document.getElementById("kcMiles");
+  if(d.mid > 0){
+    miles.innerHTML =
+      '<span class="'+(d.midDone?"done":"")+'">'+(d.midDone?"✓ ":"")+'<b>'+d.mid+'</b> '+
+        esc(d.ch.midLabel||"first tier")+(d.midDone?" secured":" to secure")+'</span>'+
+      '<span class="'+(d.confirmed>=d.target?"done":"")+'">'+(d.confirmed>=d.target?"✓ ":"")+
+        '<b>'+d.target+'</b> Globalist'+
+        (d.confirmed>=d.target?"" : " · "+plural(Math.max(0,d.target-d.confirmed),"night")+" to go")+'</span>';
+  } else miles.innerHTML = "";
 
   var foot = [
     {dt:"Still to book", dd: d.gapAfter === 0 ? "None" : plural(d.gapAfter,"night")},
@@ -929,6 +984,29 @@ function renderChart(d){
     '<span><i style="border-top-color:var(--brand);border-top-style:dashed"></i>With stays booked</span>'+
     '<span><i style="border-top-color:var(--line-2);border-top-style:dashed"></i>Pace needed</span></div>';
   document.getElementById("chart").innerHTML = svg;
+}
+
+/* The challenge is one path to Globalist; hitting the calendar-year night
+   threshold is the other. Shown only once there are YTD numbers to show. */
+function renderYtd(d){
+  var card = document.getElementById("ytdCard");
+  if(!d.ytd || d.ytd.ytdNights == null){ card.hidden = true; return; }
+  card.hidden = false;
+  var have = Number(d.ytd.ytdNights), need = Number(d.ch.ytdTarget)||60;
+  var left = Math.max(0, need - have);
+  var yearEnd = (parseISO(d.today).getFullYear())+"-12-31";
+  var daysToYE = Math.max(0, daysBetween(d.today, yearEnd));
+  document.getElementById("ytdBody").innerHTML =
+    '<p class="note"><b>'+have+' of '+need+'</b> qualifying nights this calendar year'+
+    (d.ytd.ytdPoints != null ? ', and '+Number(d.ytd.ytdPoints).toLocaleString()+' qualifying points' : '')+
+    '. '+
+    (left === 0
+      ? 'That already clears the standard night threshold.'
+      : 'The standard route needs <b>'+plural(left,"more night")+'</b> by Dec 31 — '+plural(daysToYE,"day")+' away. '+
+        (d.gapAfter > 0 && d.gapAfter < left
+          ? 'Your challenge needs only '+plural(d.gapAfter,"night")+', so that is much the cheaper path.'
+          : 'Worth keeping as the fallback if the challenge window closes short.'))+
+    '</p>';
 }
 
 function renderNextUp(d){
@@ -1015,12 +1093,16 @@ function leadAdvice(d){
     return { h:"Every night you need is booked", p:"Between "+d.confirmed+" credited, "+d.unposted+" stayed but unposted and "+d.booked+" booked ahead, you reach "+d.target+". Don't cancel or shorten anything without redoing this math." };
   if(d.daysLeft <= 0)
     return { h:"The window has closed", p:"You finished at "+(d.confirmed+d.unposted)+" of "+d.target+". If any stay inside the window still hasn't posted, file the missing stay claim now — that is the only path left." };
-  var pace = d.perWeek === Infinity ? "more than the calendar allows" : (Math.round(d.perWeek*10)/10)+" nights a week";
+  var paceClause = d.perWeek === Infinity
+    ? " — more than the calendar allows"
+    : (d.perWeek >= 1 ? " — that's "+(Math.round(d.perWeek*10)/10)+" nights a week from here" : "");
   return {
     h: "Book "+plural(d.gapAfter,"more night")+(d.bookBy ? " by "+fmtDate(d.bookBy) : ""),
-    p: "You're at "+(d.confirmed+d.unposted)+" of "+d.target+" with "+d.booked+" booked ahead and "+plural(d.daysLeft,"day")+
-       " left — that's "+pace+" from here"+
-       (d.bookBy ? ", and "+fmtDateY(d.bookBy)+" is the last date you can check in and still finish "+plural(d.gapAfter,"night")+" before the deadline." : ".")
+    p: "You're at "+(d.confirmed+d.unposted)+" of "+d.target+
+       (d.booked ? " with "+plural(d.booked,"night")+" booked ahead" : " with nothing booked ahead")+
+       " and "+plural(d.daysLeft,"day")+" left"+paceClause+". "+
+       (d.bookBy ? fmtDateY(d.bookBy)+" is the last date you can check in and still finish "+plural(d.gapAfter,"night")+" before the deadline."
+                 : "")
   };
 }
 
@@ -1036,6 +1118,16 @@ function advice(d){
       p: oldest
         ? "<b>"+esc(oldest.hotel)+"</b> checked out "+plural(daysBetween(checkOut(oldest),d.today),"day")+" ago and still hasn't posted. Nights normally appear within a few days, so chase this one — file a missing stay claim with the folio and confirmation number while the window is still open."
         : "Normal for a recent checkout; posting usually lags a few days. The app flags any stay that goes ten days without appearing."});
+  }
+  if(d.ch.preset === "elite-trial" && d.gapAfter > 0 && d.daysLeft > 0){
+    out.push({tone:"info", g:"→", h:"The deadline is a check-out date, not a check-in",
+      p:"These terms count stays you <b>check out of</b> inside the Qualification Period. The last night that can possibly count is "+
+        fmtDateY(addDays(d.ch.endDate,-1))+" → "+fmtDateY(d.ch.endDate)+". A stay that runs past "+fmtDateY(d.ch.endDate)+" doesn't count, however early it started."});
+  }
+  if(d.mid > 0 && d.midDone && d.confirmed < d.target){
+    out.push({tone:"go", g:"✓", h:esc(d.ch.midLabel||"The lower tier")+" is already secured",
+      p:"You passed "+d.mid+" nights, so that half of the offer is banked whatever happens next. Everything from here is the "+
+        d.target+"-night Globalist threshold — "+plural(d.target-d.confirmed,"night")+" away."});
   }
   if(d.daysLeft > 0 && d.daysLeft <= 21 && d.gapAfter > 0){
     out.push({tone:"crit", g:"⏱", h:"Under three weeks with nights outstanding",
@@ -1069,9 +1161,11 @@ function renderAdvice(d){
     : "";
 }
 
-var CHECKLIST = [
+/* The generic list hedges, because offers differ. When the challenge came from
+   a known preset its real terms answer those questions, so the hedging goes. */
+var CHECKLIST_GENERIC = [
   {id:"terms",  t:"Read your offer's exact terms and enter them in Setup — target nights, window dates, which rates count."},
-  {id:"enrol",  t:"Confirm you're actually registered for the challenge and the confirmation matches the dates you entered."},
+  {id:"enrol",  t:"Confirm you're actually registered and the confirmation matches the dates you entered."},
   {id:"corp",   t:"Check that your corporate or negotiated rate code is eligible. Some challenges exclude discounted and third-party rates.", v:true},
   {id:"award",  t:"Check whether award nights count for your offer before planning around them — challenge terms and standard qualifying rules aren't always the same.", v:true},
   {id:"ota",    t:"Book direct with Hyatt. Nights booked through online travel agencies generally don't earn qualifying nights.", v:true},
@@ -1081,10 +1175,25 @@ var CHECKLIST = [
   {id:"claim",  t:"File missing stay claims well before the deadline, not after it."},
   {id:"buffer", t:"Plan to finish a week early. Posting delays at the end of the window are the most common way a challenge is lost."}
 ];
+var CHECKLIST_TRIAL = [
+  {id:"t_out",   t:"Make the stay CHECK OUT on or before the last day of your window. These terms count check-outs inside the Qualification Period, not check-ins — a stay straddling the end date doesn't count."},
+  {id:"t_cards", t:"Don't count on credit card or promotional night credits. The terms exclude any Tier-Qualifying Night obtained by means other than an actual hotel stay."},
+  {id:"t_any",   t:"Any participating Hyatt hotel or resort worldwide counts, so the cheapest available night closes the gap as well as the most expensive."},
+  {id:"ota",     t:"Book direct with Hyatt. Nights booked through online travel agencies generally don't earn qualifying nights.", v:true},
+  {id:"log",     t:"Log every booked night here, so the projection reflects what you've actually committed to."},
+  {id:"folio",   t:"Keep every folio and confirmation number until the status posts. That's what a missing stay claim needs."},
+  {id:"claim",   t:"File missing stay claims well before the window closes, not after it."},
+  {id:"buffer",  t:"Finish with room to spare. Posting delays at the end of the window are the most common way a challenge is lost."},
+  {id:"t_shot",  t:"Screenshot the offer page once it reads complete. That screenshot is your evidence if the status award needs chasing."}
+];
+function checklistFor(ch){
+  return (ch && ch.preset === "elite-trial") ? CHECKLIST_TRIAL : CHECKLIST_GENERIC;
+}
 function renderChecks(){
-  var done = CHECKLIST.filter(function(c){ return state.checks[c.id]; }).length;
-  document.getElementById("cntChecks").textContent = done+" of "+CHECKLIST.length;
-  document.getElementById("checks").innerHTML = CHECKLIST.map(function(c){
+  var list = checklistFor(state.challenge);
+  var done = list.filter(function(c){ return state.checks[c.id]; }).length;
+  document.getElementById("cntChecks").textContent = done+" of "+list.length;
+  document.getElementById("checks").innerHTML = list.map(function(c){
     return '<label class="check"><input type="checkbox" data-check="'+c.id+'"'+(state.checks[c.id]?" checked":"")+
       '><span class="txt">'+esc(c.t)+(c.v?'<span class="verify">verify</span>':'')+'</span></label>';
   }).join("");
@@ -1185,83 +1294,136 @@ function wireChips(){
 
 /* ---- three-step onboarding ---- */
 function wizard(){
-  var draft = { target:20, days:90, nights:0, points:"" };
+  var draft = { preset:"", target:20, days:90, mid:0, midLabel:"", name:"", terms:"" };
   function dots(n){ return '<div class="dots">'+[0,1,2].map(function(i){ return '<i class="'+(i<=n?"on":"")+'"></i>'; }).join("")+'</div>'; }
 
   function step1(){
     openSheet("Set up your challenge",
       dots(0)+
       '<p class="step-h">Step 1 of 3</p>'+
-      '<h3 class="step-q">How many qualifying nights does your offer need?</h3>'+
-      field("Qualifying nights","w_t","number",draft.target,'min="1" step="1" inputmode="numeric"')+
-      chipRow([10,20,30,60],"w_t")+
-      '<p class="help" style="margin:-4px 0 16px;color:var(--ink-3);font-size:13px">Whatever your offer letter says. You can change it later.</p>'+
-      '<div class="btn-row"><button class="btn" id="w_next">Continue</button></div>',
+      '<h3 class="step-q">Which offer are you working on?</h3>'+
+      '<button type="button" class="opt" data-preset="elite-trial" aria-pressed="false">'+
+        '<b>'+esc(PRESETS["elite-trial"].label)+'</b><span>'+esc(PRESETS["elite-trial"].blurb)+'</span></button>'+
+      '<button type="button" class="opt" data-preset="" aria-pressed="false">'+
+        '<b>Something else</b><span>Any other status challenge — you set the night target yourself.</span></button>'+
+      '<div id="w_custom" hidden>'+
+        field("Qualifying nights needed","w_t","number",20,'min="1" step="1" inputmode="numeric"')+
+        chipRow([10,20,30,60],"w_t")+
+      '</div>'+
+      '<div class="btn-row"><button class="btn" id="w_next" disabled>Continue</button></div>',
       function(){
         wireChips();
+        Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-preset]"), function(b){
+          b.onclick = function(){
+            Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-preset]"), function(o){
+              o.setAttribute("aria-pressed", o===b ? "true" : "false"); });
+            draft.preset = b.dataset.preset;
+            document.getElementById("w_custom").hidden = !!draft.preset;
+            document.getElementById("w_next").disabled = false;
+          };
+        });
         document.getElementById("w_next").onclick = function(){
-          var v = parseInt(document.getElementById("w_t").value,10);
-          if(!(v>0)){ alert("Enter how many qualifying nights the challenge needs."); return; }
-          draft.target = v; step2();
+          if(draft.preset){
+            var P = PRESETS[draft.preset];
+            draft.target = P.target; draft.days = P.days;
+            draft.mid = P.midNights; draft.midLabel = P.midLabel;
+            draft.name = P.name; draft.terms = P.terms;
+          } else {
+            var v = parseInt(document.getElementById("w_t").value,10);
+            if(!(v>0)){ alert("Enter how many qualifying nights the challenge needs."); return; }
+            draft.target = v; draft.days = 90; draft.mid = 0; draft.midLabel = "";
+            draft.name = "Globalist status challenge"; draft.terms = "";
+          }
+          step2();
         };
       });
   }
+
   function step2(){
+    var P = draft.preset ? PRESETS[draft.preset] : null;
     openSheet("Set up your challenge",
       dots(1)+
       '<p class="step-h">Step 2 of 3</p>'+
-      '<h3 class="step-q">When does the window close?</h3>'+
-      field("Last day that counts","w_e","date",addDays(todayISO(),draft.days))+
-      '<div class="chips">'+[60,90,120,180].map(function(n){
-        return '<button type="button" class="chip" data-days="'+n+'">'+n+' days</button>'; }).join("")+'</div>'+
-      field("Window opened on","w_s","date",todayISO(),"","Set this to the day your challenge started, if it was before today.")+
-      '<div class="btn-row"><button class="btn ghost small" id="w_back">Back</button><button class="btn" id="w_next">Continue</button></div>',
+      (P
+        ? '<h3 class="step-q">When did you register?</h3>'+
+          field(P.dateLabel,"w_s","date",todayISO(),"","The window runs "+P.days+" days from this date.")+
+          '<div class="preview" id="w_prev">—</div>'
+        : '<h3 class="step-q">When does the window close?</h3>'+
+          field("Window opened on","w_s","date",todayISO())+
+          field("Last day that counts","w_e","date",addDays(todayISO(),draft.days))+
+          '<div class="chips">'+[60,90,120,180].map(function(n){
+            return '<button type="button" class="chip" data-days="'+n+'">'+n+' days</button>'; }).join("")+'</div>')+
+      '<div class="btn-row"><button class="btn ghost small" id="w_back">Back</button>'+
+        '<button class="btn" id="w_next">Continue</button></div>',
       function(){
-        Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-days]"), function(b){
-          b.onclick = function(){
-            document.getElementById("w_e").value = addDays(todayISO(), +b.dataset.days);
-            Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-days]"), function(o){
-              o.setAttribute("aria-pressed", o===b ? "true":"false"); });
-          };
-        });
+        function syncPreview(){
+          if(!P) return;
+          var st = document.getElementById("w_s").value;
+          if(!st) return;
+          var en = addDays(st, P.days);
+          document.getElementById("w_prev").innerHTML =
+            "Window runs <b>"+fmtDateY(st)+"</b> → <b>"+fmtDateY(en)+"</b>. Stays must check out on or before that last date.";
+        }
+        if(P){ document.getElementById("w_s").addEventListener("input", syncPreview); syncPreview(); }
+        else {
+          Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-days]"), function(b){
+            b.onclick = function(){
+              document.getElementById("w_e").value = addDays(document.getElementById("w_s").value || todayISO(), +b.dataset.days);
+              Array.prototype.forEach.call(sheetBody.querySelectorAll("[data-days]"), function(o){
+                o.setAttribute("aria-pressed", o===b?"true":"false"); });
+            };
+          });
+        }
         document.getElementById("w_back").onclick = step1;
         document.getElementById("w_next").onclick = function(){
-          var s = document.getElementById("w_s").value, e = document.getElementById("w_e").value;
-          if(!s || !e || e <= s){ alert("The window has to close after it opens. Check the two dates."); return; }
-          draft.startDate = s; draft.endDate = e; step3();
+          var st = document.getElementById("w_s").value;
+          if(!st){ alert("Pick the date your window opened."); return; }
+          var en = P ? addDays(st, P.days) : document.getElementById("w_e").value;
+          if(!en || en <= st){ alert("The window has to close after it opens. Check the two dates."); return; }
+          draft.startDate = st; draft.endDate = en; step3();
         };
       });
   }
+
   function step3(){
     openSheet("Set up your challenge",
       dots(2)+
       '<p class="step-h">Step 3 of 3</p>'+
       '<h3 class="step-q">Where do you stand right now?</h3>'+
-      '<p class="help" style="margin:-8px 0 14px;color:var(--ink-3);font-size:13.5px">Open World of Hyatt and read off your qualifying night count. If you haven\'t started, leave it at zero.</p>'+
-      field("Qualifying nights so far","w_n","number",draft.nights,'min="0" step="1" inputmode="numeric"')+
-      field("Base points (optional)","w_p","number","",'min="0" step="1" inputmode="numeric" placeholder="optional"')+
+      '<p class="help" style="margin:-8px 0 14px;color:var(--ink-3);font-size:13.5px">The offer card in the World of Hyatt app shows your challenge count. The Account overview shows your calendar-year totals.</p>'+
+      field("Nights toward this offer","w_n","number",0,'min="0" step="1" inputmode="numeric"')+
+      '<div class="grid2">'+
+        field("Qualifying nights this year","w_y","number","",'min="0" step="1" inputmode="numeric" placeholder="optional"')+
+        field("Qualifying points this year","w_yp","number","",'min="0" step="1" inputmode="numeric" placeholder="optional"')+
+      '</div>'+
       field("Typical nightly rate","w_r","number",180,'min="0" step="1" inputmode="decimal"',"Used to estimate what closing the gap will cost.")+
-      '<div class="btn-row"><button class="btn ghost small" id="w_back">Back</button><button class="btn" id="w_done">Start tracking</button></div>',
+      '<div class="btn-row"><button class="btn ghost small" id="w_back">Back</button>'+
+        '<button class="btn" id="w_done">Start tracking</button></div>',
       function(){
         document.getElementById("w_back").onclick = step2;
         document.getElementById("w_done").onclick = function(){
           var n = parseInt(document.getElementById("w_n").value,10);
           if(isNaN(n) || n < 0) n = 0;
-          var pts = parseInt(document.getElementById("w_p").value,10);
+          var y  = parseInt(document.getElementById("w_y").value,10);
+          var yp = parseInt(document.getElementById("w_yp").value,10);
           var fresh = blankState();
           fresh.onboarded = true;
-          fresh.challenge.name = "Globalist status challenge";
+          fresh.challenge.preset = draft.preset;
+          fresh.challenge.name = draft.name;
           fresh.challenge.targetNights = draft.target;
+          fresh.challenge.midNights = draft.mid;
+          fresh.challenge.midLabel = draft.midLabel;
+          fresh.challenge.terms = draft.terms;
           fresh.challenge.startDate = draft.startDate;
           fresh.challenge.endDate = draft.endDate;
           fresh.challenge.typicalRate = parseFloat(document.getElementById("w_r").value) || 180;
           fresh.challenge.currency = state.challenge.currency || "USD";
-          if(n > 0 || !isNaN(pts)){
-            fresh.snapshots.push({ id:uid(), at:todayISO(), nights:n,
-              points: isNaN(pts)?null:pts, tier:"", note:"Starting point" });
+          if(n > 0 || !isNaN(y)){
+            fresh.snapshots.push({ id:uid(), at:todayISO(), nights:n, points:null, tier:"",
+              ytdNights: isNaN(y)?null:y, ytdPoints: isNaN(yp)?null:yp, balance:null,
+              note:"Starting point" });
           }
-          state = fresh;
-          stripAnimated = false;
+          state = fresh; stripAnimated = false;
           closeSheet(); commit(); showTab("progress");
           toast(n>0 ? "You're set up — "+n+" of "+draft.target+" nights" : "You're set up. Log your first stay next.");
         };
@@ -1300,13 +1462,13 @@ function settingsSheet(){
         if(end <= start){ alert("The window has to close after it opens. Check the two dates."); return; }
         var t = parseInt(document.getElementById("f_target").value,10);
         if(!(t>0)){ alert("Enter how many qualifying nights the challenge needs."); return; }
-        state.challenge = {
-          name: document.getElementById("f_name").value.trim() || "Status challenge",
-          targetNights:t, startDate:start, endDate:end,
-          currency: document.getElementById("f_cur").value,
-          typicalRate: parseFloat(document.getElementById("f_rate").value) || 0,
-          terms: document.getElementById("f_terms").value
-        };
+        state.challenge.name = document.getElementById("f_name").value.trim() || "Status challenge";
+        state.challenge.targetNights = t;
+        state.challenge.startDate = start;
+        state.challenge.endDate = end;
+        state.challenge.currency = document.getElementById("f_cur").value;
+        state.challenge.typicalRate = parseFloat(document.getElementById("f_rate").value) || 0;
+        state.challenge.terms = document.getElementById("f_terms").value;
         state.isSample = false; state.onboarded = true; stripAnimated = false;
         closeSheet(); commit(); toast("Challenge saved");
       };
@@ -1440,7 +1602,7 @@ function parseActivity(text){
 }
 
 function snapshotSheet(){
-  var d = derive(), last = d.latest;
+  var d = derive(), last = d.latest, lastYtd = d.ytd;
   openSheet("What does your account say?",
     '<p class="note" style="margin-bottom:15px;font-size:15px">Open World of Hyatt, read the numbers, put them here. Or paste the whole activity screen and the app will pull them out.</p>'+
     '<div class="grid2">'+
@@ -1448,6 +1610,11 @@ function snapshotSheet(){
       field("Base points","k_p","number", last&&last.points!=null?last.points:"", 'min="0" step="1" inputmode="numeric" placeholder="optional"')+
     '</div>'+
     '<div class="preview" id="k_prev" hidden></div>'+
+    '<p class="chips-lbl" style="margin-top:4px">From the Account overview — optional</p>'+
+    '<div class="grid2">'+
+      field("Qualifying nights this year","k_y","number", lastYtd&&lastYtd.ytdNights!=null?lastYtd.ytdNights:"", 'min="0" step="1" inputmode="numeric" placeholder="optional"')+
+      field("Qualifying points this year","k_yp","number", lastYtd&&lastYtd.ytdPoints!=null?lastYtd.ytdPoints:"", 'min="0" step="1" inputmode="numeric" placeholder="optional"')+
+    '</div>'+
     '<div class="grid2">'+
       '<div class="field"><label for="k_t">Current tier</label><select id="k_t">'+
         ["","Member","Discoverist","Explorist","Globalist"].map(function(x){
@@ -1501,8 +1668,11 @@ function snapshotSheet(){
         if(isNaN(n) || n<0){ alert("Enter the qualifying night count your account shows."); return; }
         var pts = parseInt(document.getElementById("k_p").value,10);
         clearSampleIfNeeded();
+        var y  = parseInt(document.getElementById("k_y").value,10);
+        var yp = parseInt(document.getElementById("k_yp").value,10);
         state.snapshots.push({ id:uid(), at: document.getElementById("k_d").value || todayISO(),
           nights:n, points: isNaN(pts)?null:pts,
+          ytdNights: isNaN(y)?null:y, ytdPoints: isNaN(yp)?null:yp,
           tier: document.getElementById("k_t").value,
           note: document.getElementById("k_note").value.trim() });
         state.snapshots.sort(function(a,b){ return a.at < b.at ? -1 : 1; });
@@ -1528,7 +1698,9 @@ function buildAskPrompt(){
     "Today: "+d.today+" ("+d.daysLeft+" days left)\nCredited per their account: "+d.confirmed+"\n"+
     "Stayed but not yet posted: "+d.unposted+"\nBooked ahead: "+d.booked+"\nStill to book: "+d.gapAfter+"\n"+
     "Average nightly rate so far: "+fmtMoney(d.avgRate,d.ch.currency)+"\n"+
-    (d.ch.terms ? "\nOFFER TERMS THEY PASTED:\n"+d.ch.terms.slice(0,1500)+"\n" : "")+
+    (d.mid ? "Lower threshold: "+d.mid+" nights for "+d.ch.midLabel+" ("+(d.confirmed>=d.mid?"already secured":"not yet")+")\n" : "")+
+    (d.ytd && d.ytd.ytdNights!=null ? "Calendar-year qualifying nights: "+d.ytd.ytdNights+" of "+(d.ch.ytdTarget||60)+"\n" : "")+
+    (d.ch.terms ? "\nOFFER TERMS:\n"+d.ch.terms.slice(0,1500)+"\n" : "")+
     "\nSTAY LEDGER:\n"+lines+"\n\n"+
     "Write 3 to 5 short paragraphs of plain prose (no headings, no bullet lists, no markdown) telling them exactly what to do next: "+
     "how to close the gap, when to book by, what to watch for in posting, and the single biggest risk given these specific numbers. "+
