@@ -14,7 +14,7 @@
   --bg:#050A12; --bg2:#0A1522;
   --navy:#005EB8; --navy-deep:#00417F; --cyan:#00AEEF; --accent:#62D9FF; --magenta:#62D9FF;
   --ink:#F4F8FC; --muted:#AAB9C8; --faint:#78899C;
-  --paper:#050A12; --paper2:rgba(98,217,255,.055); --card:rgba(13,27,44,.62);
+  --paper:#050A12; --paper2:rgba(98,217,255,.055); --card:rgba(13,27,44,.62); --panel:rgba(13,27,44,.62);
   --line:rgba(98,217,255,.18); --line2:rgba(98,217,255,.32);
   --navy-tint:rgba(0,94,184,.18); --cyan-tint:rgba(0,174,239,.14); --magenta-tint:rgba(98,217,255,.12);
   --shadow:0 10px 34px rgba(0,16,38,.45);
@@ -1265,21 +1265,26 @@ a.fac-name-link:hover .fac-arrow{color:var(--accent);transform:translate(1px,-1p
 
 
 /* ---------- the four written assignments, on the roadmap ---------- */
-.rm-assign{margin-top:10px;padding:22px 24px 20px;border-radius:0 18px 18px 0;cursor:pointer;
+.rm-assign{margin-top:10px;padding:22px 24px 20px;border-radius:0 18px 18px 0;
   background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
-  transition:border-color .35s var(--ease),transform .35s var(--ease);break-inside:avoid}
-.rm-assign:hover{border-color:var(--line2);transform:translateX(2px)}
+  transition:border-color .35s var(--ease);break-inside:avoid}
+.rm-assign:hover{border-color:var(--line2)}
 .ra-k{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.09em;
   text-transform:uppercase;color:var(--accent)}
 .ra-t{font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--ink);margin:7px 0 16px}
 .ra-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.ra-item{background:rgba(98,217,255,.05);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.ra-item{background:rgba(98,217,255,.05);border:1px solid var(--line);border-radius:12px;padding:13px 15px;
+  transition:border-color .18s var(--ease),background .18s var(--ease),transform .18s var(--ease)}
+.ra-item.clk{cursor:pointer}
+.ra-item.clk:hover{border-color:var(--accent);background:rgba(98,217,255,.1);transform:translateY(-2px)}
 .ra-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .ra-h b{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
 .ra-h span{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent)}
 .ra-when{font-size:11px;color:var(--accent);margin-top:4px;opacity:.85}
 .ra-d{font-size:12px;color:var(--muted);line-height:1.5;margin-top:7px}
 .ra-foot{margin-top:15px;font-size:12.5px;color:var(--faint);line-height:1.5}
+.ra-foot.clk{cursor:pointer;transition:color .18s var(--ease)}
+.ra-foot.clk:hover{color:var(--accent)}
 
 
 .compstrip{display:flex;flex-wrap:wrap;gap:9px}
@@ -2059,46 +2064,55 @@ const MODULES_1017 = [
   "id": "PSD",
   "name": "Physician-Scientist Development",
   "color": "#2D0068",
-  "sub": "Writing, reviewing and funding science — and finding your training area",
+  "sub": "Scientific writing, peer review, research proposals, and evaluating proposals",
   "leaders": "Brad Rosenberg",
   "w": 1,
-  "lite": "#9D52FF"
+  "lite": "#9D52FF",
+  "desc": "Physician-Scientist Development focuses on the practical skills you will need as a scientist: writing about your research, reviewing the work of others, developing research proposals, and evaluating proposals. Three sessions open BSR1017 in August: an introduction to the course, scientific writing, and peer review. Two graded assignments follow: BMS Writing Science and BMS Reviewing Scientific Literature."
  },
  {
   "id": "GGS",
   "name": "Genetics and Genomic Sciences",
   "color": "#5C90ED",
-  "sub": "Inheritance, variation, sequencing & GWAS",
+  "sub": "Inheritance, chromatin regulation, sequencing, GWAS, and functional genomics",
   "w": 4,
   "lite": "#6395EE",
-  "leaders": "Sander Houten, PhD · Anne Bowcock, PhD"
+  "leaders": "Sander Houten, PhD · Anne Bowcock, PhD",
+  "ta": "Brian Soong",
+  "desc": "Genetics and Genomic Sciences examines how genetic and epigenetic variation contributes to human biology and disease, from inheritance and chromatin regulation to sequencing, GWAS, and functional genomics. You will analyze exome, GWAS, and epigenomic data; distinguish causal variants from linked associations; and learn how to choose the right genomic approach for a research question. The module includes an exam, Journal Club presentation, and problem-solving sessions."
  },
  {
   "id": "CAB",
   "name": "Cancer Biology",
   "color": "#4862BE",
-  "sub": "Signaling, growth, proliferation & metastasis",
+  "sub": "Cell-cycle control, growth and nutrient signaling, genome instability, and metastasis",
   "w": 4,
   "lite": "#738ADE",
-  "leaders": "James Manfredi, PhD · Martin Walsh, PhD"
+  "leaders": "James Manfredi, PhD · Martin Walsh, PhD",
+  "ta": "Nicole Hirsh",
+  "desc": "Cancer Biology examines how cells control growth and proliferation and how those controls fail in cancer, including cell-cycle regulation, growth-factor and nutrient signaling, genome instability, metastasis, and the tumor microenvironment. You will analyze cancer mutations and signaling pathways, interpret experimental data, design experiments to test mechanisms, and consider how these findings inform targeted cancer therapies. The module includes an exam, Journal Club presentation, and problem-solving sessions."
  },
  {
   "id": "DMT",
-  "name": "Disease Mechanisms & Therapeutics",
+  "name": "Disease Mechanisms and Therapeutics",
   "color": "#4C459A",
-  "sub": "From mechanism to therapeutic development",
+  "sub": "Cardiovascular, metabolic, hepatic, and chronic disease, and the therapies that follow",
   "w": 4,
   "lite": "#7B73DE",
-  "leaders": "Michael Lazarus, PhD · Avner Schlessinger, PhD"
+  "leaders": "Michael Lazarus, PhD · Avner Schlessinger, PhD",
+  "ta": "Naomi Freilich",
+  "desc": "Disease Mechanisms and Therapeutics examines the mechanisms underlying major human diseases, including cardiovascular, metabolic, hepatic, and chronic diseases, and how discoveries about disease mechanisms lead to new therapies. You will work with disease models, analyze experimental data, identify potential therapeutic targets, and examine how therapies move from discovery to clinical use. The module includes an exam, Journal Club presentation, and problem-solving sessions."
  },
  {
   "id": "AIET",
-  "name": "Artificial Intelligence & Emerging Technologies",
+  "name": "AI and Emerging Technologies",
   "color": "#4F2B87",
-  "sub": "Computation & quantitation",
+  "sub": "Machine learning, imaging, physiological measurement, and mathematical modeling",
   "w": 4,
   "lite": "#9D73DE",
-  "leaders": "Ipek Ensari, PhD · Alan Seifert, PhD"
+  "leaders": "Ipek Ensari, PhD · Alan Seifert, PhD",
+  "ta": "Kennedy Salamat",
+  "desc": "AI and Emerging Technologies examines the quantitative and computational methods increasingly used in biomedical research, including machine learning, statistical modeling, imaging, physiological measurement, structural biology, and mathematical modeling. You will analyze biological data, work with computational models, select appropriate technologies for different research questions, and evaluate the strengths and limitations of AI and other emerging tools. The module includes an exam, Journal Club presentation, and problem-solving sessions."
  }
 ];
 const F = {
@@ -2136,9 +2150,7 @@ const SESSIONS_1017 = [
   ],
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
-  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches.",
-  "appr": "Need to ask",
-  "status": "Scheduled"
+  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches."
  },
  {
   "id": "PSD-LEC2",
@@ -2163,9 +2175,7 @@ const SESSIONS_1017 = [
   ],
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
-  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches.",
-  "appr": "Need to ask",
-  "status": "Scheduled"
+  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches."
  },
  {
   "id": "PSD-LEC3",
@@ -2189,9 +2199,7 @@ const SESSIONS_1017 = [
   ],
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
-  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches.",
-  "appr": "Need to ask",
-  "status": "Scheduled"
+  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches."
  },
  {
   "id": "GGS-LEC1",
@@ -2216,11 +2224,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Brian Soong",
-  "bio": "Tenured Associate Professor in Genetics and Genomic Sciences studying fatty acid oxidation, lysine degradation, and related metabolic disease mechanisms.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQBFmOAxVC-kQq0Nro3F_KbOAdKzKmcMGPdtU0EGTR4GAkk?e=aLNdEO",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQD-5b6CKvupTrdFEaiUwvBKAXzv0Mld2LKd5nN9n-n_-ys?e=aRT85g",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Tenured Associate Professor in Genetics and Genomic Sciences studying fatty acid oxidation, lysine degradation, and related metabolic disease mechanisms."
  },
  {
   "id": "GGS-LEC2",
@@ -2246,11 +2250,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Brian Soong",
-  "bio": "Norman Orentreich, MD Professor of Dermatology Research whose lab studies the genetics and genomics of psoriasis, skin disease, and uveal melanoma.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQBhiso3auxIRLXS7Or0wQzfAXCDcGINKHRasGDgJ2iUkaA?e=fJDco9",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQD-5b6CKvupTrdFEaiUwvBKAXzv0Mld2LKd5nN9n-n_-ys?e=aRT85g",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Norman Orentreich, MD Professor of Dermatology Research whose lab studies the genetics and genomics of psoriasis, skin disease, and uveal melanoma."
  },
  {
   "id": "GGS-TS1",
@@ -2276,11 +2276,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Brian Soong",
-  "bio": "Professor of Genetics and Genomic Sciences and Director of cancer genomics technologies, with broad interests in genomics, RNA biology, infectious disease, and translational research.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQBcmHCy4PUkRYk89E-TNRVyAQqcePK4CEBOhNI7YYEU5yw?e=0yk4Ii",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQB1L4ybSGy9SZY782d-vO1DAQO_V26jV-Zp9lkMjAe_IkA?e=IZJdUd",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Professor of Genetics and Genomic Sciences and Director of cancer genomics technologies, with broad interests in genomics, RNA biology, infectious disease, and translational research."
  },
  {
   "id": "GGS-LEC3",
@@ -2289,7 +2285,7 @@ const SESSIONS_1017 = [
   "iso": "2026-08-24",
   "mod": "GGS",
   "fmt": "Lecture",
-  "topic": "Human Molecular and Epigenetics",
+  "topic": "Human Epigenetics",
   "lec": "Anne Bowcock, PhD",
   "obj": [
    "Compare the roles of histone modification, DNA methylation, chromatin remodeling and noncoding RNAs in the regulation of gene expression.",
@@ -2304,11 +2300,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Brian Soong",
-  "bio": "Norman Orentreich, MD Professor of Dermatology Research whose lab studies the genetics and genomics of psoriasis, skin disease, and uveal melanoma.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQC4TElKuLbtTbN_yf-uBgMaAXkepTo2Fv2uRmb3VVQ3pDY?e=RvZin1",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQAcoqiZaKl8R7gbjzTm5cuzAcaYjF0pyTqs8heKzPFYUEM?e=gwQqGD",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Norman Orentreich, MD Professor of Dermatology Research whose lab studies the genetics and genomics of psoriasis, skin disease, and uveal melanoma."
  },
  {
   "id": "GGS-LEC4",
@@ -2335,11 +2327,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Brian Soong",
-  "bio": "Associate Professor studying female fertility and the germ cell to maternal transition using Drosophila oogenesis as a model system.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDrPIGIst1oS6AVghCu2FBAAcBhGaK1x0a00JiKkGp-2-Q?e=0VCS7x",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQBsHpzjrisCRIFlIRZQU6GJAQtFtlANc51xx2QgRFpQDVo?e=4Xjg43",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor studying female fertility and the germ cell to maternal transition using Drosophila oogenesis as a model system."
  },
  {
   "id": "GGS-JC_PS",
@@ -2365,8 +2353,7 @@ const SESSIONS_1017 = [
   ],
   "room": "Annenberg TBD",
   "time": "1:00 PM–3:00 PM",
-  "ta": "Brian Soong",
-  "status": "Scheduled"
+  "ta": "Brian Soong"
  },
  {
   "id": "GGS-MTA",
@@ -2386,8 +2373,7 @@ const SESSIONS_1017 = [
   "wk": 3,
   "room": "Annenberg TBD",
   "time": "3:00 PM–4:00 PM",
-  "ta": "Brian Soong",
-  "status": "Scheduled"
+  "ta": "Brian Soong"
  },
  {
   "id": "GGS-LEC5",
@@ -2414,11 +2400,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Brian Soong",
-  "bio": "Tenure-track Assistant Professor leading GAPsLab, a computational genomics group studying how psychiatric disorders shape aging and age-related disease.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQACAIWLGiOoSY0jFmXjBsfXAVF3j9TB24Dv0wiP3i7brmI?e=QfCTRU",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQAcHYU2Da_SSYKxhtw-cuFNAWWkacgly0ZmLvXGbvwlSBw?e=74pg01",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Tenure-track Assistant Professor leading GAPsLab, a computational genomics group studying how psychiatric disorders shape aging and age-related disease."
  },
  {
   "id": "GGS-TS2",
@@ -2447,11 +2429,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Brian Soong",
-  "bio": "Assistant Professor studying synaptic plasticity and Fragile X syndrome using human neurons derived from pluripotent stem cells and CRISPR/Cas9.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQAtmkN2-trERoX1AGHJorgeATW5auNpMYKrc5PW2JoD-eI?e=IkJCZw",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDj3CnCVzAmQ7EJPaKSSz8oAadLqy4H-8svF_8YmYeNBlg?e=eTsdj8",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Assistant Professor studying synaptic plasticity and Fragile X syndrome using human neurons derived from pluripotent stem cells and CRISPR/Cas9."
  },
  {
   "id": "GGS-MCR",
@@ -2488,8 +2466,7 @@ const SESSIONS_1017 = [
   "c": [],
   "a": [],
   "room": "Annenberg 5-212",
-  "time": "8:00 AM–8:50 AM",
-  "status": "Scheduled"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "CAB-LEC1",
@@ -2515,11 +2492,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Associate Professor studying the molecular and cellular basis of cancer initiation, with B-cell lymphomagenesis as a model for precursor states and transformation.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQD6sjGJ9uuMQr-fnCquKIWFAaO58rR5bE-OmcW6jSpJkh8?e=YyhNeC",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQAx_k-5hbMOToJxeE-liaISAc7SL_g1bSr31Zxb4KZcigI?e=ci5Jrr",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor studying the molecular and cellular basis of cancer initiation, with B-cell lymphomagenesis as a model for precursor states and transformation."
  },
  {
   "id": "CAB-LEC2",
@@ -2546,11 +2519,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Assistant Professor studying cardiometabolic disease, lipid signaling, atherosclerosis, and metabolic regulation in cardiovascular disease.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQC3suSuer6WS4RlS5T7asIuASZ2FJZa7u2TieW8lhSquNM?e=eddTQy",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQBpTBRnW9neT5l5YD5bCATfAR-Jg_duvU6iW-A7o0ihnsw?e=ypkYDH",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Assistant Professor studying cardiometabolic disease, lipid signaling, atherosclerosis, and metabolic regulation in cardiovascular disease."
  },
  {
   "id": "BMS-WRITING",
@@ -2564,35 +2533,47 @@ const SESSIONS_1017 = [
   "obj": [],
   "c": [],
   "a": [],
-  "note": "Written in pairs. Both partners submit the same file with both names on it — Blackboard records submissions individually, so a partner who does not upload has no submission on record. Both receive the same grade. You are not marked on whether your reconstruction matches the original study. Brad is available to discuss the figure before you write.",
-  "sub": "One multipanel figure · five paragraphs and up to five references · two pages, single spaced · in pairs · 10% of the BSR1017 grade",
+  "sub": "Due Mon 14 Sep, 8:00 a.m. · one mock multipanel figure, genetics and genomics or cancer biology · Introduction, Results, Discussion · two pages single spaced, references excluded · 3–5 references · in pairs · PDF on Blackboard · 10% of the BSR1017 grade",
   "what": [
-   "You are given one multipanel figure and its legend — nothing else — and write the paper it came from.",
-   "Introduction: what is known, what is unresolved, why the experiment was worth doing.",
-   "Methods: what was done, inferred from the panels, clear enough to follow.",
-   "Results: what the panels show, in an order that makes an argument.",
-   "Discussion: what it means, and one alternative the data cannot exclude.",
-   "Conclusion: the advance, no stronger than the panels allow, and the next experiment.",
-   "References: no more than five, and primary research articles — not reviews, textbooks or websites."
+   "Choose one mock multipanel figure, from either a genetics and genomics project or a cancer biology project.",
+   "Work in pairs and choose your own partner.",
+   "Using only the figure, its legend, and the published literature, build a scientifically defensible account of the study's rationale, principal findings, and significance.",
+   "Introduction: the scientific context drawn from no more than five references, a biological question or knowledge gap, and a plausible objective or hypothesis the experiments could address. It need not be the original study’s hypothesis, only one that follows from the literature and is addressable by the figure. One paragraph.",
+   "Results: organize around findings or questions rather than describing panels in order. For each finding state what was observed, the relevant comparison or control, and the direction and where possible the magnitude of the effect. Keep observation separate from interpretation and integrate panels that address the same question.",
+   "Discussion: the principal conclusion the figure supports, its biological significance, and how strongly the evidence supports it. One paragraph.",
+   "References: approximately three to five, cited consistently in an accepted scientific format.",
+   "A brief descriptive scientific title, Introduction, Results, and Discussion headings, and 11 or 12 point font.",
+   "Submit as a PDF on Blackboard. Do not reproduce the figure in your submission.",
+   "One attempt, no late submissions, and SafeAssign is enabled."
   ],
   "rubric": [
    [
-    "Scientific question and central argument",
-    "Is the question clear, and do the four paragraphs form one argument?"
+    "Introduction",
+    "Relevant and focused scientific context, a meaningful biological question or knowledge gap, a plausible objective or hypothesis, and a logical rationale for the experiments.",
+    "25%"
    ],
    [
-    "Use and synthesis of evidence",
-    "Are the panels read accurately, and does the literature support the Introduction?"
+    "Results",
+    "The major observations described accurately, with the right comparisons and controls; the direction and relative magnitude of effects where the figure supports it; evidence synthesized across panels rather than catalogued; observation kept separate from interpretation; and no statistical, causal or mechanistic claims beyond the evidence.",
+    "40%"
    ],
    [
-    "Scientific reasoning and critical analysis",
-    "Do the claims fit the panels, with alternatives and limits named?"
+    "Discussion",
+    "A principal conclusion the data support, its biological significance, a connection to the published literature, an important limitation or plausible alternative interpretation, and a logical next experiment or question.",
+    "25%"
    ],
    [
     "Organization, clarity and scientific writing",
-    "Can a reader follow the methods? Is it concise, precise and correctly cited?"
+    "Logically organized, concise and precise, in an appropriate scientific style, properly cited, and within the length and formatting requirements.",
+    "10%"
    ]
-  ]
+  ],
+  "notes": [
+   "You are working with incomplete information on purpose. More than one rationale or interpretation can be reasonable, and you are not marked on whether you reproduce the original study. You are marked on how well you build and communicate a defensible scientific argument from the evidence in front of you.",
+   "The figures are mock figures made for this assignment. Some graphical details were added by hand, so error bars may not line up perfectly with the spread of the points. Treat the data as valid as presented rather than judging those details. Cell line and genome region names are generic stand-ins: ENH1 is not a real genome region and IHMECs is not a real cell line.",
+   "Brad is happy to meet and discuss at any point before the due date. Book office hours through MARC or Starfish, or email him if MARC access is still a problem."
+  ],
+  "ai": "AI tools may be used only for literature searching and background research: finding potentially relevant papers, search terms, pathways, methods, or background concepts. You are responsible for verifying anything an AI tool returns against reliable sources and for reading the literature you cite. Generative AI may not be used to interpret the figures or to produce any part of the submitted paper. The reasoning, organization, interpretation, and writing must be your own."
  },
  {
   "id": "CAB-LEC3",
@@ -2618,11 +2599,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Biochemist and cancer biologist who studies oncogenic signaling, targeted therapy resistance, and mechanisms of cancer cell survival.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQCjpi03Vb-ISJmZ3tG5HIOWAaTINvyyK-DbM_9fC4TI__c?e=sPTFee",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQBeJ6FNF1v5TZ_gsRe3P5ftAZ5EPFvQGib1rFKDf0L0GZ0?e=u7ncbl",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Biochemist and cancer biologist who studies oncogenic signaling, targeted therapy resistance, and mechanisms of cancer cell survival."
  },
  {
   "id": "CAB-LEC4",
@@ -2649,11 +2626,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Assistant Professor using zebrafish as a whole-organism model to discover anticancer drugs and study therapy resistance.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQAMEqXrQw7VT7CpXsX4mTdWAb1ZVh4mKcPbh_2EUyd85_4?e=oGIMjK",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDVunYz5uP9T5m0vMnToo-PAZJ4w5PJDzWVX4AZVNRQ_pI?e=IuIrL0",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Assistant Professor using zebrafish as a whole-organism model to discover anticancer drugs and study therapy resistance."
  },
  {
   "id": "CAB-LEC5",
@@ -2680,11 +2653,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Assistant Professor using zebrafish as a whole-organism model to discover anticancer drugs and study therapy resistance.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDNj8i4HCZZTZ7ScYzjKjX2AYD-urlPG4pjsVhbCczwO20?e=k5sCWw",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDVunYz5uP9T5m0vMnToo-PAZJ4w5PJDzWVX4AZVNRQ_pI?e=IuIrL0",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Assistant Professor using zebrafish as a whole-organism model to discover anticancer drugs and study therapy resistance."
  },
  {
   "id": "CAB-TS1",
@@ -2711,11 +2680,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Associate Professor studying cardiac development and regenerative biology, including the maturation of human pluripotent stem cell-derived cardiomyocytes.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQD6DwkPpA7gQ6js1D2giEoyAZB-kb0HxG79m9YzsBR9TIA?e=NeLCRW",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQCs_swJejQlTZb_sKUnEED6Ac7pZvuBQC0mTmEdXeF7fyk?e=QPjD4q",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor studying cardiac development and regenerative biology, including the maturation of human pluripotent stem cell-derived cardiomyocytes."
  },
  {
   "id": "CAB-JC_PS",
@@ -2735,8 +2700,7 @@ const SESSIONS_1017 = [
   "wk": 7,
   "room": "Annenberg TBD",
   "time": "1:00 PM–3:00 PM",
-  "ta": "Nicole Hirsh",
-  "status": "Scheduled"
+  "ta": "Nicole Hirsh"
  },
  {
   "id": "CAB-MTA",
@@ -2756,8 +2720,7 @@ const SESSIONS_1017 = [
   "wk": 7,
   "room": "Annenberg TBD",
   "time": "3:00 PM–4:00 PM",
-  "ta": "Nicole Hirsh",
-  "status": "Scheduled"
+  "ta": "Nicole Hirsh"
  },
  {
   "id": "CAB-LEC6",
@@ -2783,11 +2746,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Cancer biologist studying how tumor microenvironments and epigenetic plasticity drive breast cancer metastasis, dormancy, and therapeutic resistance.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDMsPFb8cNZQohYe6_h9r3bAaqH9SLr9H2Dh9I8zb3cnSs?e=zBr3aH",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQC6bLI8rCOuT7bpcVH8nAtvAZ_ivo-aN-TY71BkzoPti0s?e=mzVt9s",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Cancer biologist studying how tumor microenvironments and epigenetic plasticity drive breast cancer metastasis, dormancy, and therapeutic resistance."
  },
  {
   "id": "CAB-LEC7",
@@ -2813,11 +2772,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Nicole Hirsh",
-  "bio": "Professor whose work centers on gene regulation, chromatin, and the molecular control of cell fate and differentiation.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQAHzVNmQOxvT5nmOE4hry3MAf5tJZ9sqAOR5NfsnPHM3Xo?e=CJRZ9X",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDsn72zHIKrTLMbfQbu9FvOARegnfXvIS5f7r13uOnHSwQ?e=hI8wSe",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Professor whose work centers on gene regulation, chromatin, and the molecular control of cell fate and differentiation."
  },
  {
   "id": "CAB-TS2",
@@ -2846,10 +2801,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00–8:50",
   "ta": "Nicole Hirsh",
-  "bio": "Associate Professor trained in community psychology whose research focuses on cancer screening, health inequities, and community-engaged interventions.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQCydq8JYs46SbZD2USrj7kyAVBGUvudw2WgVmTHtvgDRwA?e=mnvY4n",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDj3CnCVzAmQ7EJPaKSSz8oAadLqy4H-8svF_8YmYeNBlg?e=0SwcAK",
-  "appr": "Confirmed"
+  "bio": "Associate Professor trained in community psychology whose research focuses on cancer screening, health inequities, and community-engaged interventions."
  },
  {
   "id": "CAB-MCR",
@@ -2886,8 +2838,7 @@ const SESSIONS_1017 = [
   "c": [],
   "a": [],
   "room": "Annenberg 5-212",
-  "time": "8:00 AM–8:50 AM",
-  "status": "Scheduled"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "DMT-LEC1",
@@ -2914,11 +2865,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Associate Professor studying cardiac development and regenerative biology, including the maturation of human pluripotent stem cell-derived cardiomyocytes.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQClPtPdHt7NTJCi2F2BK7G1AR5VDvBaQwpam0OWUt12vEI?e=yjx9ux",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQD8iXv0ZsESQ6VK3mP0WYzvASVr_IidacRsd-7wwhiVa-Y?e=8MC7vI",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor studying cardiac development and regenerative biology, including the maturation of human pluripotent stem cell-derived cardiomyocytes."
  },
  {
   "id": "DMT-LEC2",
@@ -2944,11 +2891,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Professor in nephrology and pharmacological sciences whose Systems Bioengineering Lab studies mechanobiology, systems biology, and precision medicine technologies.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQBxTGSzfmcLQoXG10aSwOjTAcMhVq2XrPapgkfwXYZ-sa4?e=izdUTp",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDcB6p6aneJQLB8Zsyl_3aZAWpN_tqbCNpfBK-Vd4W8vks?e=8v4QWa",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Professor in nephrology and pharmacological sciences whose Systems Bioengineering Lab studies mechanobiology, systems biology, and precision medicine technologies."
  },
  {
   "id": "DMT-LEC3",
@@ -2974,11 +2917,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Associate Professor studying nutrient sensing pathways, autophagy, and O-GlcNAc transferase biology in cancer and diabetes.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQCF1tofskrcQadCVQESh_7CAW4gakqCQ05zzlimBzqLDR0?e=ZPsaoc",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDv7Tkha-vRR7UchwbveR5NAZaFhU5aMNl_BtmN_xPuBkU?e=wLaxXJ",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Associate Professor studying nutrient sensing pathways, autophagy, and O-GlcNAc transferase biology in cancer and diabetes."
  },
  {
   "id": "DMT-TS1",
@@ -3004,11 +2943,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Professor and Director of the Center of Excellence for Multiple Myeloma whose research uses systems biology to study hematologic malignancies and precision therapy.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQD-CnpvIMYBSLj6wxtbsFFpAX-2CHQAeMBBw3UXqB-wg4Q?e=a4bJdw",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQAC268gMXpZR7XR7AT2Tl33AVFuHo4MtwrHlfCb08RKB2A?e=5OeiPW",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Professor and Director of the Center of Excellence for Multiple Myeloma whose research uses systems biology to study hematologic malignancies and precision therapy."
  },
  {
   "id": "DMT-LEC4",
@@ -3034,11 +2969,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Professor of Pharmacological Sciences and Director of the AI Small Molecule Drug Discovery Center, whose research integrates computational chemistry and artificial intelligence to automate structure-based drug discovery.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQD913kDz1TLRrvSpsYNelAhAeWahDkEgRcYm7ejB9Ov-S0?e=lNkP8l",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDVYanAb6ynTLcRiiCznEduAVYo3_UA1pqEzh9iQnVTg4g?e=WIQDE9",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Professor of Pharmacological Sciences and Director of the AI Small Molecule Drug Discovery Center, whose research integrates computational chemistry and artificial intelligence to automate structure-based drug discovery."
  },
  {
   "id": "DMT-LEC5",
@@ -3064,11 +2995,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Professor and system division chief for liver diseases whose research focuses on molecular mechanisms of liver fibrosis and steatotic liver disease.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDXrJdhTpFbSqsUlPjj24-7AYNwAnFZJHIl7dJxQ_ypX1Q?e=dder7z",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDcCZXRP0inTZkwon1dbJc8AQy0S5thE0mKtCeAD9s2zYU?e=45V6Di",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Professor and system division chief for liver diseases whose research focuses on molecular mechanisms of liver fibrosis and steatotic liver disease."
  },
  {
   "id": "DMT-LEC6",
@@ -3096,11 +3023,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Professor and Director of Rehabilitation Innovation developing technology-enabled solutions to improve accessibility and recovery.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQD3eh3GlkfWRLyKpQKAs_b3AaMUxaKIxEr8xYv0b5wEq68?e=eh9Cp1",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQBj4sitxOKfS6b4wTzEOAFFAXtQIB7baDy3_AG3eWlNd9c?e=7Rkyia",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Professor and Director of Rehabilitation Innovation developing technology-enabled solutions to improve accessibility and recovery."
  },
  {
   "id": "DMT-LEC7",
@@ -3126,11 +3049,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Professor studying how nutrients, especially glucose, regulate gene expression and beta-cell adaptation in diabetes.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDAiadu6LCQSaqd0q-t863QAW116xiH1oYDTOhrDKIY3OQ?e=1PVriK",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQA7mplmk9CQSZTcnmAAbz9ZAWkq77M_OfS7nMiFnnel8FU?e=4xjzhM",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Professor studying how nutrients, especially glucose, regulate gene expression and beta-cell adaptation in diabetes."
  },
  {
   "id": "DMT-JC_PS",
@@ -3150,8 +3069,7 @@ const SESSIONS_1017 = [
   "wk": 12,
   "room": "Annenberg TBD",
   "time": "1:00 PM–3:00 PM",
-  "ta": "Naomi Freilich",
-  "status": "Scheduled"
+  "ta": "Naomi Freilich"
  },
  {
   "id": "DMT-MTA",
@@ -3171,8 +3089,7 @@ const SESSIONS_1017 = [
   "wk": 12,
   "room": "Annenberg TBD",
   "time": "3:00 PM–4:00 PM",
-  "ta": "Naomi Freilich",
-  "status": "Scheduled"
+  "ta": "Naomi Freilich"
  },
  {
   "id": "DMT-TS2",
@@ -3198,11 +3115,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Naomi Freilich",
-  "bio": "Associate Professor in Pharmacological Sciences working in chemical biology and therapeutic discovery.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDznob529k4SJJUzm8ddLtzAbxydQDhcfq_1WbwwHkz6-g?e=ahSjYc",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQCW-Udf9bnISJepA8j9gkmvAWjNbd14bDQwhYEhvwAb0yc?e=dQFdsh",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor in Pharmacological Sciences working in chemical biology and therapeutic discovery."
  },
  {
   "id": "DMT-MCR",
@@ -3222,8 +3135,7 @@ const SESSIONS_1017 = [
   "a": [],
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
-  "ta": "Naomi Freilich",
-  "status": "Scheduled"
+  "ta": "Naomi Freilich"
  },
  {
   "id": "DMT-Exam",
@@ -3240,8 +3152,7 @@ const SESSIONS_1017 = [
   "c": [],
   "a": [],
   "room": "Annenberg 5-212",
-  "time": "8:00 AM–8:50 AM",
-  "status": "Scheduled"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "AIET-LEC1",
@@ -3267,17 +3178,13 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Associate Professor of Nephrology caring for patients with kidney disease and studying outcomes for patients receiving renal replacement therapy.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDcAh1HJBeWTpHfdV1HirXEAc03mZAoJCZoEHUsUTHwn6c?e=OmmuNN",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQB_cqk5OVMmSa_RhlWTKd6wAYJkw6p6kq1fNC4kmGqpoww?e=uE9e1k",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor of Nephrology caring for patients with kidney disease and studying outcomes for patients receiving renal replacement therapy."
  },
  {
   "id": "BMS-REVIEWING",
   "mod": "PSD",
   "fmt": "Assignment",
-  "topic": "BMS Reviewing Science",
+  "topic": "BMS Reviewing Scientific Literature",
   "lec": "—",
   "iso": "2026-11-09",
   "date": "Mon Nov 9",
@@ -3337,11 +3244,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Assistant Professor studying mHealth and machine learning methods for chronic pain, women’s reproductive health, and patient-reported outcomes.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQBns-EP8syJSadmydodHFSiAY_DGeJou54XWIIiVaSRiSc?e=Gh6rDr",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQDeRa_17hipT6gcLrT1tS-OAXoAdrOl10oLOvCsavBRG1g?e=QT9xDR",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Assistant Professor studying mHealth and machine learning methods for chronic pain, women’s reproductive health, and patient-reported outcomes."
  },
  {
   "id": "AIET-LEC3",
@@ -3367,11 +3270,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Dean of the Graduate School of Biomedical Sciences and Professor whose computational biophysics lab studies membrane protein structure and drug design.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQA5LBHYUUMwRr-qf1VOZkXOATRDOFK2qpChxv_LfGbiUao?e=ulZlcC",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQAMpvQRP6I0QZeQOfo2mY7BAVDnkdsZIuglHo5jYsHQ3oI?e=NQ9SWD",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Dean of the Graduate School of Biomedical Sciences and Professor whose computational biophysics lab studies membrane protein structure and drug design."
  },
  {
   "id": "AIET-LEC4",
@@ -3397,11 +3296,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Assistant Professor developing multiparametric imaging approaches to study immune responses in cardiovascular disease., Associate Professor developing CEST MRI and other magnetic resonance methods to study brain disease and the blood-brain barrier.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQDQxME3dF4sSK2JM_yEWN54AW8haDXOiV88JyaiWYwHpnE?e=MJE1jO",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQAvTrFNxnNASaCdWLTtnNryAbCHrn032AiqzRUJZ-brUVY?e=TofChX",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Assistant Professor developing multiparametric imaging approaches to study immune responses in cardiovascular disease., Associate Professor developing CEST MRI and other magnetic resonance methods to study brain disease and the blood-brain barrier."
  },
  {
   "id": "AIET-LEC5",
@@ -3427,11 +3322,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Associate Professor studying obstructive sleep apnea and its links to brain health, including Alzheimer’s disease risk.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQBiYdYJuTYmTLhCp2LvUYK7AfhRYuTXY1DHX_H3Y7Ol-pY?e=6SgN61",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQB6MU_v4R-hRZDywW4jQs4RARQHCBd0effufZj1YZe9TqY?e=XTFLyi",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor studying obstructive sleep apnea and its links to brain health, including Alzheimer’s disease risk."
  },
  {
   "id": "AIET-TS1",
@@ -3457,11 +3348,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Assistant Professor developing MRI techniques and imaging biomarkers for the brainstem, cervical spinal cord, and nervous system injury.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQADlmVIIbL3TZbKrrihAdWdAZsUJFV95tOTjcrkTXcZNc0?e=dk3afd",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQBNohgTN0loQYhao1s_cz7IAa2W4HLaPPi2Z_N0gVv69_I?e=kzrCcQ",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Assistant Professor developing MRI techniques and imaging biomarkers for the brainstem, cervical spinal cord, and nervous system injury."
  },
  {
   "id": "AIET-LEC6",
@@ -3489,11 +3376,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Associate Professor and Director of the Charles Bronfman Institute for Personalized Medicine whose work translates psychiatric genomics into experimental therapeutics.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQA5-hT3E4VoSYnD71vwNVa1Aav1wdfEQtx2yAvQedJ6xVs?e=fHDCzf",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQAKku51bZRURrEMjNLsURkPAWZMjPUHmiaZyA2ozdiAFBc?e=RKvWnh",
-  "appr": "Confirmed",
-  "status": "Scheduled"
+  "bio": "Associate Professor and Director of the Charles Bronfman Institute for Personalized Medicine whose work translates psychiatric genomics into experimental therapeutics."
  },
  {
   "id": "AIET-LEC7",
@@ -3519,11 +3402,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Professor combining mathematical modeling and electrophysiology to study cardiac physiology, arrhythmias, and drug-induced dysfunction.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQAUx9zfhqMzSqLKKGBorA33AXso4-GL5EDUzI9HnQReQsQ?e=yWaxrC",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQCQkoBOzVV3T51uXOVYBCb1AZCQ967vhxnvGqVIWpfOsDk?e=13JsBT",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Professor combining mathematical modeling and electrophysiology to study cardiac physiology, arrhythmias, and drug-induced dysfunction."
  },
  {
   "id": "AIET-LEC8",
@@ -3549,11 +3428,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Associate Professor and Director of Bioinformatics for Next Generation Sequencing, with work spanning cancer bioinformatics and shared-resource leadership.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQC3DgdaryeeSLiYEhfuxaufAbDGUhsVMFcD7Vwj-7zUWtQ?e=aFRC8f",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQC4eCRUUlblQKYuNN_uAJFKAZtQ31dt_6sUQquQWSDeAc0?e=EZw4V0",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Associate Professor and Director of Bioinformatics for Next Generation Sequencing, with work spanning cancer bioinformatics and shared-resource leadership."
  },
  {
   "id": "AIET-JC_PS",
@@ -3573,8 +3448,7 @@ const SESSIONS_1017 = [
   "wk": 17,
   "room": "Annenberg TBD",
   "time": "1:00 PM–3:00 PM",
-  "ta": "Kennedy Salamat",
-  "status": "Scheduled"
+  "ta": "Kennedy Salamat"
  },
  {
   "id": "AIET-MTA",
@@ -3594,8 +3468,7 @@ const SESSIONS_1017 = [
   "wk": 17,
   "room": "Annenberg TBD",
   "time": "3:00 PM–4:00 PM",
-  "ta": "Kennedy Salamat",
-  "status": "Scheduled"
+  "ta": "Kennedy Salamat"
  },
  {
   "id": "AIET-TS2",
@@ -3624,11 +3497,7 @@ const SESSIONS_1017 = [
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
   "ta": "Kennedy Salamat",
-  "bio": "Benjamin Glicksberg, PhD is an Associate Professor in the Windreich Department of Artificial Intelligence and Human Health and Founding Director of the Center for AI in Children's Health. His laboratory develops machine learning approaches that integrate multimodal clinical and genomic data to advance precision medicine and improve patient care.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQCtsvOWlER5SrNhQsibsKoeARwhas_EJ30bXb6piP160z8?e=F6ctJr",
-  "syll": "https://mtsinai-my.sharepoint.com/:w:/g/personal/talia_swartz_mssm_edu/IQCWwsd_M0xwSaG8jhJZHdywAZpxbwEZ2k6ZdE-1TYLzmio?e=ZXoQ2z",
-  "appr": "Awaiting response",
-  "status": "Scheduled"
+  "bio": "Benjamin Glicksberg, PhD is an Associate Professor in the Windreich Department of Artificial Intelligence and Human Health and Founding Director of the Center for AI in Children's Health. His laboratory develops machine learning approaches that integrate multimodal clinical and genomic data to advance precision medicine and improve patient care."
  },
  {
   "id": "AIET-MCR",
@@ -3648,8 +3517,7 @@ const SESSIONS_1017 = [
   "a": [],
   "room": "Annenberg 5-212",
   "time": "8:00 AM–8:50 AM",
-  "ta": "Kennedy Salamat",
-  "status": "Scheduled"
+  "ta": "Kennedy Salamat"
  },
  {
   "id": "AIET-Exam",
@@ -3666,8 +3534,7 @@ const SESSIONS_1017 = [
   "c": [],
   "a": [],
   "room": "Annenberg 5-212",
-  "time": "8:00 AM–8:50 AM",
-  "status": "Scheduled"
+  "time": "8:00 AM–8:50 AM"
  }
 ];
 const MODULES_1018 = [
@@ -3689,7 +3556,6 @@ const MODULES_1018 = [
   "span": "Jan – Feb",
   "count": 13,
   "composition": "8 Lecture · 2 Tech Showcase · 1 Journal Club + Problem Solving · 1 Review · 1 Exam",
-  "note": "Module sequence and faculty are confirmed. Session objectives are provisional until the module's faculty confirm them, and calendar dates are published closer to the start of the module.",
   "w": 4,
   "lite": "#B952FF"
  },
@@ -3702,7 +3568,6 @@ const MODULES_1018 = [
   "span": "Feb – Mar",
   "count": 14,
   "composition": "8 Lecture · 2 Tech Showcase · 1 Journal Club + Problem Solving · 1 Review · 1 Exam · 1 Research Proposal",
-  "note": "Module sequence and faculty are confirmed. Session objectives are provisional until the module's faculty confirm them, and calendar dates are published closer to the start of the module.",
   "w": 4,
   "lite": "#C76EE3"
  },
@@ -3715,7 +3580,6 @@ const MODULES_1018 = [
   "span": "Mar – May",
   "count": 13,
   "composition": "8 Lecture · 2 Tech Showcase · 1 Journal Club + Problem Solving · 1 Review · 1 Exam",
-  "note": "Module sequence and faculty are confirmed. Session objectives are provisional until the module's faculty confirm them, and calendar dates are published closer to the start of the module.",
   "w": 4,
   "lite": "#E76ADA"
  },
@@ -3728,7 +3592,6 @@ const MODULES_1018 = [
   "span": "May – Jun",
   "count": 13,
   "composition": "7 Lecture · 2 Tech Showcase · 1 Journal Club + Problem Solving · 1 Review · 1 Exam · 1 Research Proposal",
-  "note": "Module sequence and faculty are confirmed. Session objectives are provisional until the module's faculty confirm them, and calendar dates are published closer to the start of the module.",
   "w": 4,
   "lite": "#FF52C8"
  }
@@ -3751,9 +3614,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 1,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Nephrologist and physician-scientist focused on kidney transplantation, alloimmunity, and autoimmune glomerular disease.",
-  "slides": "https://mtsinai-my.sharepoint.com/:p:/g/personal/talia_swartz_mssm_edu/IQCAu97rqhPxS6VQc_wnL0RTAfrru6GRycArI7yYVZX8OHg?e=PgsKIY",
-  "status": "Proposed"
+  "bio": "Nephrologist and physician-scientist focused on kidney transplantation, alloimmunity, and autoimmune glomerular disease."
  },
  {
   "id": "IMM-LEC2",
@@ -3772,8 +3633,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 1,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Physician-scientist and immunology leader studying macrophages, dendritic cells, cancer, and inflammatory disease.",
-  "status": "Proposed"
+  "bio": "Physician-scientist and immunology leader studying macrophages, dendritic cells, cancer, and inflammatory disease."
  },
  {
   "id": "IMM-LEC3",
@@ -3792,8 +3652,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 1,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Immunologist studying B cell biology, immune tolerance, and allergic or mucosal immune responses.",
-  "status": "Proposed"
+  "bio": "Immunologist studying B cell biology, immune tolerance, and allergic or mucosal immune responses."
  },
  {
   "id": "IMM-LEC4",
@@ -3812,8 +3671,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 2,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Oncologist and translational cancer researcher focused on virotherapy, immunotherapy, and gynecologic malignancies.",
-  "status": "Proposed"
+  "bio": "Oncologist and translational cancer researcher focused on virotherapy, immunotherapy, and gynecologic malignancies."
  },
  {
   "id": "IMM-LEC5",
@@ -3832,8 +3690,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 3,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Mucosal immunologist studying intestinal epithelial-immune interactions and inflammatory bowel disease.",
-  "status": "Proposed"
+  "bio": "Mucosal immunologist studying intestinal epithelial-immune interactions and inflammatory bowel disease."
  },
  {
   "id": "IMM-LEC6",
@@ -3852,8 +3709,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 3,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Gastroenterologist and mucosal immunologist studying HIV, gut immunity, dendritic cells, and host-pathogen interactions.",
-  "status": "Proposed"
+  "bio": "Gastroenterologist and mucosal immunologist studying HIV, gut immunity, dendritic cells, and host-pathogen interactions."
  },
  {
   "id": "IMM-LEC7",
@@ -3872,8 +3728,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 3,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Systems biologist studying host-microbe interactions, the microbiome, and translational genomics.",
-  "status": "Proposed"
+  "bio": "Systems biologist studying host-microbe interactions, the microbiome, and translational genomics."
  },
  {
   "id": "IMM-LEC8",
@@ -3892,8 +3747,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 4,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Cardiovascular immunologist studying innate immunity, inflammation, and hematopoiesis in cardiometabolic disease.",
-  "status": "Proposed"
+  "bio": "Cardiovascular immunologist studying innate immunity, inflammation, and hematopoiesis in cardiometabolic disease."
  },
  {
   "id": "IMM-JC_PS",
@@ -3911,9 +3765,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 3,
-  "note": "In AY2025-26 this block also carried the MTA presentation. The fall now runs those as separate sessions; confirm which applies once the spring calendar is set.",
-  "time": "1:00 PM–3:00 PM",
-  "status": "Proposed"
+  "time": "1:00 PM–3:00 PM"
  },
  {
   "id": "IMM-MTA",
@@ -3930,7 +3782,6 @@ const SESSIONS_1018 = [
   ],
   "c": [],
   "a": [],
-  "status": "Proposed",
   "time": "3:00 PM–4:00 PM"
  },
  {
@@ -3950,8 +3801,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 4,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Immunologist focused on cancer immunity and cellular immune responses.",
-  "status": "Proposed"
+  "bio": "Immunologist focused on cancer immunity and cellular immune responses."
  },
  {
   "id": "IMM-TS2",
@@ -3970,8 +3820,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 4,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Physician-scientist and oncologist focused on translational cancer immunotherapy and clinical trials.",
-  "status": "Proposed"
+  "bio": "Physician-scientist and oncologist focused on translational cancer immunotherapy and clinical trials."
  },
  {
   "id": "IMM-MCR",
@@ -3989,8 +3838,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 5,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "IMM-Exam",
@@ -4006,8 +3854,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 5,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "DRS-LEC1",
@@ -4026,8 +3873,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 6,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Immunologist studying lymphocyte biology and translational immune regulation.",
-  "status": "Proposed"
+  "bio": "Immunologist studying lymphocyte biology and translational immune regulation."
  },
  {
   "id": "DRS-LEC2",
@@ -4046,8 +3892,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 6,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Hematopoiesis and stem cell biologist focused on blood development, gene regulation, and erythropoiesis.",
-  "status": "Proposed"
+  "bio": "Hematopoiesis and stem cell biologist focused on blood development, gene regulation, and erythropoiesis."
  },
  {
   "id": "DRS-LEC3",
@@ -4066,8 +3911,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 7,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist using human stem cells and gene editing to model brain development and neuropsychiatric disease.",
-  "status": "Proposed"
+  "bio": "Neuroscientist using human stem cells and gene editing to model brain development and neuropsychiatric disease."
  },
  {
   "id": "DRS-TS1",
@@ -4086,8 +3930,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 7,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Stem cell and cancer biologist studying epithelial fate decisions, regeneration, and tumor suppressive mechanisms.",
-  "status": "Proposed"
+  "bio": "Stem cell and cancer biologist studying epithelial fate decisions, regeneration, and tumor suppressive mechanisms."
  },
  {
   "id": "DRS-LEC4",
@@ -4106,8 +3949,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 8,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Developmental and airway biologist studying lung organoids and differentiation of human pluripotent stem cells.",
-  "status": "Proposed"
+  "bio": "Developmental and airway biologist studying lung organoids and differentiation of human pluripotent stem cells."
  },
  {
   "id": "DRS-LEC5",
@@ -4126,8 +3968,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 8,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Developmental and stem cell biologist studying skin biology, lineage specification, and chromatin regulation.",
-  "status": "Proposed"
+  "bio": "Developmental and stem cell biologist studying skin biology, lineage specification, and chromatin regulation."
  },
  {
   "id": "DRS-TS2",
@@ -4146,8 +3987,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 8,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Immunologist studying lymphocyte biology and translational immune regulation.",
-  "status": "Proposed"
+  "bio": "Immunologist studying lymphocyte biology and translational immune regulation."
  },
  {
   "id": "DRS-LEC6",
@@ -4166,8 +4006,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 9,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Surgeon-scientist focused on liver biology, transplantation, and regenerative medicine.",
-  "status": "Proposed"
+  "bio": "Surgeon-scientist focused on liver biology, transplantation, and regenerative medicine."
  },
  {
   "id": "DRS-LEC7",
@@ -4186,8 +4025,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 9,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Developmental biologist studying morphogenesis, signaling, and tissue formation.",
-  "status": "Proposed"
+  "bio": "Developmental biologist studying morphogenesis, signaling, and tissue formation."
  },
  {
   "id": "DRS-LEC8",
@@ -4206,8 +4044,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 9,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist and clinician focused on brain circuits, mood, and cognitive function.",
-  "status": "Proposed"
+  "bio": "Neuroscientist and clinician focused on brain circuits, mood, and cognitive function."
  },
  {
   "id": "PSD-LEC4",
@@ -4226,8 +4063,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 10,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches.",
-  "status": "Proposed"
+  "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches."
  },
  {
   "id": "DRS-JC_PS",
@@ -4245,9 +4081,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 7,
-  "note": "In AY2025-26 this block also carried the MTA presentation. The fall now runs those as separate sessions; confirm which applies once the spring calendar is set.",
-  "time": "1:00 PM–3:00 PM",
-  "status": "Proposed"
+  "time": "1:00 PM–3:00 PM"
  },
  {
   "id": "DRS-MTA",
@@ -4264,7 +4098,6 @@ const SESSIONS_1018 = [
   ],
   "c": [],
   "a": [],
-  "status": "Proposed",
   "time": "3:00 PM–4:00 PM"
  },
  {
@@ -4283,8 +4116,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 10,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "DRS-Exam",
@@ -4300,8 +4132,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 10,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "NEU-LEC1",
@@ -4320,8 +4151,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 11,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist studying brain circuit function and neurobiology.",
-  "status": "Proposed"
+  "bio": "Neuroscientist studying brain circuit function and neurobiology."
  },
  {
   "id": "NEU-LEC2",
@@ -4340,8 +4170,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 11,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Cognitive neuroscientist studying emotion, memory, and flexible behavior.",
-  "status": "Proposed"
+  "bio": "Cognitive neuroscientist studying emotion, memory, and flexible behavior."
  },
  {
   "id": "NEU-LEC3",
@@ -4360,8 +4189,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 14,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Systems neuroscientist studying neural activity and behavior.",
-  "status": "Proposed"
+  "bio": "Systems neuroscientist studying neural activity and behavior."
  },
  {
   "id": "NEU-LEC4",
@@ -4380,8 +4208,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 14,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist studying memory engrams, hippocampal circuits, and cognition.",
-  "status": "Proposed"
+  "bio": "Neuroscientist studying memory engrams, hippocampal circuits, and cognition."
  },
  {
   "id": "NEU-TS1",
@@ -4400,8 +4227,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 15,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist and psychiatrist studying decision-making, reinforcement learning, and compulsive behavior.",
-  "status": "Proposed"
+  "bio": "Neuroscientist and psychiatrist studying decision-making, reinforcement learning, and compulsive behavior."
  },
  {
   "id": "NEU-LEC5",
@@ -4420,8 +4246,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 15,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist studying behavior and brain circuits.",
-  "status": "Proposed"
+  "bio": "Neuroscientist studying behavior and brain circuits."
  },
  {
   "id": "NEU-LEC6",
@@ -4440,8 +4265,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 15,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist studying brain development and circuit function.",
-  "status": "Proposed"
+  "bio": "Neuroscientist studying brain development and circuit function."
  },
  {
   "id": "NEU-TS2",
@@ -4460,8 +4284,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 16,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neurologist and neuroscientist studying depression, brain circuits, and deep brain stimulation.",
-  "status": "Proposed"
+  "bio": "Neurologist and neuroscientist studying depression, brain circuits, and deep brain stimulation."
  },
  {
   "id": "NEU-LEC7",
@@ -4480,8 +4303,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 16,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist studying cortical development, sensory processing, and psychiatric disease.",
-  "status": "Proposed"
+  "bio": "Neuroscientist studying cortical development, sensory processing, and psychiatric disease."
  },
  {
   "id": "NEU-LEC8",
@@ -4500,8 +4322,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 16,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Neuroscientist studying neural circuits and behavior.",
-  "status": "Proposed"
+  "bio": "Neuroscientist studying neural circuits and behavior."
  },
  {
   "id": "NEU-JC_PS",
@@ -4519,9 +4340,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 14,
-  "note": "In AY2025-26 this block also carried the MTA presentation. The fall now runs those as separate sessions; confirm which applies once the spring calendar is set.",
-  "time": "1:00 PM–3:00 PM",
-  "status": "Proposed"
+  "time": "1:00 PM–3:00 PM"
  },
  {
   "id": "NEU-MTA",
@@ -4538,7 +4357,6 @@ const SESSIONS_1018 = [
   ],
   "c": [],
   "a": [],
-  "status": "Proposed",
   "time": "3:00 PM–4:00 PM"
  },
  {
@@ -4557,8 +4375,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 17,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "NEU-Exam",
@@ -4574,8 +4391,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 17,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "MIC-LEC1",
@@ -4594,8 +4410,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 18,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Genomicist and bioinformatician studying transcriptomics, RNA biology, and genome analysis.",
-  "status": "Proposed"
+  "bio": "Genomicist and bioinformatician studying transcriptomics, RNA biology, and genome analysis."
  },
  {
   "id": "MIC-LEC2",
@@ -4614,8 +4429,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 18,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Translational scientist studying neurobiology and brain circuit function.",
-  "status": "Proposed"
+  "bio": "Translational scientist studying neurobiology and brain circuit function."
  },
  {
   "id": "MIC-LEC3",
@@ -4634,8 +4448,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 19,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Virologist whose work has shaped influenza biology, viral pathogenesis, and vaccine development.",
-  "status": "Proposed"
+  "bio": "Virologist whose work has shaped influenza biology, viral pathogenesis, and vaccine development."
  },
  {
   "id": "MIC-LEC4",
@@ -4654,8 +4467,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 19,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Infectious diseases physician-scientist studying HIV biology, chronic inflammation, and physician-scientist training.",
-  "status": "Proposed"
+  "bio": "Infectious diseases physician-scientist studying HIV biology, chronic inflammation, and physician-scientist training."
  },
  {
   "id": "MIC-TS1",
@@ -4674,8 +4486,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 19,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Virologist studying host-virus interactions, SARS-CoV-2 biology, and viral RNA regulation.",
-  "status": "Proposed"
+  "bio": "Virologist studying host-virus interactions, SARS-CoV-2 biology, and viral RNA regulation."
  },
  {
   "id": "BMS-GRANTS",
@@ -4688,7 +4499,7 @@ const SESSIONS_1018 = [
   "obj": [],
   "c": [],
   "a": [],
-  "sub": "One page, two to three Specific Aims · written in pairs · Blackboard · 15% of the BSR1018 grade · DATE PROVISIONAL",
+  "sub": "One page, two to three Specific Aims · written in pairs · Blackboard · 15% of the BSR1018 grade",
   "what": [
    "Form a pair and choose an unanswered problem met in BMS, fall or spring — not work you have already done.",
    "Open with the critical background, the context, and the problem the project addresses.",
@@ -4714,7 +4525,7 @@ const SESSIONS_1018 = [
     "Scientific premise, relevant biological variables, and authentication of key resources."
    ]
   ],
-  "note": "Set up in Funding Science (PSD-LEC4) and defended at the Study Section (PSD-SS). The date shown is provisional until the AY2026-27 spring calendar is confirmed."
+  "note": "Set up in Funding Science (PSD-LEC4) and defended at the Study Section (PSD-SS)."
  },
  {
   "id": "MIC-TS2",
@@ -4733,8 +4544,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 21,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Immunologist studying B cell responses to vaccines and protective antibody responses to pathogens.",
-  "status": "Proposed"
+  "bio": "Immunologist studying B cell responses to vaccines and protective antibody responses to pathogens."
  },
  {
   "id": "MIC-LEC5",
@@ -4753,8 +4563,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 20,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Virologist studying emerging viruses, innate immunity, and viral pathogenesis.",
-  "status": "Proposed"
+  "bio": "Virologist studying emerging viruses, innate immunity, and viral pathogenesis."
  },
  {
   "id": "MIC-JC_PS",
@@ -4772,9 +4581,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 19,
-  "note": "In AY2025-26 this block also carried the MTA presentation. The fall now runs those as separate sessions; confirm which applies once the spring calendar is set.",
-  "time": "1:00 PM–3:00 PM",
-  "status": "Proposed"
+  "time": "1:00 PM–3:00 PM"
  },
  {
   "id": "MIC-MTA",
@@ -4791,7 +4598,6 @@ const SESSIONS_1018 = [
   ],
   "c": [],
   "a": [],
-  "status": "Proposed",
   "time": "3:00 PM–4:00 PM"
  },
  {
@@ -4811,8 +4617,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 21,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Virologist studying paramyxoviruses, viral entry and budding, and antiviral therapeutics.",
-  "status": "Proposed"
+  "bio": "Virologist studying paramyxoviruses, viral entry and budding, and antiviral therapeutics."
  },
  {
   "id": "MIC-LEC6",
@@ -4831,8 +4636,7 @@ const SESSIONS_1018 = [
   "a": [],
   "wk": 20,
   "time": "8:00 AM–8:50 AM",
-  "bio": "Researcher studying microbial or viral biology and host-pathogen interactions.",
-  "status": "Proposed"
+  "bio": "Researcher studying microbial or viral biology and host-pathogen interactions."
  },
  {
   "id": "MIC-MCR",
@@ -4850,8 +4654,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 21,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "MIC-Exam",
@@ -4867,8 +4670,7 @@ const SESSIONS_1018 = [
   "c": [],
   "a": [],
   "wk": 22,
-  "time": "8:00 AM–8:50 AM",
-  "status": "Proposed"
+  "time": "8:00 AM–8:50 AM"
  },
  {
   "id": "BMS-SSREVIEW",
@@ -4927,7 +4729,6 @@ const SESSIONS_1018 = [
   "wk": 22,
   "note": "The mock study section. You present and discuss your review of the assigned NIH grant application, and score it in the room. Refreshments provided by MSTP.",
   "bio": "Associate Professor of Microbiology studying host immune responses to viral infection using wet-lab and computational approaches.",
-  "status": "Proposed",
   "time": "1:00 PM–4:00 PM"
  }
 ];
@@ -4952,11 +4753,10 @@ const CAPSTONE = {
     date: "Tue Jun 8",
     t: "Mock Study Section, 1–4 p.m. — present and defend scores."
   }],
-  src: "Grading transcribed from the research-proposal slides in Binder1.pdf (Rosenberg, 16 Mar 2026); dates updated to the AY2026-27 calendar. The final Specific Aims date is provisional until the spring calendar is confirmed."
 };
 const GRADING = {
   mcg: 30,
-  bms: [{"l": "In-class exams", "v": 30, "c": "#4862BE"}, {"l": "Journal clubs", "v": 10, "c": "#681981"}, {"l": "Problem-solving sessions", "v": 10, "c": "#C20084"}, {"l": "BMS Writing Science", "v": 10, "c": "#4F2B87"}, {"l": "BMS Reviewing Science", "v": 10, "c": "#00AEEF"}],
+  bms: [{"l": "In-class exams", "v": 30, "c": "#4862BE"}, {"l": "Journal clubs", "v": 10, "c": "#681981"}, {"l": "Problem-solving sessions", "v": 10, "c": "#C20084"}, {"l": "BMS Writing Science", "v": 10, "c": "#4F2B87"}, {"l": "BMS Reviewing Scientific Literature", "v": 10, "c": "#00AEEF"}],
   letters: "90+ A · 84–89 A- · 78–83 B+ · 72–77 B · 66–71 B- · <66 C+",
   intro: "An 8-credit GSBS course. It carries the classes and assessments of MCG, plus additional graduate-level instruction.",
   mcgTable: [["More than 2 SD above mean", "95"], ["More than 1 SD above mean", "92"], ["At the mean", "86"], ["More than 1 SD below mean", "80"], ["More than 2 SD below mean", "74"]],
@@ -6894,7 +6694,7 @@ window.__DATA__ = {
     "MTA": "Meet the MTAs — presentation by faculty and students from a Multidisciplinary Training Area, held in the same block as Journal Club and Problem Solving. Refreshments provided by MSTP.",
     "Review": "Major Concept Review (MCR) — a TA-led review session that consolidates the module's lectures before each exam.",
     "Exam": "In-class module exam testing application and understanding of the module's lecture material.",
-    "Assignment": "A written assignment submitted on Blackboard \u2014 BMS Writing Science in September, BMS Reviewing Science in November, 10% of the grade each.",
+    "Assignment": "A written assignment submitted on Blackboard. BMS Writing Science, the mini paper, is due in September and BMS Reviewing Scientific Literature in November, 10% of the BSR1017 grade each.",
     "Study Section": "Mock NIH study section — students present and defend their scored reviews of a real NIH grant application. With BMS Writing Grants, worth 20% of the BSR1018 grade."
   };
   let __glossary = null;
@@ -6965,7 +6765,7 @@ window.__DATA__ = {
         tag: id,
         kind: "Module",
         label: m.name,
-        desc: m.sub || "",
+        desc: m.desc || m.sub || "",
         color: m.color,
         mlos: mlos
       };
@@ -7172,20 +6972,6 @@ window.__DATA__ = {
       dir: "next"
     }));
   }
-  const StatusBadge = ({
-    s
-  }) => {
-    const map = {
-      confirmed: ["st-confirmed", "Confirmed"],
-      baseline: ["st-baseline", "Planning baseline"],
-      proposed: ["st-proposed", "Proposed"],
-      dev: ["st-dev", "In development"]
-    };
-    const [cls, lab] = map[s] || map.dev;
-    return React.createElement("span", {
-      className: "statusb " + cls
-    }, lab);
-  };
   const Icon = ({
     d,
     s = 18
@@ -7338,7 +7124,7 @@ window.__DATA__ = {
       className: "hero-h1"
     }, "The year your training as a ", React.createElement("em", null, "physician-scientist"), " begins."), React.createElement("p", {
       className: "hero-sub"
-    }, "Your PhD training starts in your first year of medical school. Every class in both semesters is here, with who teaches it and what it expects of you."), React.createElement("div", {
+    }, "MSTP Biomedical Sciences is the PhD core curriculum, taken during the first year of medical school. It builds on the science taught in the MD curriculum by focusing on how we know what we don't know, how experiments change that understanding, and what questions remain unanswered."), React.createElement("div", {
       className: "hero-cta"
     }, React.createElement("button", {
       className: "cta solid",
@@ -7361,6 +7147,25 @@ window.__DATA__ = {
     }, n), React.createElement("div", {
       className: "m-l"
     }, l))))),
+
+    // ---------------- 2b. the two courses ----------------
+    React.createElement("section", {
+      className: "section wrap",
+      style: {
+        paddingTop: 0
+      }
+    }, React.createElement("div", {
+      className: "grid2"
+    }, [["BSR1017 \u00b7 Fall", "Runs from August through December: genetics and genomics, cancer biology, disease mechanisms and therapeutics, and AI and emerging technologies. Physician-Scientist Development sessions cover scientific writing, peer review, and other practical parts of doing research."], ["BSR1018 \u00b7 Spring", "Continues in the spring with immunology, development and stem cells, neuroscience, and microbiology."]].map(([t, d]) => React.createElement("div", {
+      className: "panel",
+      key: t
+    }, React.createElement("h3", null, t), React.createElement("p", {
+      className: "psub",
+      style: {
+        marginTop: 10,
+        marginBottom: 0
+      }
+    }, d))))),
 
     // ---------------- 3. feature cards ----------------
     React.createElement("section", {
@@ -7514,9 +7319,7 @@ window.__DATA__ = {
     })), progs.map(a => React.createElement(Atag, {
       key: a,
       id: a
-    })), is18 && tags.length === 0 && progs.length === 0 && React.createElement("span", {
-      className: "pendtag"
-    }, "objectives pending")), React.createElement("div", {
+    }))), React.createElement("div", {
       className: "sdate"
     }, s.wk ? "Wk " + s.wk + " · " : "", s.date, is18 && s.room ? " · " + s.room : ""));
   }
@@ -7586,9 +7389,7 @@ window.__DATA__ = {
         className: "cb-term"
       }, meta.label.split("·")[1]), React.createElement("span", {
         className: "cb-title"
-      }, meta.title), course === "1018" && React.createElement("span", {
-        className: "cb-flag"
-      }, "spring objectives are provisional")), has.map(m => React.createElement("div", {
+      }, meta.title)), has.map(m => React.createElement("div", {
         className: "modgroup",
         key: m.id
       }, React.createElement("div", {
@@ -7604,7 +7405,9 @@ window.__DATA__ = {
         className: "msub"
       }, m.sub), React.createElement("span", {
         className: "mod-line"
-      }), React.createElement("span", {
+      }), m.ta && React.createElement("span", {
+        className: "msub"
+      }, "TA: ", m.ta), React.createElement("span", {
         className: "msub"
       }, byCourseMod[course][m.id].length, " session", byCourseMod[course][m.id].length > 1 ? "s" : "")), React.createElement("div", {
         className: "sgrid"
@@ -7982,6 +7785,7 @@ window.__DATA__ = {
   }
   function Roadmap({
     openSession,
+    openSessionById,
     openCapstone
   }) {
     const TYPES = [["Lecture", "Lecture"], ["Tech Showcase", "Tech Showcase"], ["Journal Club + Problem Solving", "Journal Club + Problem Solving"], ["Review", "Major Concept Review"], ["Exam", "Exam"], ["Research Proposal", "Research proposal"]];
@@ -8196,17 +8000,21 @@ window.__DATA__ = {
       sessAll: SESS_1018,
       course: "1018"
     }), React.createElement("div", {
-      className: "rm-assign",
-      onClick: openCapstone
+      className: "rm-assign"
     }, React.createElement("div", {
       className: "ra-k"
     }, "Across the year \u00b7 four written assignments \u00b7 40% of the two grades"), React.createElement("div", {
       className: "ra-t"
     }, "Writing and reviewing"), React.createElement("div", {
       className: "ra-grid"
-    }, [["BMS Writing Science", "Fall \u00b7 14 Sep", "10%", "A mini paper written from one multipanel figure, in pairs."], ["BMS Reviewing Science", "Fall \u00b7 9 Nov", "10%", "A review of an assigned preprint, written individually."], ["BMS Writing Grants", "Spring \u00b7 Specific Aims", "15%", "Written in pairs, with a draft round for feedback."], ["BMS Study Section Review", "Spring \u00b7 mock NIH panel", "5%", "A real NIH grant application, scored and defended in the room."]].map(a => React.createElement("div", {
-      className: "ra-item",
-      key: a[0]
+    }, [["BMS Writing Science", "Fall \u00b7 14 Sep", "10%", "A mini paper built from a mock multipanel figure, in pairs.", "BMS-WRITING"], ["BMS Reviewing Scientific Literature", "Fall \u00b7 9 Nov", "10%", "A review of an assigned preprint, written individually.", "BMS-REVIEWING"], ["BMS Writing Grants", "Spring \u00b7 Specific Aims", "15%", "Written in pairs, with a draft round for feedback.", "BMS-GRANTS"], ["BMS Study Section Review", "Spring \u00b7 mock NIH panel", "5%", "A real NIH grant application, scored and defended in the room.", "BMS-SSREVIEW"]].map(a => React.createElement("div", {
+      className: "ra-item clk",
+      key: a[0],
+      title: "Click for the assignment detail",
+      onClick: e => {
+        e.stopPropagation();
+        openSessionById(a[4]);
+      }
     }, React.createElement("div", {
       className: "ra-h"
     }, React.createElement("b", null, a[0]), React.createElement("span", null, a[2])), React.createElement("div", {
@@ -8214,7 +8022,8 @@ window.__DATA__ = {
     }, a[1]), React.createElement("div", {
       className: "ra-d"
     }, a[3])))), React.createElement("div", {
-      className: "ra-foot"
+      className: "ra-foot clk",
+      onClick: openCapstone
     }, "Write, review, write, review. Led by ", CAPSTONE.lead, " \u2014 see the full research-proposal timeline \u2192")));
   }
   function Assessment() {
@@ -8237,7 +8046,7 @@ window.__DATA__ = {
         lineHeight: 1.55,
         margin: "0 0 14px"
       }
-    }, "Your MCG score is converted onto a BSR1017 scale and carries 30%. The rest is BSR1017 work \u2014 assessed in each of the four modules, plus BMS Writing Science, a mini paper written from one multipanel figure, and BMS Reviewing Science, a review of an assigned preprint."), React.createElement("div", {
+    }, "Your MCG score is converted onto a BSR1017 scale and carries 30%. The rest is BSR1017 work \u2014 assessed in each of the four modules, plus BMS Writing Science, a mini paper built from a mock multipanel figure, and BMS Reviewing Scientific Literature, a review of an assigned preprint."), React.createElement("div", {
       className: "gbar"
     }, [{
       l: "MCG " + GRADING.mcg + "%",
@@ -8291,7 +8100,7 @@ window.__DATA__ = {
       style: {
         color: "var(--ink)"
       }
-    }, "How it splits:"), " 30% is the concurrent MCG course, converted below. The remaining 70% is BSR1017 work \u2014 in-class exams 30%, journal clubs 10%, problem-solving 10%, BMS Writing Science 10%, due 14 September, and BMS Reviewing Science 10%, due 9 November — both by 8:00 a.m. on Blackboard."), React.createElement("div", {
+    }, "How it splits:"), " 30% is the concurrent MCG course, converted below. The remaining 70% is BSR1017 work \u2014 in-class exams 30%, journal clubs 10%, problem-solving 10%, BMS Writing Science 10%, due 14 September, and BMS Reviewing Scientific Literature 10%, due 9 November — both by 8:00 a.m. on Blackboard."), React.createElement("div", {
       className: "mcgconv"
     }, React.createElement("div", {
       className: "mc-h"
@@ -8559,23 +8368,23 @@ window.__DATA__ = {
       key: i
     }, React.createElement("span", {
       className: "rub-w"
-    }, "25%"), React.createElement("span", null, React.createElement("b", null, r[0]), React.createElement("em", null, r[1]))))), !is1017 &&  sess.note && React.createElement("div", {
+    }, r[2] || "25%"), React.createElement("span", null, React.createElement("b", null, r[0]), React.createElement("em", null, r[1]))))), sess.ai && React.createElement("div", {
       className: "mblock"
     }, React.createElement("div", {
       className: "h"
-    }, "Notes"), React.createElement("div", {
+    }, "Use of AI tools"), React.createElement("div", {
       className: "note-box"
-    }, sess.note)), sess.src && React.createElement("div", {
+    }, sess.ai)), (sess.fmt === "Assignment" || !is1017) && (sess.notes || sess.note) && React.createElement("div", {
       className: "mblock"
     }, React.createElement("div", {
       className: "h"
-    }, "Source"), React.createElement("div", {
+    }, "Notes"), (sess.notes || [sess.note]).map((t, i) => React.createElement("div", {
       className: "note-box",
+      key: i,
       style: {
-        background: "var(--cyan-tint)",
-        color: "#0676a0"
+        marginBottom: 9
       }
-    }, sess.src)), React.createElement(Connections, {
+    }, t))), React.createElement(Connections, {
       sess: sess,
       onPick: openSessionById
     }), React.createElement("div", {
@@ -8647,17 +8456,7 @@ window.__DATA__ = {
       }
     }, s.date.split(" ")[1], React.createElement("small", null, s.date.split(" ")[0])), React.createElement("div", {
       className: "fbt"
-    }, s.t))))), React.createElement("div", {
-      className: "mblock"
-    }, React.createElement("div", {
-      className: "h"
-    }, "Source"), React.createElement("div", {
-      className: "note-box",
-      style: {
-        background: "var(--cyan-tint)",
-        color: "#0676a0"
-      }
-    }, CAPSTONE.src)))));
+    }, s.t))))))));
   }
   function GlossaryPopover({
     info,
@@ -8755,6 +8554,7 @@ window.__DATA__ = {
   function TimelineTab({
     sub,
     openSession,
+    openSessionById,
     openCapstone
   }) {
     const [mode, setMode] = useState(sub === "schedule" ? "schedule" : "roadmap");
@@ -8764,6 +8564,7 @@ window.__DATA__ = {
       options: [["roadmap", "🧭 Overall roadmap"], ["schedule", "📅 Week-by-week schedule"]]
     }), mode === "roadmap" ? React.createElement(Roadmap, {
       openSession: openSession,
+      openSessionById: openSessionById,
       openCapstone: openCapstone
     }) : React.createElement(Timeline, {
       openSession: openSession
@@ -9000,6 +8801,7 @@ window.__DATA__ = {
       key: "tl-" + (sub || ""),
       sub: sub,
       openSession: openSession,
+      openSessionById: openSessionById,
       openCapstone: () => setCap(true)
     }), view === "faculty" && React.createElement(FacultyIndex, {
       openSessionById: openSessionById
